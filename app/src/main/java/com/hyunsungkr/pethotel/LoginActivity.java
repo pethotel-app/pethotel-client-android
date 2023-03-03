@@ -22,9 +22,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        editEmail = findViewById(R.id.editEmail);
+        editEmail = findViewById(R.id.editName);
         editPassword = findViewById(R.id.editPassword);
-        btnLogin = findViewById(R.id.btnLogin);
+        btnLogin = findViewById(R.id.btnFind);
         btnKakao = findViewById(R.id.btnKakao);
         txtId = findViewById(R.id.txtId);
         txtPassword = findViewById(R.id.txtPassword);
