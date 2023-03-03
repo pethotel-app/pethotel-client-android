@@ -3,18 +3,18 @@
 
     <item
         android:id="@+id/firstFragment"
-        android:icon="@drawable/icon2"
+        android:icon="@drawable/baseline_home_24"
         android:title="홈" />
     <item
         android:id="@+id/secondFragment"
-        android:icon="@drawable/icon2"
+        android:icon="@drawable/baseline_location_on_24"
         android:title="지도" />
     <item
         android:id="@+id/thirdFragment"
-        android:icon="@drawable/icon2"
+        android:icon="@drawable/baseline_favorite_24"
         android:title="찜" />
     <item
         android:id="@+id/fourthFragment"
-        android:icon="@drawable/icon2"
+        android:icon="@drawable/baseline_person_24"
         android:title="내정보" />
 </menu>
