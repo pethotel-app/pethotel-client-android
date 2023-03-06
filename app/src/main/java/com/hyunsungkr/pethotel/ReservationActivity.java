@@ -31,7 +31,7 @@ public class ReservationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reservation);
 
         txtHotelName = findViewById(R.id.txtHotelName);
-        txtDate = findViewById(R.id.txtDate);
+        txtDate = findViewById(R.id.txtReservation);
         txtTime = findViewById(R.id.txtTime);
         txtPrice = findViewById(R.id.txtPrice);
         txtPrice2 = findViewById(R.id.txtPrice2);

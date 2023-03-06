@@ -12,6 +12,9 @@
         android:theme="@style/Theme.Pethotel"
         tools:targetApi="31">
         <activity
+            android:name=".AvailableActivity"
+            android:exported="false" />
+        <activity
             android:name=".PetChoiceActivity"
             android:exported="false" />
         <activity
