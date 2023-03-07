@@ -17,7 +17,7 @@ public class ResIdActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_res_id);
 
-        txtEmail = findViewById(R.id.txtEmail);
+        txtEmail = findViewById(R.id.txtRating);
         btnLogin = findViewById(R.id.btnLogin);
         btnFindPassword = findViewById(R.id.btnFindPassword);
 

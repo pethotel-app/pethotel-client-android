@@ -31,7 +31,7 @@
         app:layout_constraintVertical_bias="0.619">
 
         <TextView
-            android:id="@+id/txtEmail"
+            android:id="@+id/txtRating"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="hyunsung@naver.com"
