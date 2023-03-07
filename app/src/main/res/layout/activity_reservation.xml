@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="10dp"
     tools:context=".ReservationActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,61 +19,66 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="35dp"
-            android:background="@drawable/border"
-            android:orientation="vertical">
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext2"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
             <TextView
-                android:id="@+id/textView16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
                 android:text="상품 정보"
                 android:textColor="#000000"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtHotelName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="17dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="2dp"
+                android:paddingRight="10dp"
                 android:text="호텔 이름"
                 android:textColor="#000000"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/txtReservation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="17dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:text="TextView"
-                android:textSize="16sp" />
+                android:paddingLeft="10dp"
+                android:paddingTop="2dp"
+                android:text="체크인 날짜 - 체크아웃 날짜"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/txtTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="17dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="30dp"
-                android:text="TextView"
-                android:textSize="16sp" />
+                android:paddingLeft="10dp"
+                android:paddingTop="2dp"
+                android:text="체크인 시간 | 체크아웃 시간"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/txtPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
                 android:gravity="right"
-                android:text="TextView"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:text="19,800원"
                 android:textColor="#000000"
-                android:textSize="25sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -79,173 +86,177 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:background="@drawable/border"
-            android:orientation="vertical">
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext2"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
             <TextView
-                android:id="@+id/textView21"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
                 android:text="예약자 정보"
                 android:textColor="#000000"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="17dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:text="TextView"
-                android:textSize="16sp" />
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="유저이름 | 전화번호"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/txtPet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="17dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="20dp"
-                android:text="TextView"
-                android:textSize="16sp" />
+                android:layout_marginTop="2dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:text="반려동물 | 반려동물 이름"
+                android:textSize="14sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/border"
-            android:orientation="vertical">
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext2"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
             <TextView
-                android:id="@+id/textView22"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
                 android:text="금액 및 할인 정보"
                 android:textColor="#000000"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <TextView
                     android:id="@+id/txtHotelName3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:paddingRight="30dp"
                     android:text="예약 금액"
                     android:textColor="#000000"
-                    android:textSize="18sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/txtPrice2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="가격"
+                    android:text="19,800원"
                     android:textColor="#000000"
-                    android:textSize="18sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/editCoupon"
+            <TextView
+                android:id="@+id/txtCoupon"
                 android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:layout_margin="15dp"
-                android:background="@drawable/border"
-                android:ems="10"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/edittext2"
                 android:hint="쿠폰 사용"
-                android:inputType="number" />
+                android:padding="7dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/editPoint"
                 android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/border"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/edittext2"
                 android:ems="10"
                 android:hint="포인트 사용"
-                android:inputType="number" />
+                android:inputType="number"
+                android:padding="7dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="right"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <TextView
-                    android:id="@+id/textView24"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="3dp"
-                    android:text="잔여포인트:" />
+                    android:paddingRight="5dp"
+                    android:text="잔여포인트 :" />
 
                 <TextView
                     android:id="@+id/txtTotalPoint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="3dp"
-                    android:text="TextView" />
+                    android:text="0p" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp">
 
                 <TextView
-                    android:id="@+id/txtHotelName4"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="15dp"
+                    android:layout_height="match_parent"
                     android:text="결제 금액"
                     android:textColor="#000000"
-                    android:textSize="18sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/txtFinalPrice"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="230dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="15dp"
-                    android:text="예약 금액"
+                    android:gravity="right"
+                    android:text="19,800원"
                     android:textColor="#000000"
-                    android:textSize="18sp" />
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnPayment"
+        <Button
+            android:id="@+id/button5"
             android:layout_width="match_parent"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="7dp"
-            android:background="@drawable/button"
-            android:backgroundTint="#7DCFFD"
             android:layout_height="wrap_content"
             android:text="Button" />
     </LinearLayout>
