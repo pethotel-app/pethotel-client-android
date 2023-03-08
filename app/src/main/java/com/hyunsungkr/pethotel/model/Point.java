@@ -58,4 +58,9 @@ public class Point implements Serializable {
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
+
+    public Point(String content, int addPoint) {
+        this.content = content;
+        this.addPoint = addPoint;
+    }
 }
