@@ -70,6 +70,14 @@ public class ReservationActivity extends AppCompatActivity {
             }
         });
         // 포인트 사용시 입력받는 정보 가져오기
+        String point = editPoint.getText().toString().trim();
+        // 잔여 포인트 표시
+        txtTotalPoint.setText("");
+
+        // 최종 결제 금액 표시
+        txtFinalPrice.setText("");
+
+
 
 
     }
