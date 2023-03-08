@@ -3,10 +3,20 @@ package com.hyunsungkr.pethotel;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+
+import com.hyunsungkr.pethotel.adapter.NearhotelAdapter;
+import com.hyunsungkr.pethotel.adapter.RecommendhotelAdapter;
+import com.hyunsungkr.pethotel.model.Hotel;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,10 +65,40 @@ public class Home extends Fragment {
         }
     }
 
+    ImageView imgSearch;
+    EditText editSearch;
+
+    RecyclerView nearRecyclerView;
+    NearhotelAdapter adapter1;
+    ArrayList<Hotel> NearhotelList = new ArrayList<>();
+
+    RecyclerView recommendRecylerView;
+    RecommendhotelAdapter adapter2;
+    ArrayList<Hotel> reccomendhotelList = new ArrayList<>();
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
+
+        imgSearch = rootView.findViewById(R.id.imgSearch);
+        editSearch = rootView.findViewById(R.id.editSearch);
+
+        nearRecyclerView = rootView.findViewById(R.id.nearRecyclerView);
+        nearRecyclerView.setHasFixedSize(true);
+        nearRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        recommendRecylerView = rootView.findViewById(R.id.recommendRecyclerView);
+        recommendRecylerView.setHasFixedSize(true);
+        recommendRecylerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        // todo: 클릭 이벤트 작성하기.
+
+
+        return rootView;
     }
 }
