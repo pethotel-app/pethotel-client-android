@@ -9,7 +9,7 @@ public class Coupon implements Serializable {
     private String couponId;
     private String title;
     private String description;
-    private int percent;
+    private int discount;
     private String dateOfUseStart;
     private String dateOfUseEnd;
 
@@ -53,12 +53,12 @@ public class Coupon implements Serializable {
         this.description = description;
     }
 
-    public int getPercent() {
-        return percent;
+    public int getDiscount() {
+        return discount;
     }
 
-    public void setPercent(int percent) {
-        this.percent = percent;
+    public void setDiscount(int discount) {
+        this.discount = discount;
     }
 
     public String getDateOfUseStart() {

@@ -20,6 +20,27 @@ public class Hotel implements Serializable {
     private int cnt;
     private int favorite;
 
+    public Hotel() {
+    }
+
+    public Hotel(int id, String title, String addr, double longtitude, double latitude, String tel, String imgUrl, String naverUrl, String description, int small, int medium, int large, double avg, int cnt, int favorite) {
+        this.id = id;
+        this.title = title;
+        this.addr = addr;
+        this.longtitude = longtitude;
+        this.latitude = latitude;
+        this.tel = tel;
+        this.imgUrl = imgUrl;
+        this.naverUrl = naverUrl;
+        this.description = description;
+        this.small = small;
+        this.medium = medium;
+        this.large = large;
+        this.avg = avg;
+        this.cnt = cnt;
+        this.favorite = favorite;
+    }
+
     public int getId() {
         return id;
     }

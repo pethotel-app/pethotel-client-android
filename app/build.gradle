@@ -45,4 +45,6 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
     implementation 'io.github.bootpay:android:+'
+
+    implementation 'com.kakao.sdk:v2-user:2.10.0' // 카카오 로그인
 }

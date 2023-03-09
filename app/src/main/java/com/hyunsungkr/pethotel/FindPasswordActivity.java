@@ -27,7 +27,7 @@ public class FindPasswordActivity extends AppCompatActivity {
         editPhone2 = findViewById(R.id.editPhone2);
         editCert = findViewById(R.id.editCert);
         btnCert = findViewById(R.id.btnCert);
-        btnFind = findViewById(R.id.btnFind);
+        btnFind = findViewById(R.id.btnLogin);
 
 
     }

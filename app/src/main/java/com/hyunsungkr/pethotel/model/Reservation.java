@@ -13,6 +13,20 @@ public class Reservation implements Serializable {
     private String content;
     private int price;
 
+    public Reservation() {
+    }
+
+    public Reservation(int id, int petId, int userId, int hotelId, String checkInDate, String checkOutDate, String content, int price) {
+        this.id = id;
+        this.petId = petId;
+        this.userId = userId;
+        this.hotelId = hotelId;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.content = content;
+        this.price = price;
+    }
+
     public Reservation(int petId, int hotelId, String checkInDate, String checkOutDate, String content, int price) {
         this.petId = petId;
         this.hotelId = hotelId;

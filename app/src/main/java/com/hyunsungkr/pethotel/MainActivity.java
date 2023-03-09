@@ -1,14 +1,27 @@
 package com.hyunsungkr.pethotel;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.hyunsungkr.pethotel.config.Config;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +35,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // 억세스 토큰이 있는지 확인하고 없으면 로그인페이지 띄우기
+        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String accessToken = sp.getString(Config.ACCESS_TOKEN, "");
+        if(accessToken.isEmpty()){
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+
 
         navigationView = findViewById(R.id.bottomNavigationView);
 
@@ -66,4 +90,3 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
-// 저장 테스트

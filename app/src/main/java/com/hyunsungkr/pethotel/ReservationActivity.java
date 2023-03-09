@@ -24,16 +24,14 @@ import com.hyunsungkr.pethotel.api.NetworkClient;
 import com.hyunsungkr.pethotel.api.PointApi;
 import com.hyunsungkr.pethotel.api.ReservationApi;
 import com.hyunsungkr.pethotel.config.Config;
+import com.hyunsungkr.pethotel.model.Coupon;
 import com.hyunsungkr.pethotel.model.Hotel;
 import com.hyunsungkr.pethotel.model.Pet;
 import com.hyunsungkr.pethotel.model.Point;
-import com.hyunsungkr.pethotel.model.PointList;
 import com.hyunsungkr.pethotel.model.PointRes;
 import com.hyunsungkr.pethotel.model.Res;
 import com.hyunsungkr.pethotel.model.Reservation;
 import com.hyunsungkr.pethotel.model.User;
-
-import java.util.ArrayList;
 
 import kr.co.bootpay.android.Bootpay;
 import kr.co.bootpay.android.BootpayAnalytics;
@@ -66,7 +64,7 @@ public class ReservationActivity extends AppCompatActivity {
 
     int totalPoint;
     int couponId;
-    int percent;
+    int discount;
     int point = 0;
     int finalPrice;
     int couponPrice;
@@ -82,8 +80,10 @@ public class ReservationActivity extends AppCompatActivity {
         public void onActivityResult(ActivityResult result) {
             // 유저가 선택한 쿠폰 정보 가져오기
             if (result.getResultCode() == 0){
-                couponId = result.getData().getIntExtra("couponId", 0);
-                percent = result.getData().getIntExtra("percent", 0);
+                Coupon coupon = (Coupon) result.getData().getSerializableExtra("coupon");
+
+                couponId = coupon.getId();
+                discount = coupon.getDiscount();
             }
         }
     });
@@ -97,7 +97,7 @@ public class ReservationActivity extends AppCompatActivity {
         txtHotelName = findViewById(R.id.txtHotelName);
         txtReservation = findViewById(R.id.txtReservation);
         txtTime = findViewById(R.id.txtTime);
-        txtPrice = findViewById(R.id.txtPrice);
+        txtPrice = findViewById(R.id.txtDiscount);
         txtUser = findViewById(R.id.txtUser);
         txtPet = findViewById(R.id.txtPet);
         editEtc = findViewById(R.id.editEtc);
@@ -114,20 +114,27 @@ public class ReservationActivity extends AppCompatActivity {
         pet = (Pet) getIntent().getSerializableExtra("pet");
         reservation = (Reservation) getIntent().getSerializableExtra("reservation");
 
+        Log.i("hoteetTitle", String.valueOf(hotel));
+
         // 호텔 이름 셋팅
         txtHotelName.setText(hotel.getTitle());
+
         // 체크인 일정 셋팅 ex) 2023-02-28 (화) ~ 2023-03-01(수) | 1박
-        // todo 데이터 오는 형식 체크해서 입력하기
-        String checkIn = reservation.getCheckInDate();
-        String checkOut = reservation.getCheckOutDate();
-        txtReservation.setText("");
+        String checkIn = reservation.getCheckInDate().split("T")[0];
+        String checkOut = reservation.getCheckOutDate().split("T")[0];
+        txtReservation.setText(checkIn + " ~ " + checkOut);
+
         // 체크인과 체크아웃 시간 셋팅 ex) 체크인 12:00 | 체크아웃 12:00
-        txtTime.setText("");
+        String checkInTime = reservation.getCheckInDate().split("T")[1];
+        String checkOutTime = reservation.getCheckOutDate().split("T")[1];
+        txtTime.setText("체크인 " + checkInTime + " | 체크아웃" + checkOutTime);
+
         // 예약 금액 셋팅
         txtPrice.setText(reservation.getPrice());
 
         // 예약자 정보 셋팅 ex) 김이름 | 010-1234-5678
         txtUser.setText(user.getName() + " | " + user.getPhone());
+
         // 예약자 반려동물 셋팅 ex) 반려동물 | 장군이
         txtPet.setText("반려동물 | " + pet.getName());
 
@@ -136,6 +143,7 @@ public class ReservationActivity extends AppCompatActivity {
 
         // 예약 금액 셋팅
         txtPrice2.setText(reservation.getPrice());
+
         // 쿠폰 클릭시 새로운 액티비티 열고 그 액티비티에서 쿠폰 퍼센트 가져오기
         txtCoupon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,8 +156,7 @@ public class ReservationActivity extends AppCompatActivity {
         // 원본 결제 금액
         int price = reservation.getPrice();
 
-        // 유저가 선택한 쿠폰이 있을 경우 퍼센트 적용
-        int discount = price / 100 * percent;
+        // 유저가 선택한 쿠폰이 있을 경우 금액 차감
         couponPrice = price - discount;
         txtTotalPoint.setText(couponPrice);
 
@@ -165,6 +172,7 @@ public class ReservationActivity extends AppCompatActivity {
 
              @Override
              public void afterTextChanged(Editable editable) {
+                 // 유저가 텍스트를 입력할때마다 최종금액 변동시키기
                  String usePoint = editPoint.getText().toString().trim();
                  point = Integer.parseInt(usePoint);
                  finalPrice = couponPrice - point;

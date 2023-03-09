@@ -27,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        editName = findViewById(R.id.editName);
+        editName = findViewById(R.id.editEmail);
         editPhone1 = findViewById(R.id.editPhone1);
         editPhone2 = findViewById(R.id.editPhone2);
         editCert = findViewById(R.id.editCert);
@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
         editPassword2 = findViewById(R.id.editPassword2);
         btnCert = findViewById(R.id.btnCert);
         btnCheck = findViewById(R.id.btnCheck);
-        btnJoin = findViewById(R.id.btnFind);
+        btnJoin = findViewById(R.id.btnLogin);
 
     }
 }
