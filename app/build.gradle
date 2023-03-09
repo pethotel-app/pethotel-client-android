@@ -46,5 +46,10 @@ dependencies {
 
     implementation 'io.github.bootpay:android:+'
 
-    implementation 'com.kakao.sdk:v2-user:2.10.0' // 카카오 로그인
+    // 카카오 로그인
+    implementation 'com.kakao.sdk:v2-user:2.10.0'
+
+    // 파이어베이스
+    implementation platform('com.google.firebase:firebase-bom:31.2.0')
+    implementation 'com.google.firebase:firebase-auth'
 }

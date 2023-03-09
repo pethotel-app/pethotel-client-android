@@ -39,5 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnCheck = findViewById(R.id.btnCheck);
         btnJoin = findViewById(R.id.btnLogin);
 
+
+
     }
 }
