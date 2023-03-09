@@ -105,7 +105,7 @@ public class Home extends Fragment {
     // 페이징 처리를 위한 변수
     int count = 0;
     int offset = 0;
-    int limit = 2;
+    int limit = 10;
 
     // 위도값 경도값 변수 선언
     private double currentLat;
