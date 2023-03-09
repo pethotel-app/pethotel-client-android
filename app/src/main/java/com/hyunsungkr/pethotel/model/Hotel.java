@@ -1,6 +1,7 @@
 package com.hyunsungkr.pethotel.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Hotel implements Serializable {
 
@@ -139,4 +140,5 @@ public class Hotel implements Serializable {
     public void setFavorite(int favorite) {
         this.favorite = favorite;
     }
+
 }
