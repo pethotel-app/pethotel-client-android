@@ -44,7 +44,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="3dp"
             android:text="이름"
-            android:textSize="13sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <EditText
@@ -71,7 +71,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="3dp"
             android:text="핸드폰 번호"
-            android:textSize="13sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -82,42 +82,27 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/editEmail4"
+                android:id="@+id/editPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/edittext2"
-                android:ems="16"
+                android:ems="15"
                 android:hint="010-1234-5678"
                 android:inputType="textEmailAddress"
                 android:padding="10dp"
                 android:textSize="14sp" />
 
             <Button
-                android:id="@+id/btnCert"
+                android:id="@+id/btnPhoneCheck"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:backgroundTint="#3498DB"
-                android:text="인증"
+                android:text="중복 체크"
                 android:textStyle="bold" />
         </LinearLayout>
-
-        <EditText
-            android:id="@+id/editEmail6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="3dp"
-            android:background="@drawable/edittext2"
-            android:ems="14"
-            android:hint="인증번호"
-            android:inputType="textEmailAddress"
-            android:padding="10dp"
-            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/textView5"
@@ -127,24 +112,39 @@
             android:layout_marginTop="3dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="3dp"
-            android:text="이메일( 중복 가입 불가 )"
-            android:textSize="13sp"
+            android:text="이메일"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/editEmail8"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="3dp"
-            android:layout_marginRight="10dp"
             android:layout_marginBottom="3dp"
-            android:background="@drawable/edittext2"
-            android:ems="14"
-            android:hint="이메일"
-            android:inputType="textEmailAddress"
-            android:padding="10dp"
-            android:textSize="14sp" />
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/edittext2"
+                android:ems="15"
+                android:hint="aaa@naver.com"
+                android:inputType="textEmailAddress"
+                android:padding="10dp"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btnEmailCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:backgroundTint="#3498DB"
+                android:text="중복 체크"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView6"
@@ -159,7 +159,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editEmail10"
+            android:id="@+id/editPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -168,13 +168,13 @@
             android:layout_marginBottom="3dp"
             android:background="@drawable/edittext2"
             android:ems="14"
-            android:hint="이메일"
+            android:hint="비밀번호"
             android:inputType="textEmailAddress"
             android:padding="10dp"
             android:textSize="14sp" />
 
         <EditText
-            android:id="@+id/editEmail11"
+            android:id="@+id/editPasswordCheck"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -183,7 +183,7 @@
             android:layout_marginBottom="3dp"
             android:background="@drawable/edittext2"
             android:ems="14"
-            android:hint="이메일"
+            android:hint="비밀번호 확인"
             android:inputType="textEmailAddress"
             android:padding="10dp"
             android:textSize="14sp" />
@@ -192,11 +192,12 @@
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             android:backgroundTint="#3498DB"
             android:text="가입"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textSize="15sp" />
 
     </LinearLayout>
 

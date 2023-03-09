@@ -26,7 +26,7 @@ public class FindIdActivity extends AppCompatActivity {
         editName = findViewById(R.id.editEmail);
         editPhone1 = findViewById(R.id.editPhone1);
         editPhone2 = findViewById(R.id.editPhone2);
-        btnCert = findViewById(R.id.btnCert);
+        btnCert = findViewById(R.id.btnPhoneCheck);
         btnFind = findViewById(R.id.btnLogin);
 
 

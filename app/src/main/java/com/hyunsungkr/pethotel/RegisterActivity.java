@@ -10,16 +10,13 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     EditText editName;
-    EditText editPhone1;
-    EditText editPhone2;
-    EditText editCert;
-    EditText editEmail1;
-    EditText editEmail2;
-    EditText editPassword1;
-    EditText editPassword2;
-    Button btnCert;
-    Button btnCheck;
-    Button btnJoin;
+    EditText editPhone;
+    Button btnPhoneCheck;
+    EditText editEmail;
+    Button btnEmailCheck;
+    EditText editPassword;
+    EditText editPasswordCheck;
+    Button btnLogin;
 
 
     @Override
@@ -28,16 +25,14 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         editName = findViewById(R.id.editEmail);
-        editPhone1 = findViewById(R.id.editPhone1);
-        editPhone2 = findViewById(R.id.editPhone2);
-        editCert = findViewById(R.id.editCert);
-        editEmail1 = findViewById(R.id.editPassword);
-        editEmail2 = findViewById(R.id.editEmail2);
-        editPassword1 = findViewById(R.id.editPassword1);
-        editPassword2 = findViewById(R.id.editPassword2);
-        btnCert = findViewById(R.id.btnCert);
-        btnCheck = findViewById(R.id.btnCheck);
-        btnJoin = findViewById(R.id.btnLogin);
+        editPhone = findViewById(R.id.editPhone);
+        btnPhoneCheck = findViewById(R.id.btnPhoneCheck);
+        editEmail = findViewById(R.id.editEmail);
+        btnEmailCheck = findViewById(R.id.btnEmailCheck);
+        editPassword = findViewById(R.id.editPassword);
+        editPasswordCheck = findViewById(R.id.editPasswordCheck);
+        btnLogin = findViewById(R.id.btnLogin);
+
 
 
 
