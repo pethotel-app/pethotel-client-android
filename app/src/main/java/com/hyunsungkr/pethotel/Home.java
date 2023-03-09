@@ -1,22 +1,47 @@
 package com.hyunsungkr.pethotel;
 
+import static android.content.Context.LOCATION_SERVICE;
+import static android.content.Context.MODE_PRIVATE;
+import static androidx.core.content.ContextCompat.getSystemService;
+
+import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.hyunsungkr.pethotel.adapter.NearhotelAdapter;
 import com.hyunsungkr.pethotel.adapter.RecommendhotelAdapter;
+import com.hyunsungkr.pethotel.api.HotelApi;
+import com.hyunsungkr.pethotel.api.NetworkClient;
+import com.hyunsungkr.pethotel.config.Config;
 import com.hyunsungkr.pethotel.model.Hotel;
+import com.hyunsungkr.pethotel.model.HotelList;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,6 +92,7 @@ public class Home extends Fragment {
 
     ImageView imgSearch;
     EditText editSearch;
+    TextView txtAll;
 
     RecyclerView nearRecyclerView;
     NearhotelAdapter adapter1;
@@ -76,6 +102,17 @@ public class Home extends Fragment {
     RecommendhotelAdapter adapter2;
     ArrayList<Hotel> reccomendhotelList = new ArrayList<>();
 
+    // 페이징 처리를 위한 변수
+    int count = 0;
+    int offset = 0;
+    int limit = 2;
+
+    // 위도값 경도값 변수 선언
+    private double currentLat;
+    private double currentLng;
+
+    LocationManager locationManager;
+    LocationListener locationListener;
 
 
     @Override
@@ -87,6 +124,7 @@ public class Home extends Fragment {
 
         imgSearch = rootView.findViewById(R.id.imgSearch);
         editSearch = rootView.findViewById(R.id.editSearch);
+        txtAll = rootView.findViewById(R.id.txtAll);
 
         nearRecyclerView = rootView.findViewById(R.id.nearRecyclerView);
         nearRecyclerView.setHasFixedSize(true);
@@ -96,9 +134,74 @@ public class Home extends Fragment {
         recommendRecylerView.setHasFixedSize(true);
         recommendRecylerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+
         // todo: 클릭 이벤트 작성하기.
 
+        // API 호출에 필요한 내 위치 정보를 가져오기
+        // 위치를 가져오기 위해서는, 시스템서비스로부터 로케이션 매니저를 받아온다.
+
+        locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
+
+
+        // 로케이션 리스너를 만든다.
+        // 위치가 변할 때마다 호출되는 함수 작성!
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(@NonNull Location location) {
+
+                // 위도 경도 값을 여기서 뽑아내서 우리에 맞는 코드를 작성
+                currentLat = location.getLatitude();
+                currentLng = location.getLongitude();
+                Log.i("MyLocation", "" + currentLng + " " + currentLat);
+
+
+            }
+        };
+
+        getNetworkData();
 
         return rootView;
     }
+
+    void getNetworkData(){
+        Retrofit retrofit = NetworkClient.getRetrofitClient(getActivity());
+        HotelApi api = retrofit.create(HotelApi.class);
+
+        SharedPreferences sp = getActivity().getSharedPreferences(Config.PREFERENCE_NAME,MODE_PRIVATE);
+        String accessToken = "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3ODA4MTUxNywianRpIjoiMmFmMjk3MmMtYjNiMC00OWE1LTkwN2MtY2RlNTNiZDIzNDc3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6NiwibmJmIjoxNjc4MDgxNTE3fQ.VP_pcHsGR1tZHlafCV9hN0qZ6MHdVz56NMRFGGsfujQ";
+
+        offset = 0;
+
+        Log.i("MyLocation",""+currentLng+" "+currentLat);
+
+        Call<HotelList> call = api.getNearHotel(accessToken , currentLng , currentLat ,offset,limit);
+        call.enqueue(new Callback<HotelList>() {
+            @Override
+            public void onResponse(Call<HotelList> call, Response<HotelList> response) {
+                if(response.isSuccessful()){
+
+                    NearhotelList.clear();
+
+                    count = response.body().getCount();
+                    NearhotelList.addAll(response.body().getItems());
+                    offset = 2;
+
+                    adapter1 = new NearhotelAdapter(getActivity(),NearhotelList);
+
+                    nearRecyclerView.setAdapter(adapter1);
+                }
+                else{
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<HotelList> call, Throwable t) {
+
+            }
+        });
+
+    }
+
 }
+

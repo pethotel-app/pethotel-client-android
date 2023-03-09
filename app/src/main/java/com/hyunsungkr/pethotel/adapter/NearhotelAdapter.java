@@ -22,6 +22,11 @@ public class NearhotelAdapter extends RecyclerView.Adapter<NearhotelAdapter.View
     Context context;
     ArrayList<Hotel> NearhotelList;
 
+    public NearhotelAdapter(Context context, ArrayList<Hotel> nearhotelList) {
+        this.context = context;
+        NearhotelList = nearhotelList;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
