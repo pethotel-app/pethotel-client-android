@@ -128,7 +128,7 @@ public class Home extends Fragment {
 
         nearRecyclerView = rootView.findViewById(R.id.nearRecyclerView);
         nearRecyclerView.setHasFixedSize(true);
-        nearRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        nearRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,true));
 
         recommendRecylerView = rootView.findViewById(R.id.recommendRecyclerView);
         recommendRecylerView.setHasFixedSize(true);
