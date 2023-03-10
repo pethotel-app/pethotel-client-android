@@ -58,7 +58,7 @@
             android:background="@drawable/edittext2"
             android:ems="10"
             android:hint="이름"
-            android:inputType="textEmailAddress"
+            android:inputType="textPersonName"
             android:padding="10dp"
             android:textSize="14sp" />
 
@@ -90,7 +90,7 @@
                 android:background="@drawable/edittext2"
                 android:ems="15"
                 android:hint="010-1234-5678"
-                android:inputType="textEmailAddress"
+                android:inputType="phone"
                 android:padding="10dp"
                 android:textSize="14sp" />
 
@@ -167,7 +167,7 @@
             android:background="@drawable/edittext2"
             android:ems="14"
             android:hint="비밀번호"
-            android:inputType="textEmailAddress"
+            android:inputType="textPassword"
             android:padding="10dp"
             android:textSize="14sp" />
 
@@ -182,7 +182,7 @@
             android:background="@drawable/edittext2"
             android:ems="14"
             android:hint="비밀번호 확인"
-            android:inputType="textEmailAddress"
+            android:inputType="textPassword"
             android:padding="10dp"
             android:textSize="14sp" />
 

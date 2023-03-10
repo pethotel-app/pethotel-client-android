@@ -17,10 +17,10 @@ public interface UserApi {
     @POST("/user/register")
     Call<UserRes> register(@Body User user);
 
-    @GET("/user/phone")
+    @POST("/user/phone")
     Call<Check> checkPhone(@Body User user);
 
-    @GET("/user/email")
+    @POST("/user/email")
     Call<Check> checkEmail(@Body User user);
 
 }
