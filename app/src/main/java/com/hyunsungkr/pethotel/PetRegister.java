@@ -32,7 +32,7 @@ public class PetRegister extends AppCompatActivity {
         btnFemale = findViewById(R.id.btnFemale);
         btnCat = findViewById(R.id.btnCat);
         btnDog = findViewById(R.id.btnDog);
-        editName = findViewById(R.id.editName);
+        editName = findViewById(R.id.editEmail);
         editAge = findViewById(R.id.editAge);
         editSpecies = findViewById(R.id.editSpecies);
         editWeight = findViewById(R.id.editWeight);

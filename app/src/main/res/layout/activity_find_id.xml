@@ -2,16 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#7DCFFD"
-    tools:context=".FindIdActivity">
+    tools:context=".FindIdActivity" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_margin="20dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,116 +23,111 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="30dp"
-                android:layout_weight="0"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 app:srcCompat="@drawable/icon1" />
 
             <TextView
-                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="20dp"
                 android:text="아이디 찾기"
-                android:textSize="37sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="3dp"
             android:text="이름"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editName"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/edittext"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/edittext2"
             android:ems="10"
-            android:inputType="textEmailAddress"
-            android:paddingLeft="15dp"
-            android:textSize="16sp"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:hint="이름"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="3dp"
             android:text="핸드폰 번호"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/editPhone1"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
+                android:id="@+id/editPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_weight="7"
-                android:background="@drawable/edittext"
-                android:ems="10"
-                android:inputType="number"
-                android:paddingLeft="15dp"
-                android:textSize="16sp"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-            <EditText
-                android:id="@+id/editPhone2"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="7dp"
-                android:layout_weight="1"
-                android:background="@drawable/edittext"
-                android:ems="10"
-                android:inputType="number"
-                android:paddingLeft="15dp"
-                android:textSize="16sp"
-                tools:ignore="SpeakableTextPresentCheck" />
+                android:background="@drawable/edittext2"
+                android:ems="15"
+                android:hint="010-1234-5678"
+                android:inputType="phone"
+                android:padding="10dp"
+                android:textSize="14sp" />
 
             <Button
-                android:id="@+id/btnCert"
+                android:id="@+id/btnPhoneCheck"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="7dp"
-                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:backgroundTint="#3498DB"
-                android:text="인증"
-                android:textStyle="bold" />
+                android:text="인증 요청" />
         </LinearLayout>
 
         <EditText
-            android:id="@+id/editCert"
+            android:id="@+id/editPasswordCheck"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/edittext"
-            android:ems="10"
-            android:hint="인증번호 입력"
-            android:inputType="textPassword"
-            android:paddingLeft="15dp"
-            android:textSize="16sp" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/edittext2"
+            android:ems="14"
+            android:hint="인증번호"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:textSize="14sp" />
 
         <Button
-            android:id="@+id/btnFind"
+            android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             android:backgroundTint="#3498DB"
             android:text="아이디 찾기"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textSize="15sp" />
 
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
