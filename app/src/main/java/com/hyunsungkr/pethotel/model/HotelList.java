@@ -1,13 +1,21 @@
 package com.hyunsungkr.pethotel.model;
 
 import java.io.Serializable;
+import java.util.Dictionary;
 import java.util.List;
 
 public class HotelList implements Serializable {
 
     private String result;
-    private List<Hotel> hotel;
-    private int count;
+    private Hotel hotel;
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
 
     public String getResult() {
         return result;
@@ -17,19 +25,6 @@ public class HotelList implements Serializable {
         this.result = result;
     }
 
-    public List<Hotel> getHotel() {
-        return hotel;
-    }
 
-    public void setHotel(List<Hotel> hotel) {
-        this.hotel = hotel;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
 }
+
