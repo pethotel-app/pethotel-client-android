@@ -42,8 +42,9 @@
                         android:id="@+id/txtTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="3"
                         android:text="TextView"
-                        android:textSize="24sp" />
+                        android:textSize="18sp" />
 
                     <ImageView
                         android:id="@+id/imgFavorite"
@@ -51,26 +52,45 @@
                         android:layout_height="30dp"
                         android:layout_gravity="right"
                         android:layout_marginLeft="40dp"
+                        android:layout_weight="1"
                         app:srcCompat="@drawable/baseline_favorite_border_24" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/txtRating"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="TextView"
-                    android:textSize="20sp" />
+                    android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/btnSelect"
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginTop="30dp"
-                    android:backgroundTint="#7DCFFD"
-                    android:text="선택"
-                    android:textSize="18sp" />
+                    <RatingBar
+                        android:id="@+id/ratingBar"
+                        style="@style/Widget.AppCompat.RatingBar.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginRight="10dp"
+                        android:contentDescription="별점은 0.5개씩 늘어남"
+                        android:isIndicator="false"
+                        android:numStars="5"
+                        android:progressTint="@android:color/holo_orange_light"
+                        android:rating="0"
+                        android:stepSize="0.5" />
+
+                    <TextView
+                        android:id="@+id/txtAvg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="avg"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/txtCnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="cnt" />
+                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>

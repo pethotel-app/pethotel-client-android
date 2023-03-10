@@ -2,20 +2,15 @@ package com.hyunsungkr.pethotel;
 
 import static android.content.Context.LOCATION_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
-import static androidx.core.content.ContextCompat.getSystemService;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hyunsungkr.pethotel.adapter.NearhotelAdapter;
@@ -91,8 +87,10 @@ public class Home extends Fragment {
     }
 
     ImageView imgSearch;
-    EditText editSearch;
+    TextView editSearch;
     TextView txtAll;
+    ImageView imgEvent;
+    LinearLayout linearLayout;
 
     RecyclerView nearRecyclerView;
     NearhotelAdapter adapter1;
@@ -123,8 +121,11 @@ public class Home extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
 
         imgSearch = rootView.findViewById(R.id.imgSearch);
-        editSearch = rootView.findViewById(R.id.editSearch);
+        editSearch = rootView.findViewById(R.id.txtSearch);
         txtAll = rootView.findViewById(R.id.txtAll);
+        imgEvent = rootView.findViewById(R.id.imgEvent);
+        linearLayout = rootView.findViewById(R.id.linearLayout);
+
 
         nearRecyclerView = rootView.findViewById(R.id.nearRecyclerView);
         nearRecyclerView.setHasFixedSize(true);
@@ -136,6 +137,34 @@ public class Home extends Fragment {
 
 
         // todo: 클릭 이벤트 작성하기.
+
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+        txtAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // todo : 내 주변 호텔 리스트 전체 가져오는 화면 개발 후 연결
+                Intent intent = new Intent(getActivity(),AllNearbyHotelsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        imgEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // todo : 이벤트 액티비티 개발 후에 연결
+            }
+        });
+
+
+
+
+
 
         // API 호출에 필요한 내 위치 정보를 가져오기
         // 위치를 가져오기 위해서는, 시스템서비스로부터 로케이션 매니저를 받아온다.
@@ -167,8 +196,10 @@ public class Home extends Fragment {
         Retrofit retrofit = NetworkClient.getRetrofitClient(getActivity());
         HotelApi api = retrofit.create(HotelApi.class);
 
+        // todo: 억세스토큰 하드코딩 제거
         SharedPreferences sp = getActivity().getSharedPreferences(Config.PREFERENCE_NAME,MODE_PRIVATE);
         String accessToken = "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3ODA4MTUxNywianRpIjoiMmFmMjk3MmMtYjNiMC00OWE1LTkwN2MtY2RlNTNiZDIzNDc3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6NiwibmJmIjoxNjc4MDgxNTE3fQ.VP_pcHsGR1tZHlafCV9hN0qZ6MHdVz56NMRFGGsfujQ";
+
 
         offset = 0;
 
@@ -184,9 +215,21 @@ public class Home extends Fragment {
 
                     count = response.body().getCount();
                     NearhotelList.addAll(response.body().getItems());
-                    offset = 2;
+
 
                     adapter1 = new NearhotelAdapter(getActivity(),NearhotelList);
+
+                    adapter1.setOnItemClickListener(new NearhotelAdapter.OnItemClickListener() {
+                        @Override
+                        public void onImageClick(int index) {
+
+                            Hotel hotel = NearhotelList.get(index);
+
+                            Intent intent = new Intent(getActivity(),HotelInfoActivity.class);
+                            intent.putExtra("hotel",hotel);
+                            startActivity(intent);
+                        }
+                    });
 
                     nearRecyclerView.setAdapter(adapter1);
                 }

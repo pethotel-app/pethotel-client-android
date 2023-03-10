@@ -22,6 +22,19 @@ public class NearhotelAdapter extends RecyclerView.Adapter<NearhotelAdapter.View
     Context context;
     ArrayList<Hotel> NearhotelList;
 
+    public interface OnItemClickListener {
+        // fragment에서 사용 가능하도록
+        // adapter의 특정 행을 누르면 처리할 함수를 만든다.
+
+        void onImageClick(int index);
+
+    }
+
+    public OnItemClickListener listener;
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.listener = listener;
+    }
+
     public NearhotelAdapter(Context context, ArrayList<Hotel> nearhotelList) {
         this.context = context;
         NearhotelList = nearhotelList;
@@ -70,7 +83,12 @@ public class NearhotelAdapter extends RecyclerView.Adapter<NearhotelAdapter.View
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // todo: 호텔 카드뷰 클릭시 이벤트 처리
+
+                    int index = getAdapterPosition();
+                    listener.onImageClick(index);
+
+
+
                 }
             });
 

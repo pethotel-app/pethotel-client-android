@@ -17,4 +17,6 @@ public interface HotelApi {
                                  @Query("offset") int offset,
                                  @Query("limit") int limit);
 
+
+
 }
