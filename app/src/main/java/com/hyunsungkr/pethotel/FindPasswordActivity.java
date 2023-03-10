@@ -21,13 +21,13 @@ public class FindPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_password);
 
-        editEmail1 = findViewById(R.id.editPassword);
-        editEmail2 = findViewById(R.id.editEmail2);
-        editPhone1 = findViewById(R.id.editPhone1);
-        editPhone2 = findViewById(R.id.editPhone2);
-        editCert = findViewById(R.id.editCert);
-        btnCert = findViewById(R.id.btnPhoneCheck);
-        btnFind = findViewById(R.id.btnLogin);
+//        editEmail1 = findViewById(R.id.editPassword);
+//        editEmail2 = findViewById(R.id.editEmail2);
+//        editPhone1 = findViewById(R.id.editPhone1);
+//        editPhone2 = findViewById(R.id.editPhone2);
+//        editCert = findViewById(R.id.editCert);
+//        btnCert = findViewById(R.id.btnPhoneCheck);
+//        btnFind = findViewById(R.id.btnLogin);
 
 
     }

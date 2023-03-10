@@ -22,12 +22,12 @@ public class FindIdActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_id);
 
-        editCert = findViewById(R.id.editCert);
-        editName = findViewById(R.id.editEmail);
-        editPhone1 = findViewById(R.id.editPhone1);
-        editPhone2 = findViewById(R.id.editPhone2);
-        btnCert = findViewById(R.id.btnPhoneCheck);
-        btnFind = findViewById(R.id.btnLogin);
+//        editCert = findViewById(R.id.editCert);
+//        editName = findViewById(R.id.editEmail);
+//        editPhone1 = findViewById(R.id.editPhone1);
+//        editPhone2 = findViewById(R.id.editPhone2);
+//        btnCert = findViewById(R.id.btnPhoneCheck);
+//        btnFind = findViewById(R.id.btnLogin);
 
 
 
