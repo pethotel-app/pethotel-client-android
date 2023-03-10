@@ -1,10 +1,12 @@
 package com.hyunsungkr.pethotel.api;
 
+import com.hyunsungkr.pethotel.model.Check;
 import com.hyunsungkr.pethotel.model.User;
 import com.hyunsungkr.pethotel.model.UserRes;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface UserApi {
@@ -14,5 +16,11 @@ public interface UserApi {
 
     @POST("/user/register")
     Call<UserRes> register(@Body User user);
+
+    @GET("/user/phone")
+    Call<Check> checkPhone(@Body User user);
+
+    @GET("/user/email")
+    Call<Check> checkEmail(@Body User user);
 
 }

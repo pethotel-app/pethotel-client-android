@@ -100,8 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:backgroundTint="#3498DB"
-                android:text="중복 체크"
-                android:textStyle="bold" />
+                android:text="중복 체크" />
         </LinearLayout>
 
         <TextView
@@ -142,8 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:backgroundTint="#3498DB"
-                android:text="중복 체크"
-                android:textStyle="bold" />
+                android:text="중복 체크"/>
         </LinearLayout>
 
         <TextView
