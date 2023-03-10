@@ -39,7 +39,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageView19"
+                android:id="@+id/imgSearch"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"

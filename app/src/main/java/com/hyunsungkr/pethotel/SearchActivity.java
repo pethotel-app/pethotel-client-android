@@ -29,7 +29,7 @@ public class SearchActivity extends AppCompatActivity {
         imgBack = findViewById(R.id.imgBack);
         imgSearch = findViewById(R.id.imgSearch);
         imgAroundme = findViewById(R.id.imgAroundme);
-        editSearch = findViewById(R.id.editSearch);
+        editSearch = findViewById(R.id.editKeyword);
         btnDate = findViewById(R.id.btnDate);
         txtPopular1 = findViewById(R.id.txtPopular1);
         txtPopular2 = findViewById(R.id.txtPopular2);
