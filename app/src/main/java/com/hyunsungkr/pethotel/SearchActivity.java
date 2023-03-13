@@ -3,6 +3,7 @@ package com.hyunsungkr.pethotel;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,6 +37,13 @@ public class SearchActivity extends AppCompatActivity {
         txtPopular3 = findViewById(R.id.txtPopular3);
         txtPopular4 = findViewById(R.id.txtPopular4);
         txtPopular5 = findViewById(R.id.txtPopular5);
+
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
     }
 }

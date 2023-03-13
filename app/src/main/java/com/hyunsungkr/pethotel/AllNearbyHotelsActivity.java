@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -26,6 +27,7 @@ import com.hyunsungkr.pethotel.api.NetworkClient;
 import com.hyunsungkr.pethotel.config.Config;
 import com.hyunsungkr.pethotel.model.Hotel;
 import com.hyunsungkr.pethotel.model.HotelList;
+import com.hyunsungkr.pethotel.model.Res;
 
 import java.util.ArrayList;
 
@@ -52,10 +54,14 @@ public class AllNearbyHotelsActivity extends AppCompatActivity {
     int offset = 0;
     int limit = 10;
 
+    int currentCount = 0;
+
 
 
     private double currentLat;
     private double currentLng;
+
+    private Hotel selectedHotel;
 
 
     @Override
@@ -110,10 +116,19 @@ public class AllNearbyHotelsActivity extends AppCompatActivity {
                 currentLng = location.getLongitude();
                 Log.i("MyLocation",""+currentLng+ " "+currentLat);
 
+                if(currentCount == 0){
+                    getNetworkData();
+                }
+
+                currentCount = currentCount + 1;
+
+
 
 
             }
         };
+
+
 
         if(ActivityCompat.checkSelfPermission(AllNearbyHotelsActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 || ActivityCompat.checkSelfPermission(AllNearbyHotelsActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
@@ -127,8 +142,9 @@ public class AllNearbyHotelsActivity extends AppCompatActivity {
         // 위치기반으로 GPS 정보 가져오는 코드를 실행하는 부분
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,3000,-1,locationListener);
 
-        // 네트워크로 API 호출해서 데이터 받아오고 화면에 표시한다.
-        getNetworkData();
+
+
+
 
 
     }
@@ -243,4 +259,79 @@ public class AllNearbyHotelsActivity extends AppCompatActivity {
 
 
     }
+
+    public void favoriteProcess(int index){
+        selectedHotel = hotelArrayList.get(index);
+
+        // 해당행이 이미 좋아요인지 아닌지 파악
+        if(selectedHotel.getFavorite() == 0){
+            // 좋아요 API 호출
+            Retrofit retrofit = NetworkClient.getRetrofitClient(AllNearbyHotelsActivity.this);
+            HotelApi api = retrofit.create(HotelApi.class);
+
+            SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, Context.MODE_PRIVATE);
+            // todo : 토큰 하드코딩 수정
+            String accessToken = "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3ODA4MTUxNywianRpIjoiMmFmMjk3MmMtYjNiMC00OWE1LTkwN2MtY2RlNTNiZDIzNDc3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6NiwibmJmIjoxNjc4MDgxNTE3fQ.VP_pcHsGR1tZHlafCV9hN0qZ6MHdVz56NMRFGGsfujQ";
+
+            Call<Res> call = api.setFavorite(accessToken, selectedHotel.getId());
+
+            call.enqueue(new Callback<Res>() {
+                @Override
+                public void onResponse(Call<Res> call, Response<Res> response) {
+                    if(response.isSuccessful()){
+
+                        selectedHotel.setFavorite(1);
+
+                        adapter.notifyDataSetChanged();
+
+                    }else{
+                        return;
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Res> call, Throwable t) {
+
+                }
+            });
+
+
+
+
+        }else{
+
+            // 찜 해제 API 호출
+
+            Retrofit retrofit = NetworkClient.getRetrofitClient(AllNearbyHotelsActivity.this);
+            HotelApi api = retrofit.create(HotelApi.class);
+
+            SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, Context.MODE_PRIVATE);
+            // todo : 토큰 하드코딩 수정
+            String accessToken = "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3ODA4MTUxNywianRpIjoiMmFmMjk3MmMtYjNiMC00OWE1LTkwN2MtY2RlNTNiZDIzNDc3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6NiwibmJmIjoxNjc4MDgxNTE3fQ.VP_pcHsGR1tZHlafCV9hN0qZ6MHdVz56NMRFGGsfujQ";
+
+            Call<Res> call = api.deleteFavorite(accessToken, selectedHotel.getId());
+
+            call.enqueue(new Callback<Res>() {
+                @Override
+                public void onResponse(Call<Res> call, Response<Res> response) {
+                    if(response.isSuccessful()){
+                        selectedHotel.setFavorite(0);
+                        adapter.notifyDataSetChanged();
+                    }else{
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Res> call, Throwable t) {
+
+                }
+            });
+
+
+
+        }
+
+    }
+
 }

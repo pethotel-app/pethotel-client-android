@@ -3,14 +3,18 @@ package com.hyunsungkr.pethotel;
 import static android.content.Context.LOCATION_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -109,6 +113,8 @@ public class Home extends Fragment {
     private double currentLat;
     private double currentLng;
 
+    int currentCount;
+
     LocationManager locationManager;
     LocationListener locationListener;
 
@@ -129,7 +135,7 @@ public class Home extends Fragment {
 
         nearRecyclerView = rootView.findViewById(R.id.nearRecyclerView);
         nearRecyclerView.setHasFixedSize(true);
-        nearRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,true));
+        nearRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         recommendRecylerView = rootView.findViewById(R.id.recommendRecyclerView);
         recommendRecylerView.setHasFixedSize(true);
@@ -148,8 +154,8 @@ public class Home extends Fragment {
         txtAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // todo : 내 주변 호텔 리스트 전체 가져오는 화면 개발 후 연결
-                Intent intent = new Intent(getActivity(),AllNearbyHotelsActivity.class);
+
+                Intent intent = new Intent(getActivity(), AllNearbyHotelsActivity.class);
                 startActivity(intent);
             }
         });
@@ -157,11 +163,11 @@ public class Home extends Fragment {
         imgEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // todo : 이벤트 액티비티 개발 후에 연결
+
+                Intent intent = new Intent(getActivity(), EventActivity.class);
+                startActivity(intent);
             }
         });
-
-
 
 
 
@@ -170,7 +176,6 @@ public class Home extends Fragment {
         // 위치를 가져오기 위해서는, 시스템서비스로부터 로케이션 매니저를 받아온다.
 
         locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
-
 
         // 로케이션 리스너를 만든다.
         // 위치가 변할 때마다 호출되는 함수 작성!
@@ -184,13 +189,42 @@ public class Home extends Fragment {
                 Log.i("MyLocation", "" + currentLng + " " + currentLat);
 
 
+                if(currentCount == 0){
+                    getNetworkData();
+                }
+
+                currentCount = currentCount + 1;
+
+
             }
         };
 
-        getNetworkData();
+        if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+
+        }
+        // 위치기반으로 GPS 정보 가져오는 코드를 실행하는 부분
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, -1, locationListener);
+
+
+
+
+
+
+
+
+
+
+
 
         return rootView;
     }
+
+
 
     void getNetworkData(){
         Retrofit retrofit = NetworkClient.getRetrofitClient(getActivity());

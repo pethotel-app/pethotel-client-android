@@ -4,8 +4,11 @@ import com.hyunsungkr.pethotel.model.HotelList;
 import com.hyunsungkr.pethotel.model.Res;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface HotelApi {
@@ -17,6 +20,13 @@ public interface HotelApi {
                                  @Query("offset") int offset,
                                  @Query("limit") int limit);
 
+    // 찜하는 API
+    @POST("/favorite/{hotelId}")
+    Call<Res> setFavorite(@Header("Authorization") String token, @Path("hotelId") int hotelId);
+
+    // 찜 해제하는 API
+    @DELETE("/favorite/{hotelId}")
+    Call<Res> deleteFavorite(@Header("Authorization") String token, @Path("hotelId") int hotelId);
 
 
 }
