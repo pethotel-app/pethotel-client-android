@@ -91,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 // 이메일 형식 체크
                 Pattern pattern = Patterns.EMAIL_ADDRESS;
-                if (pattern.matcher(email).matches() == false) {
+                if (pattern.matcher(Check).matches() == false) {
                     Toast.makeText(RegisterActivity.this, "이메일 형식이 올바르지 않습니다", Toast.LENGTH_SHORT).show();
                     return;
                 }
