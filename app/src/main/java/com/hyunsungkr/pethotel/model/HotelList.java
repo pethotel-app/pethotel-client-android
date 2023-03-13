@@ -7,7 +7,7 @@ import java.util.List;
 public class HotelList implements Serializable {
 
     private String result;
-    private List<Hotel> hotel;
+    private List<Hotel> items;
     private int count;
 
     public String getResult() {
@@ -18,12 +18,12 @@ public class HotelList implements Serializable {
         this.result = result;
     }
 
-    public List<Hotel> getHotel() {
-        return hotel;
+    public List<Hotel> getItems() {
+        return items;
     }
 
-    public void setHotel(List<Hotel> hotel) {
-        this.hotel = hotel;
+    public void setItems(List<Hotel> hotel) {
+        this.items = items;
     }
 
     public int getCount() {
