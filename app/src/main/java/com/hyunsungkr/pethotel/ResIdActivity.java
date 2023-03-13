@@ -19,9 +19,6 @@ public class ResIdActivity extends AppCompatActivity {
 
 
 
-        txtEmail = findViewById(R.id.txtAvg);
-        btnLogin = findViewById(R.id.btnLogin);
-        btnFindPassword = findViewById(R.id.btnFindPassword);
 
 
     }

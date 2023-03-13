@@ -32,8 +32,6 @@ public class ResSearchActivity extends AppCompatActivity {
 
         imgBack = findViewById(R.id.imgBack);
         imgSearch = findViewById(R.id.imgSearch);
-        editSearch = findViewById(R.id.txtSearch);
-        btnDate = findViewById(R.id.btnDate);
         txtResSearch = findViewById(R.id.txtResSearch);
 
 
