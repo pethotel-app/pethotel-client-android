@@ -1,5 +1,6 @@
 package com.hyunsungkr.pethotel.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,17 +15,27 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.hyunsungkr.pethotel.PetChoiceActivity;
+import com.hyunsungkr.pethotel.HotelInfoActivity;
 import com.hyunsungkr.pethotel.R;
 import com.hyunsungkr.pethotel.model.Pet;
+import com.hyunsungkr.pethotel.model.PetInfoList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PetChoiceAdapter extends RecyclerView.Adapter<PetChoiceAdapter.ViewHolder> {
 
+
+
     private Context context;
     private List<Pet> petList;
+    private List<PetInfoList> petInfoList;
+
+
+
+
+
+
+
 
     public PetChoiceAdapter(Context context, List<Pet> petList) {
         this.context = context;
@@ -39,8 +50,10 @@ public class PetChoiceAdapter extends RecyclerView.Adapter<PetChoiceAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Pet pet = petList.get(position);
+
+
 
         // Pet 객체에서 데이터 가져와서 UI에 연결
         holder.txtPetName.setText(pet.getName());
@@ -56,12 +69,36 @@ public class PetChoiceAdapter extends RecyclerView.Adapter<PetChoiceAdapter.View
                     .load(pet.getPetImgUrl())
                     .into(holder.imgPet);
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 클릭한 행의 데이터를 가져옴
+                Pet pet = petList.get(position);
+
+                // Intent 생성 및 데이터 추가
+                Intent intent = new Intent(context, HotelInfoActivity.class);
+                intent.putExtra("pet", pet);
+
+                // 보내기
+                context.startActivity(intent);
+
+                ((Activity)context).finish();
+
+            }
+        });
+
+
     }
 
     @Override
     public int getItemCount() {
         return petList.size();
     }
+
+
+
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -78,7 +115,7 @@ public class PetChoiceAdapter extends RecyclerView.Adapter<PetChoiceAdapter.View
         public ViewHolder(@NonNull View itemView) {
 
             super(itemView);
-            imgPet = itemView.findViewById(R.id.imgPet);
+            imgPet = itemView.findViewById(R.id.imgProfile);
             txtPetName = itemView.findViewById(R.id.txtPetName);
             txtPetGender = itemView.findViewById(R.id.txtPetGender);
             txtPetClassification = itemView.findViewById(R.id.txtPetClassification);
@@ -86,27 +123,14 @@ public class PetChoiceAdapter extends RecyclerView.Adapter<PetChoiceAdapter.View
             txtAge = itemView.findViewById(R.id.txtAge);
             txtWeight = itemView.findViewById(R.id.txtWeight);
             cardView = itemView.findViewById(R.id.cardView);
-            petList = new ArrayList<>();
 
 
 
-
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int index = getAdapterPosition();
-                    Pet selectedPet = petList.get(index);
-
-                    Intent intent = new Intent();
-                    intent.putExtra("selectedPet", selectedPet);
-                    ((Activity) itemView.getContext()).setResult(Activity.RESULT_OK, intent);
-                    ((Activity) itemView.getContext()).finish();
-
-                }
-            });
         }
 
 
     }
+
+
 }
 

@@ -1,8 +1,10 @@
 package com.hyunsungkr.pethotel.model;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.io.Serializable;
 
-public class HotelReview implements Serializable {
+public class HotelReview  implements Serializable {
 
     private int id;
     private int hotelId;

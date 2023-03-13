@@ -4,25 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.hyunsungkr.pethotel.adapter.PetChoiceAdapter;
-import com.hyunsungkr.pethotel.api.HotelApi;
 import com.hyunsungkr.pethotel.api.NetworkClient;
 import com.hyunsungkr.pethotel.api.PetApi;
-import com.hyunsungkr.pethotel.model.Hotel;
-import com.hyunsungkr.pethotel.model.HotelReviewList;
 import com.hyunsungkr.pethotel.model.Pet;
 import com.hyunsungkr.pethotel.model.PetInfoList;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PetChoiceActivity extends AppCompatActivity {
 
@@ -55,7 +51,7 @@ public class PetChoiceActivity extends AppCompatActivity {
         call.enqueue(new Callback<PetInfoList>() {
             @Override
             public void onResponse(Call<PetInfoList> call, Response<PetInfoList> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Adapter = new PetChoiceAdapter(PetChoiceActivity.this, response.body().getItems());
                     RecyclerView.setAdapter(Adapter);
 
