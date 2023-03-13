@@ -29,11 +29,11 @@ public class ResSearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_res_search);
 
-        imgBack = findViewById(R.id.imgBack);
-        imgSearch = findViewById(R.id.imgSearch);
-        editSearch = findViewById(R.id.editKeyword);
-        btnDate = findViewById(R.id.btnDate);
-        txtResSearch = findViewById(R.id.txtResSearch);
+//        imgBack = findViewById(R.id.imgBack);
+//        imgSearch = findViewById(R.id.imgSearch);
+//        editSearch = findViewById(R.id.editKeyword);
+//        btnDate = findViewById(R.id.btnDate);
+//        txtResSearch = findViewById(R.id.txtResSearch);
 
     }
 }

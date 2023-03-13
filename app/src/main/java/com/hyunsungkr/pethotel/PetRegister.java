@@ -27,16 +27,16 @@ public class PetRegister extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet_register);
 
-        btnSave = findViewById(R.id.btnSave);
-        btnMale = findViewById(R.id.btnMale);
-        btnFemale = findViewById(R.id.btnFemale);
-        btnCat = findViewById(R.id.btnCat);
-        btnDog = findViewById(R.id.btnDog);
-        editName = findViewById(R.id.editEmail);
-        editAge = findViewById(R.id.editAge);
-        editSpecies = findViewById(R.id.editSpecies);
-        editWeight = findViewById(R.id.editWeight);
-        imgAdd = findViewById(R.id.imgAdd);
+//        btnSave = findViewById(R.id.btnSave);
+//        btnMale = findViewById(R.id.btnMale);
+//        btnFemale = findViewById(R.id.btnFemale);
+//        btnCat = findViewById(R.id.btnCat);
+//        btnDog = findViewById(R.id.btnDog);
+//        editName = findViewById(R.id.editEmail);
+//        editAge = findViewById(R.id.editAge);
+//        editSpecies = findViewById(R.id.editSpecies);
+//        editWeight = findViewById(R.id.editWeight);
+//        imgAdd = findViewById(R.id.imgAdd);
 
 
 

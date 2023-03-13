@@ -18,9 +18,9 @@ public class PointActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_point);
 
-        txtPoint = findViewById(R.id.txtPoint);
-        btnSaveList = findViewById(R.id.btnSaveList);
-        btnUseList = findViewById(R.id.btnUseList);
+//        txtPoint = findViewById(R.id.txtPoint);
+//        btnSaveList = findViewById(R.id.btnSaveList);
+//        btnUseList = findViewById(R.id.btnUseList);
 
 
 

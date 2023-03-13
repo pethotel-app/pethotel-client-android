@@ -7,6 +7,7 @@ import com.hyunsungkr.pethotel.model.UserRes;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface UserApi {
@@ -22,5 +23,8 @@ public interface UserApi {
 
     @POST("/user/email")
     Call<Check> checkEmail(@Body User user);
+
+    @GET("/user/info")
+    Call<UserRes> userCheck(@Header("Authorization") String token);
 
 }

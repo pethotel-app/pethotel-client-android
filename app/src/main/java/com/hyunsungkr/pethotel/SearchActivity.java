@@ -25,17 +25,17 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
-        imgBack = findViewById(R.id.imgBack);
-        imgSearch = findViewById(R.id.imgSearch);
-        imgAroundme = findViewById(R.id.imgAroundme);
-        editSearch = findViewById(R.id.editKeyword);
-        btnDate = findViewById(R.id.btnDate);
-        txtPopular1 = findViewById(R.id.txtPopular1);
-        txtPopular2 = findViewById(R.id.txtPopular2);
-        txtPopular3 = findViewById(R.id.txtPopular3);
-        txtPopular4 = findViewById(R.id.txtPopular4);
-        txtPopular5 = findViewById(R.id.txtPopular5);
+//        setContentView(R.layout.activity_search);
+//        imgBack = findViewById(R.id.imgBack);
+//        imgSearch = findViewById(R.id.imgSearch);
+//        imgAroundme = findViewById(R.id.imgAroundme);
+//        editSearch = findViewById(R.id.editKeyword);
+//        btnDate = findViewById(R.id.btnDate);
+//        txtPopular1 = findViewById(R.id.txtPopular1);
+//        txtPopular2 = findViewById(R.id.txtPopular2);
+//        txtPopular3 = findViewById(R.id.txtPopular3);
+//        txtPopular4 = findViewById(R.id.txtPopular4);
+//        txtPopular5 = findViewById(R.id.txtPopular5);
 
     }
 }

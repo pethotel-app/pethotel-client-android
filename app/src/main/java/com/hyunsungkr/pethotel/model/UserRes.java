@@ -1,12 +1,14 @@
 package com.hyunsungkr.pethotel.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class UserRes implements Serializable {
 
     private String result;
     private String access_token;
     private String email;
+    private List<User> user;
 
     public String getResult() {
         return result;
@@ -30,5 +32,13 @@ public class UserRes implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<User> getUser() {
+        return user;
+    }
+
+    public void setUser(List<User> user) {
+        this.user = user;
     }
 }

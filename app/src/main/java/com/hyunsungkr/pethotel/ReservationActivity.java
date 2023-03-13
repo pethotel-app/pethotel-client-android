@@ -23,6 +23,7 @@ import com.hyunsungkr.pethotel.api.CouponApi;
 import com.hyunsungkr.pethotel.api.NetworkClient;
 import com.hyunsungkr.pethotel.api.PointApi;
 import com.hyunsungkr.pethotel.api.ReservationApi;
+import com.hyunsungkr.pethotel.api.UserApi;
 import com.hyunsungkr.pethotel.config.Config;
 import com.hyunsungkr.pethotel.model.Coupon;
 import com.hyunsungkr.pethotel.model.Hotel;
@@ -32,6 +33,9 @@ import com.hyunsungkr.pethotel.model.PointRes;
 import com.hyunsungkr.pethotel.model.Res;
 import com.hyunsungkr.pethotel.model.Reservation;
 import com.hyunsungkr.pethotel.model.User;
+import com.hyunsungkr.pethotel.model.UserRes;
+
+import java.util.ArrayList;
 
 import kr.co.bootpay.android.Bootpay;
 import kr.co.bootpay.android.BootpayAnalytics;
@@ -74,6 +78,7 @@ public class ReservationActivity extends AppCompatActivity {
     Pet pet;
     Reservation reservation;
     String content;
+    ArrayList<User> userArrayList = new ArrayList<>();
 
     ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
@@ -110,7 +115,6 @@ public class ReservationActivity extends AppCompatActivity {
 
         // 호텔정보 액티비티에서 정보 받아오기(호텔정보, 유저, 펫, 예약정보)
         hotel = (Hotel) getIntent().getSerializableExtra("hotel");
-        user = (User) getIntent().getSerializableExtra("user");
         pet = (Pet) getIntent().getSerializableExtra("pet");
         reservation = (Reservation) getIntent().getSerializableExtra("reservation");
 
@@ -133,6 +137,7 @@ public class ReservationActivity extends AppCompatActivity {
         txtPrice.setText(reservation.getPrice());
 
         // 예약자 정보 셋팅 ex) 김이름 | 010-1234-5678
+        UserCheck();
         txtUser.setText(user.getName() + " | " + user.getPhone());
 
         // 예약자 반려동물 셋팅 ex) 반려동물 | 장군이
@@ -259,6 +264,36 @@ public class ReservationActivity extends AppCompatActivity {
                     }
                 }).requestPayment();
 
+            }
+        });
+    }
+
+    // 회원 정보 가져오기
+    private void UserCheck() {
+
+        Retrofit retrofit = NetworkClient.getRetrofitClient(ReservationActivity.this);
+        UserApi api = retrofit.create(UserApi.class);
+
+        // 헤더에 들어갈 억세스토큰 가져오기
+        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String accessToken = "Bearer " + sp.getString(Config.ACCESS_TOKEN, "");
+
+        Call<UserRes> call = api.userCheck(accessToken);
+        call.enqueue(new Callback<UserRes>() {
+            @Override
+            public void onResponse(Call<UserRes> call, Response<UserRes> response) {
+                // 서버에서 보낸 응답이 200 OK일때
+                if (response.isSuccessful()) {
+                    UserRes userRes = response.body();
+                    userArrayList.addAll( userRes.getUser() );
+                    user = userArrayList.get(0);
+
+                } else {
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserRes> call, Throwable t) {
             }
         });
     }
