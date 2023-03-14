@@ -141,9 +141,9 @@ public class Home extends Fragment {
         recommendRecylerView.setHasFixedSize(true);
         recommendRecylerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-
         // todo: 클릭 이벤트 작성하기.
 
+        // 검색바 클릭시 검색 액티비티로
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,6 +151,8 @@ public class Home extends Fragment {
                 startActivity(intent);
             }
         });
+
+        // 전체보기 클릭
         txtAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,6 +162,7 @@ public class Home extends Fragment {
             }
         });
 
+        // 이벤트 베너 클릭
         imgEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,12 +172,8 @@ public class Home extends Fragment {
             }
         });
 
-
-
-
         // API 호출에 필요한 내 위치 정보를 가져오기
         // 위치를 가져오기 위해서는, 시스템서비스로부터 로케이션 매니저를 받아온다.
-
         locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
 
         // 로케이션 리스너를 만든다.
@@ -183,18 +182,14 @@ public class Home extends Fragment {
             @Override
             public void onLocationChanged(@NonNull Location location) {
 
-                // 위도 경도 값을 여기서 뽑아내서 우리에 맞는 코드를 작성
+                // 위도 경도 값을 뽑아내기
                 currentLat = location.getLatitude();
                 currentLng = location.getLongitude();
-                Log.i("MyLocation", "" + currentLng + " " + currentLat);
-
 
                 if(currentCount == 0){
                     getNetworkData();
                 }
-
                 currentCount = currentCount + 1;
-
 
             }
         };
@@ -207,37 +202,22 @@ public class Home extends Fragment {
                             Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
 
         }
+
         // 위치기반으로 GPS 정보 가져오는 코드를 실행하는 부분
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, -1, locationListener);
 
-
-
-
-
-
-
-
-
-
-
-
         return rootView;
     }
-
-
 
     void getNetworkData(){
         Retrofit retrofit = NetworkClient.getRetrofitClient(getActivity());
         HotelApi api = retrofit.create(HotelApi.class);
 
-        // todo: 억세스토큰 하드코딩 제거
-        SharedPreferences sp = getActivity().getSharedPreferences(Config.PREFERENCE_NAME,MODE_PRIVATE);
-        String accessToken = "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3ODA4MTUxNywianRpIjoiMmFmMjk3MmMtYjNiMC00OWE1LTkwN2MtY2RlNTNiZDIzNDc3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6NiwibmJmIjoxNjc4MDgxNTE3fQ.VP_pcHsGR1tZHlafCV9hN0qZ6MHdVz56NMRFGGsfujQ";
-
+        // 헤더에 들어갈 억세스토큰 가져오기
+        SharedPreferences sp = getActivity().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String accessToken = "Bearer " + sp.getString(Config.ACCESS_TOKEN, "");
 
         offset = 0;
-
-        Log.i("MyLocation",""+currentLng+" "+currentLat);
 
         Call<HotelList> call = api.getNearHotel(accessToken , currentLng , currentLat ,offset,limit);
         call.enqueue(new Callback<HotelList>() {
@@ -250,7 +230,6 @@ public class Home extends Fragment {
                     count = response.body().getCount();
                     NearhotelList.addAll(response.body().getItems());
 
-
                     adapter1 = new NearhotelAdapter(getActivity(),NearhotelList);
 
                     adapter1.setOnItemClickListener(new NearhotelAdapter.OnItemClickListener() {
@@ -258,8 +237,7 @@ public class Home extends Fragment {
                         public void onImageClick(int index) {
 
                             Hotel hotel = NearhotelList.get(index);
-
-                            Intent intent = new Intent(getActivity(),HotelInfoActivity.class);
+                            Intent intent = new Intent(getActivity(), HotelInfoActivity.class);
                             intent.putExtra("hotel",hotel);
                             startActivity(intent);
                         }
@@ -267,7 +245,7 @@ public class Home extends Fragment {
 
                     nearRecyclerView.setAdapter(adapter1);
                 }
-                else{
+                else {
                     return;
                 }
             }

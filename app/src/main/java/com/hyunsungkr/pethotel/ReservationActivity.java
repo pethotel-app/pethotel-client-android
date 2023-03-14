@@ -118,8 +118,6 @@ public class ReservationActivity extends AppCompatActivity {
         pet = (Pet) getIntent().getSerializableExtra("pet");
         reservation = (Reservation) getIntent().getSerializableExtra("reservation");
 
-        Log.i("hoteetTitle", String.valueOf(hotel));
-
         // 호텔 이름 셋팅
         txtHotelName.setText(hotel.getTitle());
 
@@ -134,7 +132,7 @@ public class ReservationActivity extends AppCompatActivity {
         txtTime.setText("체크인 " + checkInTime + " | 체크아웃" + checkOutTime);
 
         // 예약 금액 셋팅
-        txtPrice.setText(reservation.getPrice());
+        txtPrice.setText(reservation.getPrice()+"원");
 
         // 예약자 정보 셋팅 ex) 김이름 | 010-1234-5678
         UserCheck();
@@ -147,7 +145,7 @@ public class ReservationActivity extends AppCompatActivity {
         content = editEtc.getText().toString().trim();
 
         // 예약 금액 셋팅
-        txtPrice2.setText(reservation.getPrice());
+        txtPrice2.setText(reservation.getPrice()+"원");
 
         // 쿠폰 클릭시 새로운 액티비티 열고 그 액티비티에서 쿠폰 퍼센트 가져오기
         txtCoupon.setOnClickListener(new View.OnClickListener() {

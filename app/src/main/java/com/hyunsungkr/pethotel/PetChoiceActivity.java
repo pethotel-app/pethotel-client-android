@@ -5,11 +5,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.hyunsungkr.pethotel.adapter.NearhotelAdapter;
 import com.hyunsungkr.pethotel.adapter.PetChoiceAdapter;
 import com.hyunsungkr.pethotel.api.NetworkClient;
 import com.hyunsungkr.pethotel.api.PetApi;
+import com.hyunsungkr.pethotel.config.Config;
+import com.hyunsungkr.pethotel.model.Hotel;
 import com.hyunsungkr.pethotel.model.Pet;
 import com.hyunsungkr.pethotel.model.PetInfoList;
 
@@ -23,7 +27,7 @@ import retrofit2.Retrofit;
 public class PetChoiceActivity extends AppCompatActivity {
 
     private RecyclerView RecyclerView;
-    private PetChoiceAdapter Adapter;
+    private PetChoiceAdapter adapter;
     private ArrayList<Pet> petList = new ArrayList<>();
 
 
@@ -32,30 +36,38 @@ public class PetChoiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet_choice);
 
-        // RecyclerView 초기화
         RecyclerView = findViewById(R.id.recyclerView);
         RecyclerView.setLayoutManager(new LinearLayoutManager(this));
         RecyclerView.setHasFixedSize(true);
 
-        // 어댑터 생성 및 설정
-        RecyclerView.setAdapter(Adapter);
-
-        // 레트로핏으로 데이터 받아오기
+        // 레트로핏으로 반려동물 데이터 받아오기
         Retrofit retrofit = NetworkClient.getRetrofitClient(PetChoiceActivity.this);
-
         PetApi api = retrofit.create(PetApi.class);
 
-        String accessToken = "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3ODA4MTUxNywianRpIjoiMmFmMjk3MmMtYjNiMC00OWE1LTkwN2MtY2RlNTNiZDIzNDc3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6NiwibmJmIjoxNjc4MDgxNTE3fQ.VP_pcHsGR1tZHlafCV9hN0qZ6MHdVz56NMRFGGsfujQ";
+        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String accessToken = "Bearer " + sp.getString(Config.ACCESS_TOKEN, "");
+
         Call<PetInfoList> call = api.getPetList(accessToken);
 
         call.enqueue(new Callback<PetInfoList>() {
             @Override
             public void onResponse(Call<PetInfoList> call, Response<PetInfoList> response) {
                 if (response.isSuccessful()) {
-                    Adapter = new PetChoiceAdapter(PetChoiceActivity.this, response.body().getItems());
-                    RecyclerView.setAdapter(Adapter);
 
+                    petList.addAll(response.body().getItems());
+                    adapter = new PetChoiceAdapter(PetChoiceActivity.this, petList);
+                    RecyclerView.setAdapter(adapter);
 
+                    adapter.setOnItemClickListener(new PetChoiceAdapter.OnItemClickListener() {
+                        @Override
+                        public void onImageClick(int index) {
+                            Pet pet = petList.get(index);
+                            Intent intent = new Intent(PetChoiceActivity.this, HotelInfoActivity.class);
+                            intent.putExtra("pet", pet);
+                            setResult(100, intent);
+                            finish();
+                        }
+                    });
                 }
             }
 

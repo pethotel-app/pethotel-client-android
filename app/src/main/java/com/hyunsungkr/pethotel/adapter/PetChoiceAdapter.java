@@ -24,18 +24,17 @@ import java.util.List;
 
 public class PetChoiceAdapter extends RecyclerView.Adapter<PetChoiceAdapter.ViewHolder> {
 
-
-
     private Context context;
     private List<Pet> petList;
-    private List<PetInfoList> petInfoList;
 
+    public interface OnItemClickListener {
+        void onImageClick(int index);
+    }
 
-
-
-
-
-
+    public OnItemClickListener listener;
+    public void setOnItemClickListener(PetChoiceAdapter.OnItemClickListener listener){
+        this.listener = listener;
+    }
 
     public PetChoiceAdapter(Context context, List<Pet> petList) {
         this.context = context;
@@ -53,8 +52,6 @@ public class PetChoiceAdapter extends RecyclerView.Adapter<PetChoiceAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Pet pet = petList.get(position);
 
-
-
         // Pet 객체에서 데이터 가져와서 UI에 연결
         holder.txtPetName.setText(pet.getName());
         holder.txtPetGender.setText(pet.getGenderString());
@@ -62,33 +59,7 @@ public class PetChoiceAdapter extends RecyclerView.Adapter<PetChoiceAdapter.View
         holder.txtSpecies.setText(pet.getSpecies());
         holder.txtAge.setText(pet.getAge() + "살");
         holder.txtWeight.setText(pet.getWeight() + "kg");
-
-        // Pet 이미지 가져오기
-        if (pet.getPetImgUrl() != null) {
-            Glide.with(context)
-                    .load(pet.getPetImgUrl())
-                    .into(holder.imgPet);
-        }
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 클릭한 행의 데이터를 가져옴
-                Pet pet = petList.get(position);
-
-                // Intent 생성 및 데이터 추가
-                Intent intent = new Intent(context, HotelInfoActivity.class);
-                intent.putExtra("pet", pet);
-
-                // 보내기
-                context.startActivity(intent);
-
-                ((Activity)context).finish();
-
-            }
-        });
-
-
+        Glide.with(context).load(pet.getPetImgUrl()).into(holder.imgPet);
     }
 
     @Override
@@ -96,11 +67,7 @@ public class PetChoiceAdapter extends RecyclerView.Adapter<PetChoiceAdapter.View
         return petList.size();
     }
 
-
-
-
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView imgPet;
         private TextView txtPetName;
@@ -124,13 +91,17 @@ public class PetChoiceAdapter extends RecyclerView.Adapter<PetChoiceAdapter.View
             txtWeight = itemView.findViewById(R.id.txtWeight);
             cardView = itemView.findViewById(R.id.cardView);
 
-
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int index = getAdapterPosition();
+                    listener.onImageClick(index);
+                }
+            });
 
         }
 
-
     }
-
 
 }
 
