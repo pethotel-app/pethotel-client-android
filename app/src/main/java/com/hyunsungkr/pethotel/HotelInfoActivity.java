@@ -80,6 +80,7 @@ public class HotelInfoActivity extends AppCompatActivity {
     private Hotel hotel;
 
     private int hotelId;
+    String accessToken;
 
 
 
@@ -90,7 +91,7 @@ public class HotelInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_info);
 
-            // 억세스 토큰이 있는지 확인
+        // 억세스 토큰이 있는지 확인
         SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
         String accessToken = sp.getString(Config.ACCESS_TOKEN, "");
         if(accessToken.isEmpty()){
@@ -135,9 +136,6 @@ public class HotelInfoActivity extends AppCompatActivity {
         hotelId = hotel.getId();
         txtHotelName.setText(hotel.getTitle());
         txtDescription.setText(hotel.getDescription());
-        txtSmallPrice.setText(Integer.toString(hotel.getSmall()) + "원");
-        txtMediumPrice.setText(Integer.toString(hotel.getMedium()) + "원");
-        txtLargePrice.setText(Integer.toString(hotel.getLarge()) + "원");
 
         Glide.with(HotelInfoActivity.this).load(hotel.getImgUrl()).into(imgHotel);
 
@@ -204,9 +202,6 @@ public class HotelInfoActivity extends AppCompatActivity {
 
 
 
-
-
-
         // 날짜선택
 
         // 오늘 날짜로 시작일 초기화
@@ -245,7 +240,7 @@ public class HotelInfoActivity extends AppCompatActivity {
         // UI 초기화
 
 
-//        getNetworkData();
+        getNetworkData();
         getNetworkReviewData();
 
 
@@ -306,57 +301,48 @@ public class HotelInfoActivity extends AppCompatActivity {
         }
     };
 
-    private long getMillisFromYearMonthDay(int year, int month, int day) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day, 0, 0, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        return calendar.getTimeInMillis();
+
+
+
+    void getNetworkData() {
+
+        Retrofit retrofit = NetworkClient.getRetrofitClient(HotelInfoActivity.this);
+
+        HotelApi api = retrofit.create(HotelApi.class);
+        Call<HotelList> call = api.checkHotel(accessToken, hotelId);
+
+        call.enqueue(new Callback<HotelList>() {
+            @Override
+            public void onResponse(Call<HotelList> call, Response<HotelList> response) {
+                if (response.isSuccessful()) {
+                    HotelList hotelList = response.body();
+                    hotel = hotelList.getHotel();
+                    txtHotelName.setText(hotel.getTitle());
+                    txtDescription.setText(hotel.getDescription());
+                    txtSmallPrice.setText(Integer.toString(hotel.getSmall()) + "원");
+                    txtMediumPrice.setText(Integer.toString(hotel.getMedium()) + "원");
+                    txtLargePrice.setText(Integer.toString(hotel.getLarge()) + "원");
+
+                    Glide.with(HotelInfoActivity.this).load(hotel.getImgUrl()).into(imgHotel);
+
+
+                    Log.i("확인", hotel.getTitle());
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<HotelList> call, Throwable t) {
+
+            }
+        });
+
+
     }
-
-
-//    void getNetworkData() {
-//
-//        Retrofit retrofit = NetworkClient.getRetrofitClient(HotelInfoActivity.this);
-//
-//        HotelApi api = retrofit.create(HotelApi.class);
-//        String accessToken = "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3ODA4MTUxNywianRpIjoiMmFmMjk3MmMtYjNiMC00OWE1LTkwN2MtY2RlNTNiZDIzNDc3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6NiwibmJmIjoxNjc4MDgxNTE3fQ.VP_pcHsGR1tZHlafCV9hN0qZ6MHdVz56NMRFGGsfujQ";
-//        int hotelId = 2;
-//        Call<HotelList> call = api.checkHotel(accessToken, hotelId);
-//
-//        call.enqueue(new Callback<HotelList>() {
-//            @Override
-//            public void onResponse(Call<HotelList> call, Response<HotelList> response) {
-//                if (response.isSuccessful()) {
-//                    HotelList hotelList = response.body();
-//                    hotel = hotelList.getHotel();
-//                    txtHotelName.setText(hotel.getTitle());
-//                    txtDescription.setText(hotel.getDescription());
-//                    txtSmallPrice.setText(Integer.toString(hotel.getSmall()) + "원");
-//                    txtMediumPrice.setText(Integer.toString(hotel.getMedium()) + "원");
-//                    txtLargePrice.setText(Integer.toString(hotel.getLarge()) + "원");
-//
-//                    Glide.with(HotelInfoActivity.this).load(hotel.getImgUrl()).into(imgHotel);
-//
-//
-//                    Log.i("확인", hotel.getTitle());
-//
-//
-//                }
-//            }
-
-//            @Override
-//            public void onFailure(Call<HotelList> call, Throwable t) {
-//
-//            }
-//        });
-
-
-//    }
     void getNetworkReviewData() {
         Retrofit retrofit = NetworkClient.getRetrofitClient(this);
         ReviewApi api = retrofit.create(ReviewApi.class);
-        String accessToken = "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3ODA4MTUxNywianRpIjoiMmFmMjk3MmMtYjNiMC00OWE1LTkwN2MtY2RlNTNiZDIzNDc3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6NiwibmJmIjoxNjc4MDgxNTE3fQ.VP_pcHsGR1tZHlafCV9hN0qZ6MHdVz56NMRFGGsfujQ";
-        int hotelId = 2;
         Call<HotelReviewList> call = api.checkReview(accessToken, hotelId);
 
         call.enqueue(new Callback<HotelReviewList>() {
@@ -385,7 +371,7 @@ public class HotelInfoActivity extends AppCompatActivity {
 
 
 
-}
+    }
 
 
 
