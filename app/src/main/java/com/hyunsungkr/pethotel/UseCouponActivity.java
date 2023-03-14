@@ -5,10 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 
+import com.hyunsungkr.pethotel.adapter.PetChoiceAdapter;
 import com.hyunsungkr.pethotel.adapter.UseCouponAdapter;
 import com.hyunsungkr.pethotel.api.CouponApi;
 import com.hyunsungkr.pethotel.api.NetworkClient;
@@ -16,6 +19,7 @@ import com.hyunsungkr.pethotel.api.PointApi;
 import com.hyunsungkr.pethotel.config.Config;
 import com.hyunsungkr.pethotel.model.Coupon;
 import com.hyunsungkr.pethotel.model.CouponList;
+import com.hyunsungkr.pethotel.model.Pet;
 import com.hyunsungkr.pethotel.model.PointRes;
 
 import java.util.ArrayList;
@@ -47,6 +51,14 @@ public class UseCouponActivity extends AppCompatActivity {
 
         getNetworkData();
 
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 뒤로가기 클릭시 액티비티 종료
+                finish();
+            }
+        });
+
     }
 
     private void getNetworkData() {
@@ -73,6 +85,17 @@ public class UseCouponActivity extends AppCompatActivity {
 
                     adapter = new UseCouponAdapter(UseCouponActivity.this, couponArrayList);
                     recyclerView.setAdapter(adapter);
+
+                    adapter.setOnItemClickListener(new UseCouponAdapter.OnItemClickListener() {
+                        @Override
+                        public void onImageClick(int index) {
+                            Coupon coupon = couponArrayList.get(index);
+                            Intent intent = new Intent(UseCouponActivity.this, ReservationActivity.class);
+                            intent.putExtra("coupon", coupon);
+                            setResult(101, intent);
+                            finish();
+                        }
+                    });
 
                 } else {
                 }

@@ -27,6 +27,15 @@ public class UseCouponAdapter extends RecyclerView.Adapter<UseCouponAdapter.View
         this.couponList = couponList;
     }
 
+    public interface OnItemClickListener {
+        void onImageClick(int index);
+    }
+
+    public UseCouponAdapter.OnItemClickListener listener;
+    public void setOnItemClickListener(UseCouponAdapter.OnItemClickListener listener){
+        this.listener = listener;
+    }
+
     @NonNull
     @Override
     public UseCouponAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -70,12 +79,7 @@ public class UseCouponAdapter extends RecyclerView.Adapter<UseCouponAdapter.View
                 @Override
                 public void onClick(View view) {
                     int index = getAdapterPosition();
-                    Coupon coupon = couponList.get(index);
-
-                    Intent intent = new Intent();
-                    intent.putExtra("coupon", coupon);
-                    context.startActivity(intent);
-                    ((UseCouponActivity)context).finish();
+                    listener.onImageClick(index);
                 }
             });
 

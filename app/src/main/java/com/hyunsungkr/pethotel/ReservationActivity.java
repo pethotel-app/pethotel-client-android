@@ -84,7 +84,7 @@ public class ReservationActivity extends AppCompatActivity {
         @Override
         public void onActivityResult(ActivityResult result) {
             // 유저가 선택한 쿠폰 정보 가져오기
-            if (result.getResultCode() == 0){
+            if (result.getResultCode() == 101){
                 Coupon coupon = (Coupon) result.getData().getSerializableExtra("coupon");
 
                 couponId = coupon.getId();
@@ -112,6 +112,14 @@ public class ReservationActivity extends AppCompatActivity {
         txtTotalPoint = findViewById(R.id.txtTotalPoint);
         txtFinalPrice = findViewById(R.id.txtFinalPrice);
         btnApproval = findViewById(R.id.btnApproval);
+
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 뒤로가기 클릭시 액티비티 종료
+                finish();
+            }
+        });
 
         // 호텔정보 액티비티에서 정보 받아오기(호텔정보, 유저, 펫, 예약정보)
         hotel = (Hotel) getIntent().getSerializableExtra("hotel");
@@ -283,6 +291,8 @@ public class ReservationActivity extends AppCompatActivity {
                 // 서버에서 보낸 응답이 200 OK일때
                 if (response.isSuccessful()) {
                     UserRes userRes = response.body();
+
+                    Log.i("asdfasdfa", String.valueOf(response.body()));
                     userArrayList.addAll( userRes.getUser() );
                     user = userArrayList.get(0);
 
