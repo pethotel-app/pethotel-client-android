@@ -124,13 +124,13 @@ public class ReservationActivity extends AppCompatActivity {
         txtHotelName.setText(hotel.getTitle());
 
         // 체크인 일정 셋팅 ex) 2023-02-28 (화) ~ 2023-03-01(수) | 1박
-        String checkIn = reservation.getCheckInDate().split("T")[0];
-        String checkOut = reservation.getCheckOutDate().split("T")[0];
+        String checkIn = reservation.getCheckInDate();
+        String checkOut = reservation.getCheckOutDate();
         txtReservation.setText(checkIn + " ~ " + checkOut);
 
         // 체크인과 체크아웃 시간 셋팅 ex) 체크인 12:00 | 체크아웃 12:00
-        String checkInTime = reservation.getCheckInDate().split("T")[1];
-        String checkOutTime = reservation.getCheckOutDate().split("T")[1];
+        String checkInTime = "12:00";
+        String checkOutTime = "12:00";
         txtTime.setText("체크인 " + checkInTime + " | 체크아웃" + checkOutTime);
 
         // 예약 금액 셋팅
