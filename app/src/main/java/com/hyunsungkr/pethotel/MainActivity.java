@@ -62,16 +62,12 @@ public class MainActivity extends AppCompatActivity {
 
                 if (itemId == R.id.firstFragment) {
                     fragment = firstFragment;
-                    getSupportActionBar().setTitle("홈");
                 } else if (itemId == R.id.secondFragment) {
                     fragment = secondFragment;
-                    getSupportActionBar().setTitle("지도");
                 } else if (itemId == R.id.thirdFragment) {
                     fragment = thirdFragment;
-                    getSupportActionBar().setTitle("찜");
                 } else if (itemId == R.id.fourthFragment) {
                     fragment = fourthFragment;
-                    getSupportActionBar().setTitle("MY정보");
                 }
 
                 return loadFragment(fragment);

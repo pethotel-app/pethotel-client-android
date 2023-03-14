@@ -66,9 +66,6 @@ public class Map extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_map, container, false);
-
-
-        return rootView;
+        return inflater.inflate(R.layout.fragment_map, container, false);
     }
 }
