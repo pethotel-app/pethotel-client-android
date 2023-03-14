@@ -7,288 +7,375 @@
     tools:context=".HotelInfoActivity">
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_alignParentTop="false"
+            android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imgHotel"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                app:srcCompat="@drawable/baseline_image_24" />
+                android:id="@+id/imgBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/imgHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/baseline_home_24_7dcffd" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imgHotel"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            app:srcCompat="@drawable/baseline_image_24" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtHotelName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="4"
+                android:text="호텔이름"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/imgFavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                app:srcCompat="@drawable/baseline_favorite_border_24" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:orientation="horizontal">
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:contentDescription="별점은 0.5개씩 늘어남"
+                android:isIndicator="false"
+                android:numStars="5"
+                android:progressTint="@android:color/holo_orange_light"
+                android:rating="0"
+                android:stepSize="0.5" />
+
+            <TextView
+                android:id="@+id/txtReviewAvg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:text="4.0" />
+
+            <TextView
+                android:id="@+id/txtReviewSum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="(372)" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/edittext2"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp">
 
                 <TextView
-                    android:id="@+id/txtHotelName"
+                    android:id="@+id/txtDateStart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_weight="4"
-                    android:text="TextView"
+                    android:text="03월 01일"
                     android:textColor="#000000"
-                    android:textSize="20sp" />
+                    android:textSize="15sp" />
 
-                <ImageView
-                    android:id="@+id/imgFavorite"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" ~ "
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/txtDateEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="03월 02일"
+                    android:textColor="#000000"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/txtSelectPet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/baseline_favorite_border_24" />
-            </LinearLayout>
+                    android:layout_marginLeft="80dp"
+                    android:text="반려동물 선택"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <RatingBar
-                    android:id="@+id/ratingBar"
-                    style="@style/Widget.AppCompat.RatingBar.Small"
+                <ImageView
+                    android:id="@+id/imgChoicePet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="3dp"
-                    android:contentDescription="별점은 0.5개씩 늘어남"
-                    android:isIndicator="false"
-                    android:numStars="5"
-                    android:progressTint="@android:color/holo_orange_light"
-                    android:rating="0"
-                    android:stepSize="0.5" />
-
-                <TextView
-                    android:id="@+id/txtReviewAvg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="7dp"
-                    android:text="4.0" />
-
-                <TextView
-                    android:id="@+id/txtReviewSum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:text="(372)" />
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/baseline_add_24" />
 
             </LinearLayout>
 
-            <LinearLayout
+            <View
+                android:id="@+id/view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="1dp"
                 android:layout_marginTop="20dp"
-                android:orientation="vertical">
+                android:layout_marginBottom="20dp"
+                android:background="#9E9E9E" />
 
-                <LinearLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/edittext2"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/txtSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_weight="4"
+                    android:paddingLeft="10dp"
+                    android:text="5kg 미만"
+                    android:textColor="#000000"
+                    android:textSize="17sp" />
 
-                    <TextView
-                        android:id="@+id/txtDateStart"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="20dp"
-                        android:text="TextView"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/txtDateEnd"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/txtSelectPet"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="50dp"
-                        android:layout_weight="1"
-                        android:text="반려동물 선택"
-                        android:textColor="#000000"
-                        android:textSize="15sp" />
-
-                    <ImageView
-                        android:id="@+id/imgChoicePet"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="7dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/baseline_add_24" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/txtSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="4"
-                        android:gravity="center"
-                        android:text="5kg 미만"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/txtSmallPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="4"
-                        android:gravity="right"
-                        android:text="19,800원"
-                        android:textSize="20sp" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#7DCFFD"
-                        android:text="에약"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/txtMedium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="4"
-                        android:gravity="center"
-                        android:text="5~15kg 미만"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/txtMediumPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="4"
-                        android:gravity="right"
-                        android:text="19,800원"
-                        android:textSize="20sp" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnMedium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#7DCFFD"
-                        android:text="에약"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/txtSmallPrice"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="4"
+                    android:gravity="right"
+                    android:text="19,800원"
+                    android:textColor="#000000"
+                    android:textSize="17sp" />
 
-                    <TextView
-                        android:id="@+id/txtLarge"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="4"
-                        android:gravity="center"
-                        android:text="15kg 이상"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/txtLargePrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="4"
-                        android:gravity="right"
-                        android:text="19,800원"
-                        android:textSize="20sp" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnLarge"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#7DCFFD"
-                        android:text="에약"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:backgroundTint="#7DCFFD"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="예약"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/edittext2"
+                android:orientation="horizontal"
+                android:padding="5dp">
 
                 <TextView
-                    android:id="@+id/textView27"
-                    android:layout_width="match_parent"
+                    android:id="@+id/txtMedium"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="15dp"
-                    android:text="호텔 정보"
+                    android:layout_weight="4"
+                    android:paddingLeft="10dp"
+                    android:text="5~15kg 미만"
                     android:textColor="#000000"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
+                    android:textSize="17sp" />
 
                 <TextView
-                    android:id="@+id/txtDescription"
-                    android:layout_width="match_parent"
+                    android:id="@+id/txtMediumPrice"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="3dp"
-                    android:maxLines="3"
-                    android:text="TextView"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="4"
+                    android:gravity="right"
+                    android:text="19,800원"
                     android:textColor="#000000"
-                    android:textSize="16sp" />
+                    android:textSize="17sp" />
 
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:backgroundTint="#7DCFFD"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="예약"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/edittext2"
+                android:orientation="horizontal"
+                android:padding="5dp">
 
                 <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="match_parent"
+                    android:id="@+id/txtLarge"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="15dp"
-                    android:text="호텔 리뷰"
+                    android:layout_weight="4"
+                    android:paddingLeft="10dp"
+                    android:text="15kg 이상"
                     android:textColor="#000000"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
+                    android:textSize="17sp" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/txtLargePrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="4"
+                    android:gravity="right"
+                    android:text="19,800원"
+                    android:textColor="#000000"
+                    android:textSize="17sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:backgroundTint="#7DCFFD"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="예약"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp" />
             </LinearLayout>
 
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="#9E9E9E" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="호텔 정보"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/txtDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="호텔 소개"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="#9E9E9E" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="호텔 리뷰"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="3dp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 
 </ScrollView>

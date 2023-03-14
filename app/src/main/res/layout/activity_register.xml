@@ -90,7 +90,7 @@
                 android:background="@drawable/edittext2"
                 android:ems="15"
                 android:hint="010-1234-5678"
-                android:inputType="phone"
+                android:inputType="textPersonName"
                 android:padding="10dp"
                 android:textSize="14sp" />
 
