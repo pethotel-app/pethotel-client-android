@@ -242,7 +242,7 @@ public class Home extends Fragment {
                             startActivity(intent);
                         }
                     });
-
+                    adapter1.notifyDataSetChanged();
                     nearRecyclerView.setAdapter(adapter1);
                 }
                 else {
