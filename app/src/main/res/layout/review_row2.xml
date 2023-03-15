@@ -15,6 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="5dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -27,6 +28,7 @@
                     android:id="@+id/imgProfile"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:scaleType="centerCrop"
                     app:srcCompat="@drawable/baseline_person_24" />
 
                 <LinearLayout
@@ -56,7 +58,8 @@
                             android:id="@+id/txtUsername"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="이름" />
+                            android:text="이름"
+                            android:textColor="#000000" />
 
                         <TextView
                             android:id="@+id/textView11"
@@ -68,7 +71,8 @@
                             android:id="@+id/txtDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="날짜" />
+                            android:text="날짜"
+                            android:textColor="#000000" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -86,6 +90,7 @@
                     android:layout_height="70dp"
                     android:layout_gravity="center"
                     android:scaleType="centerCrop"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/baseline_image_24" />
 
                 <TextView
@@ -94,7 +99,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:padding="5dp"
-                    android:text="리뷰내용" />
+                    android:text="리뷰내용"
+                    android:textColor="#000000" />
             </LinearLayout>
         </LinearLayout>
 

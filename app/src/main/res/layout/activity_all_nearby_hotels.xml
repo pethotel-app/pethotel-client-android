@@ -62,7 +62,7 @@
                     android:id="@+id/txtDateStart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2023-03-01"
+                    android:text="2023-03-15"
                     android:textColor="#000000"
                     android:textSize="15sp" />
 
@@ -76,7 +76,7 @@
                     android:id="@+id/txtDateEnd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2023-03-02"
+                    android:text="2023-03-16"
                     android:textColor="#000000"
                     android:textSize="15sp" />
             </LinearLayout>
