@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hyunsungkr.pethotel.api.CouponApi;
+import com.hyunsungkr.pethotel.api.HotelApi;
 import com.hyunsungkr.pethotel.api.NetworkClient;
 import com.hyunsungkr.pethotel.api.PointApi;
 import com.hyunsungkr.pethotel.api.ReservationApi;
@@ -35,6 +36,7 @@ import com.hyunsungkr.pethotel.model.Reservation;
 import com.hyunsungkr.pethotel.model.User;
 import com.hyunsungkr.pethotel.model.UserRes;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import kr.co.bootpay.android.Bootpay;
@@ -72,6 +74,7 @@ public class ReservationActivity extends AppCompatActivity {
     int point = 0;
     int finalPrice;
     int couponPrice;
+    int price;
 
     Hotel hotel;
     User user;
@@ -84,11 +87,21 @@ public class ReservationActivity extends AppCompatActivity {
         @Override
         public void onActivityResult(ActivityResult result) {
             // 유저가 선택한 쿠폰 정보 가져오기
-            if (result.getResultCode() == 0){
+            if (result.getResultCode() == 101){
                 Coupon coupon = (Coupon) result.getData().getSerializableExtra("coupon");
 
                 couponId = coupon.getId();
                 discount = coupon.getDiscount();
+
+                // 유저가 선택한 쿠폰이 있을 경우 금액 차감
+                couponPrice = price - discount;
+                DecimalFormat myFormatter = new DecimalFormat("###,###");
+                txtFinalPrice.setText(myFormatter.format(couponPrice) + "원");
+
+                // 사용한 쿠폰 이름 셋팅
+                txtCoupon.setText(coupon.getDescription() + " " + myFormatter.format(discount) + "원");
+                // 버튼에도 셋팅
+                btnApproval.setText(myFormatter.format(couponPrice) + "원 결제하기");
             }
         }
     });
@@ -113,6 +126,17 @@ public class ReservationActivity extends AppCompatActivity {
         txtFinalPrice = findViewById(R.id.txtFinalPrice);
         btnApproval = findViewById(R.id.btnApproval);
 
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 뒤로가기 클릭시 액티비티 종료
+                finish();
+            }
+        });
+
+        // 유저 정보 불러오기
+        UserCheck();
+
         // 호텔정보 액티비티에서 정보 받아오기(호텔정보, 유저, 펫, 예약정보)
         hotel = (Hotel) getIntent().getSerializableExtra("hotel");
         pet = (Pet) getIntent().getSerializableExtra("pet");
@@ -129,14 +153,12 @@ public class ReservationActivity extends AppCompatActivity {
         // 체크인과 체크아웃 시간 셋팅 ex) 체크인 12:00 | 체크아웃 12:00
         String checkInTime = "12:00";
         String checkOutTime = "12:00";
-        txtTime.setText("체크인 " + checkInTime + " | 체크아웃" + checkOutTime);
+        txtTime.setText("체크인 " + checkInTime + " | 체크아웃 " + checkOutTime);
 
         // 예약 금액 셋팅
-        txtPrice.setText(reservation.getPrice()+"원");
-
-        // 예약자 정보 셋팅 ex) 김이름 | 010-1234-5678
-        UserCheck();
-        txtUser.setText(user.getName() + " | " + user.getPhone());
+        DecimalFormat myFormatter = new DecimalFormat("###,###");
+        txtPrice.setText(myFormatter.format(reservation.getPrice()) + "원");
+        btnApproval.setText(myFormatter.format(reservation.getPrice()) + "원 결제하기");
 
         // 예약자 반려동물 셋팅 ex) 반려동물 | 장군이
         txtPet.setText("반려동물 | " + pet.getName());
@@ -145,7 +167,7 @@ public class ReservationActivity extends AppCompatActivity {
         content = editEtc.getText().toString().trim();
 
         // 예약 금액 셋팅
-        txtPrice2.setText(reservation.getPrice()+"원");
+        txtPrice2.setText(myFormatter.format(reservation.getPrice()) + "원");
 
         // 쿠폰 클릭시 새로운 액티비티 열고 그 액티비티에서 쿠폰 퍼센트 가져오기
         txtCoupon.setOnClickListener(new View.OnClickListener() {
@@ -157,11 +179,8 @@ public class ReservationActivity extends AppCompatActivity {
         });
 
         // 원본 결제 금액
-        int price = reservation.getPrice();
-
-        // 유저가 선택한 쿠폰이 있을 경우 금액 차감
-        couponPrice = price - discount;
-        txtTotalPoint.setText(couponPrice);
+        price = reservation.getPrice();
+        txtFinalPrice.setText(myFormatter.format(price) + "원");
 
         // 포인트 사용시 입력 받는 정보 가져오기
         editPoint.addTextChangedListener(new TextWatcher() {
@@ -179,13 +198,15 @@ public class ReservationActivity extends AppCompatActivity {
                  String usePoint = editPoint.getText().toString().trim();
                  point = Integer.parseInt(usePoint);
                  finalPrice = couponPrice - point;
-                 txtFinalPrice.setText(finalPrice);
+                 DecimalFormat myFormatter = new DecimalFormat("###,###");
+                 txtFinalPrice.setText(myFormatter.format(finalPrice) + "원");
+                 btnApproval.setText(myFormatter.format(finalPrice) + "원 결제하기");
+
              }
          });
 
         // 현재 내 포인트 가져와서 표시
         CheckPoint();
-        txtTotalPoint.setText(totalPoint);
 
         // 결제창 띄우기(결제 완료시 내 예약 액티비티로 넘어감)
         BootpayAnalytics.init(this, Config.access_key);
@@ -196,14 +217,14 @@ public class ReservationActivity extends AppCompatActivity {
                 // 구매자 정보 설정
                 BootUser bootUser = new BootUser();
                 bootUser.setUsername(user.getName());
-                bootUser.setPhone(user.getPhone());
-                bootUser.setArea("");
+                bootUser.setPhone("010-5091-4467");
+                bootUser.setArea("TEST");
                 bootUser.setEmail(user.getEmail());
 
                 // 구매 아이템 설정
                 BootItem bootItem = new BootItem();
                 bootItem.setName(hotel.getTitle());
-                bootItem.setPrice((double) reservation.getPrice());
+                bootItem.setPrice((double) finalPrice);
                 bootItem.setId(hotel.getId()+"");
 
                 // 결제 항목 설정
@@ -238,27 +259,13 @@ public class ReservationActivity extends AppCompatActivity {
 
                     @Override
                     public boolean onConfirm(String data) {
-                        Log.i("payment",data);
                         return true;
                     }
 
                     @Override
                     public void onDone(String data) {
-                        // 유저가 사용한 포인트가 있다면 차감
-                        if (point != 0) {
-                            UsePoint();
-                        }
-                        // 유저가 사용한 쿠폰이 있다면 사용 처리
-                        if (couponId != 0) {
-                            UseCoupon();
-                        }
                         // 유저 예약 정보 저장
                         ReservationSave();
-
-                        // 결제 완료 예약 액티비티 종료하고 내 예약정보 액티비티로 이동
-                        Intent intent = new Intent(ReservationActivity.this, MyReservationActivity.class);
-                        startActivity(intent);
-                        finish();
                     }
                 }).requestPayment();
 
@@ -280,11 +287,13 @@ public class ReservationActivity extends AppCompatActivity {
         call.enqueue(new Callback<UserRes>() {
             @Override
             public void onResponse(Call<UserRes> call, Response<UserRes> response) {
-                // 서버에서 보낸 응답이 200 OK일때
                 if (response.isSuccessful()) {
                     UserRes userRes = response.body();
                     userArrayList.addAll( userRes.getUser() );
                     user = userArrayList.get(0);
+
+                    // 예약자 정보 셋팅 ex) 김이름 | 010-1234-5678
+                    txtUser.setText(user.getName() + " | " + user.getPhone());
 
                 } else {
                 }
@@ -292,6 +301,7 @@ public class ReservationActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<UserRes> call, Throwable t) {
+
             }
         });
     }
@@ -311,9 +321,6 @@ public class ReservationActivity extends AppCompatActivity {
 
     // 포인트 조회 API 호출
     void CheckPoint() {
-        // 다이얼로그를 화면에 띄우기
-        showProgress("포인트 조회중...");
-
         Retrofit retrofit = NetworkClient.getRetrofitClient(ReservationActivity.this);
         PointApi api = retrofit.create(PointApi.class);
 
@@ -325,12 +332,11 @@ public class ReservationActivity extends AppCompatActivity {
         call.enqueue(new Callback<PointRes>() {
             @Override
             public void onResponse(Call<PointRes> call, Response<PointRes> response) {
-                // 프로그래스 다이얼로그가 있으면 나타나지않게 해준다
-                dismissProgress();
                 // 서버에서 보낸 응답이 200 OK일때
                 if (response.isSuccessful()) {
                     PointRes pointRes = response.body();
                     totalPoint = pointRes.getTotalPoint();
+                    txtTotalPoint.setText(totalPoint+"p");
 
                 } else {
                 }
@@ -395,9 +401,6 @@ public class ReservationActivity extends AppCompatActivity {
 
     // 예약정보 저장 API 호출
     void ReservationSave() {
-        // 다이얼로그를 화면에 띄우기
-        showProgress("예약정보 저장중...");
-
         Retrofit retrofit = NetworkClient.getRetrofitClient(ReservationActivity.this);
         ReservationApi api = retrofit.create(ReservationApi.class);
 
@@ -417,10 +420,22 @@ public class ReservationActivity extends AppCompatActivity {
         call.enqueue(new Callback<Res>() {
             @Override
             public void onResponse(Call<Res> call, Response<Res> response) {
-                // 프로그래스 다이얼로그가 있으면 나타나지않게 해준다
-                dismissProgress();
                 // 서버에서 보낸 응답이 200 OK일때
                 if (response.isSuccessful()) {
+
+                    // 유저가 사용한 포인트가 있다면 차감
+                    if (point != 0) {
+                        UsePoint();
+                    }
+                    // 유저가 사용한 쿠폰이 있다면 사용 처리
+                    if (couponId != 0) {
+                        UseCoupon();
+                    }
+
+                    // 결제 완료 예약 액티비티 종료하고 내 예약정보 액티비티로 이동
+                    Intent intent = new Intent(ReservationActivity.this, MyReservationActivity.class);
+                    startActivity(intent);
+                    finish();
 
                 } else {
                 }

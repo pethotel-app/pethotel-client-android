@@ -177,7 +177,7 @@
                 android:background="@drawable/edittext2"
                 android:ems="10"
                 android:hint="기타 사항 입력"
-                android:inputType="number"
+                android:inputType="textPersonName"
                 android:padding="7dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"

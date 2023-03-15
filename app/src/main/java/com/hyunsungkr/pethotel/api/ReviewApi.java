@@ -10,7 +10,7 @@ import retrofit2.http.Path;
 
 public interface ReviewApi {
 
-    @GET("review/{hotelId}")
+    @GET("/review/{hotelId}")
     Call<HotelReviewList> checkReview(@Header("Authorization") String token,
                                       @Path("hotelId") int hotelId);
 }
