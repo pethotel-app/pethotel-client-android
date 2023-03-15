@@ -30,7 +30,7 @@ public class HotelReviewAdapter extends RecyclerView.Adapter<HotelReviewAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.review_row, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.review_row2, parent, false);
         return new ViewHolder(view);
     }
 
@@ -51,6 +51,11 @@ public class HotelReviewAdapter extends RecyclerView.Adapter<HotelReviewAdapter.
                     .load(hotelReview.getUserImgUrl())
                     .into(holder.imgProfile);
         }
+
+        if(hotelReview.getImgUrl() != null){
+            Glide.with(context)
+                    .load(hotelReview.getImgUrl()).into(holder.imgReview);
+        }
     }
 
     @Override
@@ -65,6 +70,8 @@ public class HotelReviewAdapter extends RecyclerView.Adapter<HotelReviewAdapter.
         private ImageView imgProfile;
         private RatingBar ratingBar;
 
+        private ImageView imgReview;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtReview = itemView.findViewById(R.id.txtReview);
@@ -72,6 +79,8 @@ public class HotelReviewAdapter extends RecyclerView.Adapter<HotelReviewAdapter.
             txtDate = itemView.findViewById(R.id.txtDate);
             imgProfile = itemView.findViewById(R.id.imgProfile);
             ratingBar = itemView.findViewById(R.id.ratingBar);
+            imgReview = itemView.findViewById(R.id.imgReview);
+
         }
     }
 }
