@@ -86,6 +86,10 @@ public class HotelInfoActivity extends AppCompatActivity {
 
     int favorite;
 
+    int offset = 0;
+    int limit = 5;
+    int count = 0;
+
     ArrayList<Hotel> hotelArrayList = new ArrayList<>();
 
     ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
@@ -158,7 +162,7 @@ public class HotelInfoActivity extends AppCompatActivity {
 
         // 좋아요 표시
         if (intentHotel.getFavorite() == 1){
-        imgFavorite.setImageResource(R.drawable.baseline_favorite_24);
+            imgFavorite.setImageResource(R.drawable.baseline_favorite_24);
         }
 
         // 좋아요 설정, 해제를 위해 변수선언
@@ -461,9 +465,13 @@ public class HotelInfoActivity extends AppCompatActivity {
 
     // 호텔 리뷰 가져오기
     void getNetworkReviewData() {
+
+        offset = 0;
+        count = 0;
+
         Retrofit retrofit = NetworkClient.getRetrofitClient(this);
         ReviewApi api = retrofit.create(ReviewApi.class);
-        Call<HotelReviewList> call = api.checkReview(accessToken, hotelId);
+        Call<HotelReviewList> call = api.checkReview(accessToken, hotelId,offset,limit);
 
         call.enqueue(new Callback<HotelReviewList>() {
             @Override
