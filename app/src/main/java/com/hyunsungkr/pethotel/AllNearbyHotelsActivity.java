@@ -63,6 +63,8 @@ public class AllNearbyHotelsActivity extends AppCompatActivity {
 
     private Hotel selectedHotel;
 
+    String accessToken;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,8 +144,8 @@ public class AllNearbyHotelsActivity extends AppCompatActivity {
         // 위치기반으로 GPS 정보 가져오는 코드를 실행하는 부분
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,3000,-1,locationListener);
 
-
-
+        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME,MODE_PRIVATE);
+        accessToken = "Bearer " + Config.ACCESS_TOKEN;
 
 
 
@@ -151,9 +153,7 @@ public class AllNearbyHotelsActivity extends AppCompatActivity {
 
     private void addNetworkData() {
 
-        // todo: 억세스토큰 하드코딩 제거
-        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME,MODE_PRIVATE);
-        String accessToken = "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3ODA4MTUxNywianRpIjoiMmFmMjk3MmMtYjNiMC00OWE1LTkwN2MtY2RlNTNiZDIzNDc3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6NiwibmJmIjoxNjc4MDgxNTE3fQ.VP_pcHsGR1tZHlafCV9hN0qZ6MHdVz56NMRFGGsfujQ";
+
 
         Retrofit retrofit = NetworkClient.getRetrofitClient(AllNearbyHotelsActivity.this);
         HotelApi api = retrofit.create(HotelApi.class);
@@ -201,9 +201,6 @@ public class AllNearbyHotelsActivity extends AppCompatActivity {
 
     private void getNetworkData(){
 
-        // todo: 억세스토큰 하드코딩 제거
-        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME,MODE_PRIVATE);
-        String accessToken = "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3ODA4MTUxNywianRpIjoiMmFmMjk3MmMtYjNiMC00OWE1LTkwN2MtY2RlNTNiZDIzNDc3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6NiwibmJmIjoxNjc4MDgxNTE3fQ.VP_pcHsGR1tZHlafCV9hN0qZ6MHdVz56NMRFGGsfujQ";
 
         offset = 0;
         count = 0;
@@ -269,9 +266,6 @@ public class AllNearbyHotelsActivity extends AppCompatActivity {
             Retrofit retrofit = NetworkClient.getRetrofitClient(AllNearbyHotelsActivity.this);
             HotelApi api = retrofit.create(HotelApi.class);
 
-            SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, Context.MODE_PRIVATE);
-            // todo : 토큰 하드코딩 수정
-            String accessToken = "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3ODA4MTUxNywianRpIjoiMmFmMjk3MmMtYjNiMC00OWE1LTkwN2MtY2RlNTNiZDIzNDc3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6NiwibmJmIjoxNjc4MDgxNTE3fQ.VP_pcHsGR1tZHlafCV9hN0qZ6MHdVz56NMRFGGsfujQ";
 
             Call<Res> call = api.setFavorite(accessToken, selectedHotel.getId());
 
@@ -305,9 +299,6 @@ public class AllNearbyHotelsActivity extends AppCompatActivity {
             Retrofit retrofit = NetworkClient.getRetrofitClient(AllNearbyHotelsActivity.this);
             HotelApi api = retrofit.create(HotelApi.class);
 
-            SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, Context.MODE_PRIVATE);
-            // todo : 토큰 하드코딩 수정
-            String accessToken = "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3ODA4MTUxNywianRpIjoiMmFmMjk3MmMtYjNiMC00OWE1LTkwN2MtY2RlNTNiZDIzNDc3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6NiwibmJmIjoxNjc4MDgxNTE3fQ.VP_pcHsGR1tZHlafCV9hN0qZ6MHdVz56NMRFGGsfujQ";
 
             Call<Res> call = api.deleteFavorite(accessToken, selectedHotel.getId());
 

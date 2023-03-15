@@ -136,6 +136,11 @@ public class HotelInfoActivity extends AppCompatActivity {
         Hotel intentHotel = (Hotel) getIntent().getSerializableExtra("hotel");
         hotelId = intentHotel.getId();
 
+        // 토큰 가져오기
+        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        accessToken = "Bearer " + sp.getString(Config.ACCESS_TOKEN, "");
+
+
         // 호텔 정보 불러와서 셋팅
         getNetworkData();
         // 호텔 리뷰도 셋팅
