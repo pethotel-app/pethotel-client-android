@@ -33,6 +33,8 @@ public interface HotelApi {
     @DELETE("/favorite/{hotelId}")
     Call<Res> deleteFavorite(@Header("Authorization") String token, @Path("hotelId") int hotelId);
 
+    // 찜 목록조회하는 API
+
 
 
 }

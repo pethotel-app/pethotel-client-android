@@ -4,19 +4,15 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -27,24 +23,22 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.hyunsungkr.pethotel.adapter.HotelReviewAdapter;
-import com.hyunsungkr.pethotel.adapter.PetChoiceAdapter;
 import com.hyunsungkr.pethotel.api.NetworkClient;
 import com.hyunsungkr.pethotel.api.HotelApi;
 import com.hyunsungkr.pethotel.api.ReviewApi;
 import com.hyunsungkr.pethotel.config.Config;
-import com.hyunsungkr.pethotel.model.Coupon;
 import com.hyunsungkr.pethotel.model.Hotel;
 import com.hyunsungkr.pethotel.model.HotelList;
 import com.hyunsungkr.pethotel.model.HotelReview;
 import com.hyunsungkr.pethotel.model.HotelReviewList;
 import com.hyunsungkr.pethotel.model.Pet;
+import com.hyunsungkr.pethotel.model.Res;
 import com.hyunsungkr.pethotel.model.Reservation;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -77,6 +71,9 @@ public class HotelInfoActivity extends AppCompatActivity {
     public TextView txtDateStart;
     public TextView txtDateEnd;
     public ImageView imgChoicePet;
+    public ImageView imgHome;
+
+    public ImageView imgBack;
     private int startYear, startMonth, startDay, endYear, endMonth, endDay;
     String petName = "";
     private Pet pet;
@@ -84,6 +81,12 @@ public class HotelInfoActivity extends AppCompatActivity {
 
     private int hotelId;
     String accessToken;
+
+    Hotel intentHotel;
+
+    int favorite;
+
+    ArrayList<Hotel> hotelArrayList = new ArrayList<>();
 
     ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
@@ -131,15 +134,114 @@ public class HotelInfoActivity extends AppCompatActivity {
         imgChoicePet = findViewById(R.id.imgChoicePet);
         txtSelectPet = findViewById(R.id.txtSelectPet);
         recyclerView = findViewById(R.id.recyclerView);
+        imgHome = findViewById(R.id.imgHome);
+        imgBack = findViewById(R.id.imgBack);
 
-        // 메인에서 인텐트로 호텔 정보 받아와서 아이디 저장
-        Hotel intentHotel = (Hotel) getIntent().getSerializableExtra("hotel");
-        hotelId = intentHotel.getId();
+
 
         // 토큰 가져오기
         SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
         accessToken = "Bearer " + sp.getString(Config.ACCESS_TOKEN, "");
 
+        // 메인에서 인텐트로 호텔 정보 받아와서 아이디 저장
+        intentHotel = (Hotel) getIntent().getSerializableExtra("hotel");
+        hotelId = intentHotel.getId();
+
+        // 리뷰 갯수 표시
+        String reviewCnt = String.valueOf(intentHotel.getCnt());
+        txtReviewSum.setText("("+reviewCnt+")");
+
+        // 별점 평균 표시
+        float ratingAvg = (float) intentHotel.getAvg();
+        ratingBar.setRating(ratingAvg);
+
+
+        // 좋아요 표시
+        if (intentHotel.getFavorite() == 1){
+        imgFavorite.setImageResource(R.drawable.baseline_favorite_24);
+        }
+
+        // 좋아요 설정, 해제를 위해 변수선언
+        favorite = intentHotel.getFavorite();
+
+        // 좋아요 설정, 해제
+        imgFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(favorite == 0){
+                    favorite = 1;
+                    imgFavorite.setImageResource(R.drawable.baseline_favorite_24);
+                    Retrofit retrofit = NetworkClient.getRetrofitClient(HotelInfoActivity.this);
+                    HotelApi api = retrofit.create(HotelApi.class);
+
+
+                    Call<Res> call = api.setFavorite(accessToken, hotelId);
+
+                    call.enqueue(new Callback<Res>() {
+                        @Override
+                        public void onResponse(Call<Res> call, Response<Res> response) {
+                            if(response.isSuccessful()){
+
+                                hotel.setFavorite(1);
+
+
+                            }else{
+                                return;
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Res> call, Throwable t) {
+
+                        }
+                    });
+                }else {
+                    favorite = 0;
+                    imgFavorite.setImageResource(R.drawable.baseline_favorite_border_24);
+
+                    Retrofit retrofit = NetworkClient.getRetrofitClient(HotelInfoActivity.this);
+                    HotelApi api = retrofit.create(HotelApi.class);
+
+
+                    Call<Res> call = api.deleteFavorite(accessToken, hotelId);
+
+                    call.enqueue(new Callback<Res>() {
+                        @Override
+                        public void onResponse(Call<Res> call, Response<Res> response) {
+                            if(response.isSuccessful()){
+                                hotel.setFavorite(0);
+
+                            }else{
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Res> call, Throwable t) {
+
+                        }
+                    });
+                }
+            }
+        });
+
+        // 홈버튼 클릭하면 메인액티비티로 이동
+        imgHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HotelInfoActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        // 뒤로가기 버튼 클릭
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // 뒤로가기 기능 수행
+            }
+        });
 
         // 호텔 정보 불러와서 셋팅
         getNetworkData();

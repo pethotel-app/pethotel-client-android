@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.hyunsungkr.pethotel.adapter.NearhotelAdapter;
 import com.hyunsungkr.pethotel.adapter.PetChoiceAdapter;
@@ -29,12 +31,15 @@ public class PetChoiceActivity extends AppCompatActivity {
     private RecyclerView RecyclerView;
     private PetChoiceAdapter adapter;
     private ArrayList<Pet> petList = new ArrayList<>();
+    private ImageView imgBack;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet_choice);
+
+        imgBack = findViewById(R.id.imgBack);
 
         RecyclerView = findViewById(R.id.recyclerView);
         RecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -77,5 +82,11 @@ public class PetChoiceActivity extends AppCompatActivity {
             }
         });
 
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // 뒤로가기 기능 수행
+            }
+        });
     }
 }

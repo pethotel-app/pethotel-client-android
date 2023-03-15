@@ -57,8 +57,8 @@ public class AllnearhotelAdapter extends RecyclerView.Adapter<AllnearhotelAdapte
 
 
         holder.txtTitle.setText(hotel.getTitle());
-        holder.txtAvg.setText(hotel.getAvg()+"");
-        holder.txtCnt.setText(hotel.getCnt()+"");
+        holder.txtAvg.setText(String.format("%.1f", hotel.getAvg()));
+        holder.txtCnt.setText("( "+hotel.getCnt()+" )");
         // ratingBar 채우기
         holder.ratingBar.setRating((float) hotel.getAvg());
 

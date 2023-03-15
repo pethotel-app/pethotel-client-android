@@ -74,8 +74,8 @@ public class AllNearbyHotelsActivity extends AppCompatActivity {
         btnDate = findViewById(R.id.btnDate);
         imgBack = findViewById(R.id.imgBack);
 
-        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME,MODE_PRIVATE);
-        accessToken = "Bearer " + Config.ACCESS_TOKEN;
+        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        accessToken = "Bearer " + sp.getString(Config.ACCESS_TOKEN, "");
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -238,6 +238,7 @@ public class AllNearbyHotelsActivity extends AppCompatActivity {
 
                             Intent intent = new Intent(AllNearbyHotelsActivity.this,HotelInfoActivity.class);
                             intent.putExtra("hotel",hotel);
+                            Log.i("리뷰 갯수 확인", String.valueOf(hotel.getCnt()));
 
                             startActivity(intent);
 
