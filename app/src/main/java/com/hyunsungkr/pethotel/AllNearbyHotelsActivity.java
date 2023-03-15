@@ -74,6 +74,9 @@ public class AllNearbyHotelsActivity extends AppCompatActivity {
         btnDate = findViewById(R.id.btnDate);
         imgBack = findViewById(R.id.imgBack);
 
+        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME,MODE_PRIVATE);
+        accessToken = "Bearer " + Config.ACCESS_TOKEN;
+
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(AllNearbyHotelsActivity.this));
@@ -144,8 +147,7 @@ public class AllNearbyHotelsActivity extends AppCompatActivity {
         // 위치기반으로 GPS 정보 가져오는 코드를 실행하는 부분
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,3000,-1,locationListener);
 
-        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME,MODE_PRIVATE);
-        accessToken = "Bearer " + Config.ACCESS_TOKEN;
+
 
 
 
