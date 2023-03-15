@@ -40,7 +40,9 @@ public class HotelReviewAdapter extends RecyclerView.Adapter<HotelReviewAdapter.
 
         holder.txtReview.setText(hotelReview.getContent());
         holder.txtUsername.setText(hotelReview.getName());
-        holder.txtDate.setText(hotelReview.getCreatedAt());
+        String createdAt = hotelReview.getCreatedAt();
+        String formattedDate = createdAt.substring(0, 10) + " " + createdAt.substring(11, 19);
+        holder.txtDate.setText(formattedDate);
         float rating = hotelReview.getRating();
         holder.ratingBar.setRating(rating);
 

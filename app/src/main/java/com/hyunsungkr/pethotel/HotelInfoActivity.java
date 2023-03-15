@@ -70,6 +70,9 @@ public class HotelInfoActivity extends AppCompatActivity {
     public Button btnMedium;
     public TextView txtDateStart;
     public TextView txtDateEnd;
+
+    public TextView txtReviewSum2;
+    public TextView txtMore;
     public ImageView imgChoicePet;
     public ImageView imgHome;
 
@@ -140,6 +143,8 @@ public class HotelInfoActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         imgHome = findViewById(R.id.imgHome);
         imgBack = findViewById(R.id.imgBack);
+        txtReviewSum2 = findViewById(R.id.txtReviewSum2);
+        txtMore = findViewById(R.id.txtMore);
 
 
 
@@ -154,6 +159,7 @@ public class HotelInfoActivity extends AppCompatActivity {
         // 리뷰 갯수 표시
         String reviewCnt = String.valueOf(intentHotel.getCnt());
         txtReviewSum.setText("("+reviewCnt+")");
+        txtReviewSum2.setText("("+reviewCnt+")");
 
         // 별점 평균 표시
         float ratingAvg = (float) intentHotel.getAvg();
@@ -244,6 +250,15 @@ public class HotelInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed(); // 뒤로가기 기능 수행
+            }
+        });
+
+        // 리뷰 더보기 버튼 클릭 5개씩 늘어나게
+        txtMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                limit = limit+5;
+                getNetworkReviewData();
             }
         });
 
@@ -484,6 +499,7 @@ public class HotelInfoActivity extends AppCompatActivity {
                     HotelReviewAdapter hotelReviewAdapter = new HotelReviewAdapter(HotelInfoActivity.this, reviewList);
                     // RecyclerView에 Adapter 설정
                     recyclerView.setAdapter(hotelReviewAdapter);
+
                 }
             }
             @Override
