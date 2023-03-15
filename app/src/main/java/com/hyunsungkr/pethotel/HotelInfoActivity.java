@@ -164,7 +164,7 @@ public class HotelInfoActivity extends AppCompatActivity {
         // 별점 평균 표시
         float ratingAvg = (float) intentHotel.getAvg();
         ratingBar.setRating(ratingAvg);
-
+        txtReviewAvg.setText(String.valueOf(intentHotel.getAvg()));
 
         // 좋아요 표시
         if (intentHotel.getFavorite() == 1){
