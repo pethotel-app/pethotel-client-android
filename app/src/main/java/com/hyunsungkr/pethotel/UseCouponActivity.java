@@ -30,8 +30,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class UseCouponActivity extends AppCompatActivity {
-
-    private ProgressDialog dialog;
     ImageView imgBack;
 
     RecyclerView recyclerView;
@@ -49,22 +47,6 @@ public class UseCouponActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(UseCouponActivity.this));
 
-        getNetworkData();
-
-        imgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // 뒤로가기 클릭시 액티비티 종료
-                finish();
-            }
-        });
-
-    }
-
-    private void getNetworkData() {
-        // 다이얼로그를 화면에 띄우기
-        showProgress("내 쿠폰 조회중...");
-
         Retrofit retrofit = NetworkClient.getRetrofitClient(UseCouponActivity.this);
         CouponApi api = retrofit.create(CouponApi.class);
 
@@ -76,12 +58,10 @@ public class UseCouponActivity extends AppCompatActivity {
         call.enqueue(new Callback<CouponList>() {
             @Override
             public void onResponse(Call<CouponList> call, Response<CouponList> response) {
-                // 프로그래스 다이얼로그가 있으면 나타나지않게 해준다
-                dismissProgress();
                 // 서버에서 보낸 응답이 200 OK일때
                 if (response.isSuccessful()) {
                     couponArrayList.clear();
-                    couponArrayList.addAll( response.body().getItems() );
+                    couponArrayList.addAll( response.body().getCouponList() );
 
                     adapter = new UseCouponAdapter(UseCouponActivity.this, couponArrayList);
                     recyclerView.setAdapter(adapter);
@@ -96,8 +76,6 @@ public class UseCouponActivity extends AppCompatActivity {
                             finish();
                         }
                     });
-
-                } else {
                 }
             }
 
@@ -105,17 +83,14 @@ public class UseCouponActivity extends AppCompatActivity {
             public void onFailure(Call<CouponList> call, Throwable t) {
             }
         });
-    }
-    // 네트워크 로직처리시에 화면에 보여주는 함수
-    void showProgress(String message) {
-        dialog = new ProgressDialog(this);
-        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage(message);
-        dialog.show();
-    }
 
-    // 로직처리가 끝나면 화면에서 사라지는 함수
-    void dismissProgress() {
-        dialog.dismiss();
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 뒤로가기 클릭시 액티비티 종료
+                finish();
+            }
+        });
+
     }
 }

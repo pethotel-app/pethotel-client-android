@@ -6,7 +6,7 @@ import java.util.List;
 public class CouponList implements Serializable {
 
     private String result;
-    private List<Coupon> items;
+    private List<Coupon> couponList;
     private int count;
 
     public String getResult() {
@@ -17,12 +17,12 @@ public class CouponList implements Serializable {
         this.result = result;
     }
 
-    public List<Coupon> getItems() {
-        return items;
+    public List<Coupon> getCouponList() {
+        return couponList;
     }
 
-    public void setItems(List<Coupon> items) {
-        this.items = items;
+    public void setCouponList(List<Coupon> couponList) {
+        this.couponList = couponList;
     }
 
     public int getCount() {

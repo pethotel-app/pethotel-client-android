@@ -22,18 +22,19 @@ public class UseCouponAdapter extends RecyclerView.Adapter<UseCouponAdapter.View
     Context context;
     List<Coupon> couponList;
 
-    public UseCouponAdapter(Context context, List<Coupon> couponList) {
-        this.context = context;
-        this.couponList = couponList;
-    }
-
     public interface OnItemClickListener {
         void onImageClick(int index);
     }
 
-    public UseCouponAdapter.OnItemClickListener listener;
+    public OnItemClickListener listener;
+
     public void setOnItemClickListener(UseCouponAdapter.OnItemClickListener listener){
         this.listener = listener;
+    }
+
+    public UseCouponAdapter(Context context, List<Coupon> couponList) {
+        this.context = context;
+        this.couponList = couponList;
     }
 
     @NonNull
@@ -47,7 +48,7 @@ public class UseCouponAdapter extends RecyclerView.Adapter<UseCouponAdapter.View
     public void onBindViewHolder(@NonNull UseCouponAdapter.ViewHolder holder, int position) {
         Coupon coupon = couponList.get(position);
         holder.txtTitle.setText(coupon.getTitle());
-        holder.txtDiscount.setText(coupon.getDiscount());
+        holder.txtDiscount.setText(coupon.getDiscount()+"원");
 
         // 쿠폰 기한 데이터 가공해서 입력
         String start = coupon.getDateOfUseStart().split("T")[0];
@@ -74,6 +75,7 @@ public class UseCouponAdapter extends RecyclerView.Adapter<UseCouponAdapter.View
             txtTitle = itemView.findViewById(R.id.txtTitle);
             txtDiscount = itemView.findViewById(R.id.txtDiscount);
             txtDeadline = itemView.findViewById(R.id.txtDeadline);
+            cardView = itemView.findViewById(R.id.cardView);
 
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
