@@ -35,6 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.http.HEAD;
 
 public class AllNearbyHotelsActivity extends AppCompatActivity {
 
@@ -65,7 +66,6 @@ public class AllNearbyHotelsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_nearby_hotels);
         imgBack = findViewById(R.id.imgBack);
-
 
 
         // 헤더에 들어갈 억세스토큰 가져오기
