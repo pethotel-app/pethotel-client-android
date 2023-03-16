@@ -7,6 +7,7 @@ import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface CouponApi {
@@ -17,5 +18,9 @@ public interface CouponApi {
 
     @GET("/benefit/coupon")
     Call<CouponList> couponList(@Header("Authorization") String token);
+
+    @PUT("/benefit/coupon/{couponId}")
+    Call<Res> addCoupon(@Path("couponId") int couponId,
+                        @Header("Authorization") String token);
 
 }
