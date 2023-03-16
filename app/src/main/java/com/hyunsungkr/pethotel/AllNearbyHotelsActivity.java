@@ -67,9 +67,7 @@ public class AllNearbyHotelsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_all_nearby_hotels);
         imgBack = findViewById(R.id.imgBack);
 
-
         // 헤더에 들어갈 억세스토큰 가져오기
-
         SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
         accessToken = "Bearer " + sp.getString(Config.ACCESS_TOKEN, "");
 
