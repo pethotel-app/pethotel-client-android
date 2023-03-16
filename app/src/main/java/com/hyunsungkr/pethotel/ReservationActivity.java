@@ -129,8 +129,8 @@ public class ReservationActivity extends AppCompatActivity {
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 뒤로가기 클릭시 액티비티 종료
-                finish();
+                // 뒤로가기
+                onBackPressed();
             }
         });
 

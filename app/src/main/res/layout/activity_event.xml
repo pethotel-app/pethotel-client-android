@@ -9,24 +9,50 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/imgBack"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
+
+        </LinearLayout>
 
         <ImageView
-            android:id="@+id/imgPhoto"
+            android:id="@+id/imageView16"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:srcCompat="@drawable/event" />
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/bigevent" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="회원가입하신 모든 분들! 환영합니다 \n 회원님이 쉬고 있는 동안 반려동물도 편안하게 쉬어가는 곳, \n 쉬다가개입니다 \n \n 오픈 기념하여 아래 쿠폰을 클릭해주신 모든 분들께 \n 2,000원 할인쿠폰을 드립니다 \n \n 저희 앱은 항상 회원님과 반려동물들을 위해 \n 최선을 다해 좋은 서비스를 제공하겠습니다 감사합니다"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/imgCoupon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            app:srcCompat="@drawable/coupon_img" />
+
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,6 @@ import retrofit2.http.Header;
 
 public interface PetApi {
 
-    @GET("/pets/")
+    @GET("/pets")
     Call<PetInfoList> getPetList(@Header("Authorization") String token);
 }
