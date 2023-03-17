@@ -2,6 +2,7 @@ package com.hyunsungkr.pethotel.api;
 
 import com.hyunsungkr.pethotel.model.Check;
 import com.hyunsungkr.pethotel.model.User;
+import com.hyunsungkr.pethotel.model.UserMyPageRes;
 import com.hyunsungkr.pethotel.model.UserRes;
 
 import retrofit2.Call;
@@ -26,5 +27,9 @@ public interface UserApi {
 
     @GET("/user/info")
     Call<UserRes> userCheck(@Header("Authorization") String token);
+
+    @GET("/user/mypage")
+    Call<UserMyPageRes> userMypage(@Header("Authorization") String token);
+
 
 }

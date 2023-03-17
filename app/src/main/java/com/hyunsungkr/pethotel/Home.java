@@ -206,6 +206,12 @@ public class Home extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getNetworkData();
+    }
+
     void getNetworkData(){
         showProgress("호텔정보 가져오는 중...");
         Retrofit retrofit = NetworkClient.getRetrofitClient(getActivity());
