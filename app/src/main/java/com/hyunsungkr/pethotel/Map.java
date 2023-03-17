@@ -54,7 +54,7 @@ import retrofit2.Retrofit;
  * Use the {@link Map#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener{
+public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -103,11 +103,8 @@ public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnInf
     Double currentLng;
     int offset = 0;
     int limit = 10;
-    int currentCount = 0;
     ArrayList<Hotel> NearhotelList = new ArrayList<>();
     LatLng myLocation;
-    private HashMap<Marker, Long> markerClickTime = new HashMap<>();
-    private final long DOUBLE_CLICK_TIME_DELTA = 300; // milliseconds
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -133,6 +130,19 @@ public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnInf
         // 위치를 가져오기 위해서 시스템 서비스로부터 로케이션 매니저를 받아온다
         locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
 
+        // 현재 위치 표시
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        googleMap.setMyLocationEnabled(true);
+
         // 로케이션 리스너를 만들어 위치가 변할때마다 호출되는 함수 작성
         locationListener = new LocationListener() {
             @Override
@@ -141,25 +151,53 @@ public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnInf
                 currentLat = location.getLatitude();
                 currentLng = location.getLongitude();
 
-                if (currentCount == 0) {
-                    // 현재 내 위치기반 호텔 10곳 가져오기
-                    getNetworkData();
+                // 위치 정보를 가져왔으면 리스너를 제거
+                locationManager.removeUpdates(this);
 
-                    // 내 위치정보를 가져오기
-                    myLocation = new LatLng(currentLat, currentLng);
+                // 현재 내 위치기반 호텔 10곳 가져오기
+                Retrofit retrofit = NetworkClient.getRetrofitClient(getActivity());
+                HotelApi api = retrofit.create(HotelApi.class);
 
-                    // 지도의 중심을 내 위치로 셋팅
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 17));
+                // 헤더에 들어갈 억세스토큰 가져오기
+                SharedPreferences sp = getActivity().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                String accessToken = "Bearer " + sp.getString(Config.ACCESS_TOKEN, "");
+
+                offset = 0;
+
+                Call<HotelList> call = api.getNearHotel(accessToken, currentLng, currentLat, offset, limit);
+                call.enqueue(new Callback<HotelList>() {
+                    @Override
+                    public void onResponse(Call<HotelList> call, Response<HotelList> response) {
+                        if(response.isSuccessful()){
+
+                            NearhotelList.clear();
+                            NearhotelList.addAll(response.body().getItems());
+
+                            // 마커 찍기(내 주변 10곳)
+                            int listSize = NearhotelList.size();
+                            for (int i = 0; i < listSize && i <= 10; i++) {
+                                Hotel hotel = NearhotelList.get(i);
+                                googleMap.addMarker(new MarkerOptions().position(new LatLng(hotel.getLatitude(), hotel.getLongtitude()))
+                                        .title(hotel.getTitle()).snippet(hotel.getAddr())).setTag(i);
+                            }
+
+                        }
+                        else {
+                            return;
+                        }
                     }
 
-                // 마커 찍기(내 주변 10곳)
-                int listSize = NearhotelList.size();
-                for (int i = 0; i < listSize && i <= 10; i++) {
-                    Hotel hotel = NearhotelList.get(i);
-                    googleMap.addMarker(new MarkerOptions().position(new LatLng(hotel.getLatitude(), hotel.getLongtitude()))
-                            .title(hotel.getTitle()).snippet(hotel.getAddr())).setTag(i);
+                    @Override
+                    public void onFailure(Call<HotelList> call, Throwable t) {
 
-                }
+                    }
+                });
+
+                // 내 위치정보를 가져오기
+                myLocation = new LatLng(currentLat, currentLng);
+
+                // 지도의 중심을 내 위치로 셋팅
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 17));
 
                 // 마커 클릭시 이벤트 처리
                 googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -174,8 +212,6 @@ public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnInf
                         return true;
                     }
                 });
-
-                currentCount = currentCount + 1;
             }
         };
 
@@ -224,39 +260,5 @@ public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnInf
         super.onDestroy();
         sView.onLowMemory();
     }
-
-    void getNetworkData(){
-        Retrofit retrofit = NetworkClient.getRetrofitClient(getActivity());
-        HotelApi api = retrofit.create(HotelApi.class);
-
-        // 헤더에 들어갈 억세스토큰 가져오기
-        SharedPreferences sp = getActivity().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-        String accessToken = "Bearer " + sp.getString(Config.ACCESS_TOKEN, "");
-
-        offset = 0;
-
-        Call<HotelList> call = api.getNearHotel(accessToken, currentLng, currentLat, offset, limit);
-        call.enqueue(new Callback<HotelList>() {
-            @Override
-            public void onResponse(Call<HotelList> call, Response<HotelList> response) {
-                if(response.isSuccessful()){
-
-                    NearhotelList.clear();
-                    NearhotelList.addAll(response.body().getItems());
-
-                }
-                else {
-                    return;
-                }
-            }
-
-            @Override
-            public void onFailure(Call<HotelList> call, Throwable t) {
-
-            }
-        });
-
-    }
-
 
 }
