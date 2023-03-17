@@ -45,20 +45,7 @@ public class EventActivity extends AppCompatActivity {
         imgCoupon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(EventActivity.this);
-                // 이 다이얼로그의 외곽부분을 클릭했을때 사라지지 않도록 하는 코드
-                builder.setCancelable(false);
-
-                builder.setTitle("오픈기념 이벤트");
-                builder.setMessage("2,000원 오픈기념 이벤트 쿠폰을 \n쿠폰함에 쏙 넣어드렸어요~!");
-                builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    // 확인버튼 눌렀을때 실행코드 작성
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        addCoupon();
-                    }
-                });
-                builder.show();
+                addCoupon();
             }
         });
     }
@@ -77,16 +64,30 @@ public class EventActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Res> call, Response<Res> response) {
                 if (response.isSuccessful()) {
-
+                    showAlertDialog("2,000원 오픈기념 이벤트 쿠폰을 \n쿠폰함에 쏙 넣어드렸어요~!");
                 } else {
+                    showAlertDialog("쿠폰은 한번만 받을 수 있어요");
                 }
             }
 
             @Override
             public void onFailure(Call<Res> call, Throwable t) {
-
+                showAlertDialog("쿠폰은 한번만 받을 수 있어요");
             }
         });
+    }
+
+    private void showAlertDialog(String text) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(EventActivity.this);
+        // 이 다이얼로그의 외곽부분을 클릭했을때 사라지지 않도록 하는 코드
+        builder.setCancelable(false);
+
+        builder.setTitle("오픈기념 이벤트");
+        builder.setMessage(text);
+        builder.setPositiveButton("확인", null);
+        builder.show();
+
     }
 
 }
