@@ -4,6 +4,7 @@ import static android.content.Context.LOCATION_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -90,19 +91,17 @@ public class Home extends Fragment {
         }
     }
 
+    private ProgressDialog dialog;
     ImageView imgSearch;
     TextView editSearch;
     TextView txtAll;
     ImageView imgEvent;
-    LinearLayout linearLayout;
-
+    TextView txtSearch;
     RecyclerView nearRecyclerView;
     NearhotelAdapter adapter1;
     ArrayList<Hotel> NearhotelList = new ArrayList<>();
-
     RecyclerView recommendRecylerView;
-    RecommendhotelAdapter adapter2;
-    ArrayList<Hotel> reccomendhotelList = new ArrayList<>();
+
 
     // 페이징 처리를 위한 변수
     int count = 0;
@@ -130,7 +129,7 @@ public class Home extends Fragment {
         editSearch = rootView.findViewById(R.id.txtSearch);
         txtAll = rootView.findViewById(R.id.txtAll);
         imgEvent = rootView.findViewById(R.id.imgEvent);
-        linearLayout = rootView.findViewById(R.id.linearLayout);
+        txtSearch = rootView.findViewById(R.id.txtSearch);
 
 
         nearRecyclerView = rootView.findViewById(R.id.nearRecyclerView);
@@ -144,7 +143,7 @@ public class Home extends Fragment {
         // todo: 클릭 이벤트 작성하기.
 
         // 검색바 클릭시 검색 액티비티로
-        linearLayout.setOnClickListener(new View.OnClickListener() {
+        txtSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
@@ -156,7 +155,6 @@ public class Home extends Fragment {
         txtAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(getActivity(), AllNearbyHotelsActivity.class);
                 startActivity(intent);
             }
@@ -166,7 +164,6 @@ public class Home extends Fragment {
         imgEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(getActivity(), EventActivity.class);
                 startActivity(intent);
             }
@@ -210,6 +207,7 @@ public class Home extends Fragment {
     }
 
     void getNetworkData(){
+        showProgress("호텔정보 가져오는 중...");
         Retrofit retrofit = NetworkClient.getRetrofitClient(getActivity());
         HotelApi api = retrofit.create(HotelApi.class);
 
@@ -223,6 +221,8 @@ public class Home extends Fragment {
         call.enqueue(new Callback<HotelList>() {
             @Override
             public void onResponse(Call<HotelList> call, Response<HotelList> response) {
+                dismissProgress();
+
                 if(response.isSuccessful()){
 
                     NearhotelList.clear();
@@ -252,11 +252,26 @@ public class Home extends Fragment {
 
             @Override
             public void onFailure(Call<HotelList> call, Throwable t) {
+                dismissProgress();
 
             }
         });
 
     }
+
+    // 네트워크 로직처리시에 화면에 보여주는 함수
+    void showProgress(String message) {
+        dialog = new ProgressDialog(getActivity());
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage(message);
+        dialog.show();
+    }
+
+    // 로직처리가 끝나면 화면에서 사라지는 함수
+    void dismissProgress() {
+        dialog.dismiss();
+    }
+
 
 }
 
