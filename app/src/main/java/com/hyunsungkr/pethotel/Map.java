@@ -17,12 +17,9 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -31,18 +28,13 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.hyunsungkr.pethotel.adapter.NearhotelAdapter;
 import com.hyunsungkr.pethotel.api.HotelApi;
 import com.hyunsungkr.pethotel.api.NetworkClient;
 import com.hyunsungkr.pethotel.config.Config;
 import com.hyunsungkr.pethotel.model.Hotel;
 import com.hyunsungkr.pethotel.model.HotelList;
-import com.hyunsungkr.pethotel.model.Pet;
-import com.hyunsungkr.pethotel.model.Reservation;
-import com.hyunsungkr.pethotel.model.User;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;

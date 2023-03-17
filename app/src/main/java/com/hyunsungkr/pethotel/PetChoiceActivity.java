@@ -10,12 +10,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.hyunsungkr.pethotel.adapter.NearhotelAdapter;
 import com.hyunsungkr.pethotel.adapter.PetChoiceAdapter;
 import com.hyunsungkr.pethotel.api.NetworkClient;
 import com.hyunsungkr.pethotel.api.PetApi;
 import com.hyunsungkr.pethotel.config.Config;
-import com.hyunsungkr.pethotel.model.Hotel;
 import com.hyunsungkr.pethotel.model.Pet;
 import com.hyunsungkr.pethotel.model.PetInfoList;
 

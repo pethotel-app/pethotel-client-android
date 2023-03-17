@@ -98,7 +98,7 @@ public class AllnearhotelAdapter extends RecyclerView.Adapter<AllnearhotelAdapte
             txtCnt = itemView.findViewById(R.id.txtCnt);
 
 
-            // todo : imgFavorite 클릭시 좋아요 / 좋아요 취소하는 코드 작성
+
 
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override

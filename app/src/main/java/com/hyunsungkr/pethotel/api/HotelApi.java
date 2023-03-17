@@ -35,6 +35,10 @@ public interface HotelApi {
 
     // 찜 목록조회하는 API
 
+    // 추천된 호텔 가져오는 API
+    @GET("/hotel/recommend")
+    Call<HotelList> getRecommendHotel(@Header("Authorization") String token, @Query("count") int count);
+
 
 
 }

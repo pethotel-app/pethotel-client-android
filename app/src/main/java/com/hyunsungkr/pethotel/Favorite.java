@@ -11,14 +11,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.hyunsungkr.pethotel.adapter.AllnearhotelAdapter;
 import com.hyunsungkr.pethotel.adapter.FavoriteAdapter;
-import com.hyunsungkr.pethotel.adapter.NearhotelAdapter;
 import com.hyunsungkr.pethotel.api.FavoriteApi;
 import com.hyunsungkr.pethotel.api.HotelApi;
 import com.hyunsungkr.pethotel.api.NetworkClient;

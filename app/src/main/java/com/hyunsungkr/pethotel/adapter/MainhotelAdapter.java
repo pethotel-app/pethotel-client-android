@@ -17,7 +17,7 @@ import com.hyunsungkr.pethotel.model.Hotel;
 
 import java.util.ArrayList;
 
-public class NearhotelAdapter extends RecyclerView.Adapter<NearhotelAdapter.ViewHolder> {
+public class MainhotelAdapter extends RecyclerView.Adapter<MainhotelAdapter.ViewHolder> {
 
     Context context;
     ArrayList<Hotel> NearhotelList;
@@ -35,7 +35,7 @@ public class NearhotelAdapter extends RecyclerView.Adapter<NearhotelAdapter.View
         this.listener = listener;
     }
 
-    public NearhotelAdapter(Context context, ArrayList<Hotel> nearhotelList) {
+    public MainhotelAdapter(Context context, ArrayList<Hotel> nearhotelList) {
         this.context = context;
         NearhotelList = nearhotelList;
     }

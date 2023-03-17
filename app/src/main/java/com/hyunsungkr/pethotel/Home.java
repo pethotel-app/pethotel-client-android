@@ -5,7 +5,6 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.Manifest;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -24,13 +23,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.hyunsungkr.pethotel.adapter.NearhotelAdapter;
-import com.hyunsungkr.pethotel.adapter.RecommendhotelAdapter;
+import com.hyunsungkr.pethotel.adapter.MainhotelAdapter;
 import com.hyunsungkr.pethotel.api.HotelApi;
 import com.hyunsungkr.pethotel.api.NetworkClient;
 import com.hyunsungkr.pethotel.config.Config;
@@ -98,9 +94,13 @@ public class Home extends Fragment {
     ImageView imgEvent;
     TextView txtSearch;
     RecyclerView nearRecyclerView;
-    NearhotelAdapter adapter1;
+    MainhotelAdapter adapter1;
     ArrayList<Hotel> NearhotelList = new ArrayList<>();
     RecyclerView recommendRecylerView;
+
+    MainhotelAdapter adapter2;
+
+    ArrayList<Hotel> RecommendhotelList = new ArrayList<>();
 
 
     // 페이징 처리를 위한 변수
@@ -138,7 +138,7 @@ public class Home extends Fragment {
 
         recommendRecylerView = rootView.findViewById(R.id.recommendRecyclerView);
         recommendRecylerView.setHasFixedSize(true);
-        recommendRecylerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recommendRecylerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,false));
 
         // todo: 클릭 이벤트 작성하기.
 
@@ -185,6 +185,7 @@ public class Home extends Fragment {
 
                 if(currentCount == 0){
                     getNetworkData();
+                    getNetworkData2();
                 }
                 currentCount = currentCount + 1;
 
@@ -203,13 +204,66 @@ public class Home extends Fragment {
         // 위치기반으로 GPS 정보 가져오는 코드를 실행하는 부분
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, -1, locationListener);
 
+
         return rootView;
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
         getNetworkData();
+        getNetworkData2();
+
+
+
+
+    }
+
+    void getNetworkData2(){
+        Retrofit retrofit = NetworkClient.getRetrofitClient(getActivity());
+        HotelApi api = retrofit.create(HotelApi.class);
+
+        SharedPreferences sp = getActivity().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String accessToken = "Bearer " + sp.getString(Config.ACCESS_TOKEN, "");
+
+        Call<HotelList> call = api.getRecommendHotel(accessToken,5);
+        call.enqueue(new Callback<HotelList>() {
+            @Override
+            public void onResponse(Call<HotelList> call, Response<HotelList> response) {
+                if(response.isSuccessful()){
+                    RecommendhotelList.clear();
+                    RecommendhotelList.addAll(response.body().getItems());
+                    adapter2 = new MainhotelAdapter(getActivity(),RecommendhotelList);
+
+                    adapter2.setOnItemClickListener(new MainhotelAdapter.OnItemClickListener() {
+                        @Override
+                        public void onImageClick(int index) {
+
+                            Hotel hotel = RecommendhotelList.get(index);
+                            Intent intent = new Intent(getActivity(), HotelInfoActivity.class);
+                            intent.putExtra("hotel",hotel);
+                            startActivity(intent);
+
+                        }
+                    });
+
+                    recommendRecylerView.setAdapter(adapter2);
+                    adapter2.notifyDataSetChanged();
+                    Log.i(RecommendhotelList+"","Hotel_List : ");
+                }else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<HotelList> call, Throwable t) {
+
+
+            }
+        });
+
+
     }
 
     void getNetworkData(){
@@ -236,9 +290,9 @@ public class Home extends Fragment {
                     count = response.body().getCount();
                     NearhotelList.addAll(response.body().getItems());
 
-                    adapter1 = new NearhotelAdapter(getActivity(),NearhotelList);
+                    adapter1 = new MainhotelAdapter(getActivity(),NearhotelList);
 
-                    adapter1.setOnItemClickListener(new NearhotelAdapter.OnItemClickListener() {
+                    adapter1.setOnItemClickListener(new MainhotelAdapter.OnItemClickListener() {
                         @Override
                         public void onImageClick(int index) {
 
