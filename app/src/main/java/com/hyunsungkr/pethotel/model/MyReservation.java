@@ -15,6 +15,15 @@ public class MyReservation implements Serializable {
     private String createdAt;
     private String updatedAt;
     private String title;
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getId() {
         return id;

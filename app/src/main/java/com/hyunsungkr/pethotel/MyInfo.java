@@ -178,7 +178,21 @@ public class MyInfo extends Fragment {
         imgMyFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // todo : 프래그먼트 -> 프래그먼트 이동하는 코드 작성.
+
+                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment, new Favorite());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+            }
+        });
+
+        txtPetRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),PetRegister.class);
+                startActivity(intent);
             }
         });
 

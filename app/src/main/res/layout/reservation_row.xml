@@ -19,7 +19,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView26"
+                android:id="@+id/txtTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
@@ -28,7 +28,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/textView27"
+                android:id="@+id/txtDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
@@ -36,7 +36,6 @@
                 android:text="예약기간" />
 
             <TextView
-                android:id="@+id/textView28"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
@@ -44,7 +43,7 @@
                 android:text="예약 등록한 반려동물" />
 
             <TextView
-                android:id="@+id/textView29"
+                android:id="@+id/txtPetName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
@@ -60,7 +59,7 @@
                 android:text="기타입력사항" />
 
             <TextView
-                android:id="@+id/textView31"
+                android:id="@+id/txtContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
@@ -68,7 +67,7 @@
                 android:text="입력사항" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/btnCancle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"

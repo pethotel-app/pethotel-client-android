@@ -209,6 +209,12 @@ public class Home extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getNetworkData();
+    }
+
     void getNetworkData(){
         Retrofit retrofit = NetworkClient.getRetrofitClient(getActivity());
         HotelApi api = retrofit.create(HotelApi.class);
