@@ -83,6 +83,7 @@ public class HotelInfoActivity extends AppCompatActivity {
     private Hotel hotel;
 
     private int hotelId;
+    int hotelId2;
     String accessToken;
 
     Hotel intentHotel;
@@ -152,9 +153,12 @@ public class HotelInfoActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
         accessToken = "Bearer " + sp.getString(Config.ACCESS_TOKEN, "");
 
-        // 메인에서 인텐트로 호텔 정보 받아와서 아이디 저장
-        intentHotel = (Hotel) getIntent().getSerializableExtra("hotel");
-        hotelId = intentHotel.getId();
+
+
+            // 메인에서 인텐트로 호텔 정보 받아와서 아이디 저장
+            intentHotel = (Hotel) getIntent().getSerializableExtra("hotel");
+            hotelId = intentHotel.getId();
+
 
         // 리뷰 갯수 표시
         String reviewCnt = String.valueOf(intentHotel.getCnt());

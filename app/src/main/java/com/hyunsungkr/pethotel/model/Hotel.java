@@ -42,6 +42,16 @@ public class Hotel implements Serializable {
         this.favorite = favorite;
     }
 
+    // 검색 호텔 리스트
+    public Hotel(int id, String title, String imgUrl,double avg,int cnt, int favorite){
+        this.id = id;
+        this.title = title;
+        this.imgUrl = imgUrl;
+        this.avg = avg;
+        this.cnt = cnt;
+        this.favorite = favorite;
+    }
+
     public int getId() {
         return id;
     }
