@@ -1,6 +1,8 @@
 package com.hyunsungkr.pethotel;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -14,6 +16,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hyunsungkr.pethotel.adapter.SearchHotelAdapter;
+import com.hyunsungkr.pethotel.adapter.SearchRankAdapter;
 import com.hyunsungkr.pethotel.api.HotelApi;
 import com.hyunsungkr.pethotel.api.KeywordApi;
 import com.hyunsungkr.pethotel.api.NetworkClient;
@@ -44,6 +48,7 @@ public class SearchActivity extends AppCompatActivity {
     ImageView imgBack;
     ImageView imgSearch;
     EditText editKeyword;
+
     TextView txtDateStart;
     TextView txtDateEnd;
     String startDate;
@@ -55,16 +60,23 @@ public class SearchActivity extends AppCompatActivity {
     Reservation reservation;
     ArrayList<Keyword> keywordRankList = new ArrayList<>();
     int offset = 0;
-    int limit = 5;
-    int count = 0;
+    int limit = 10;
+
+
+    SearchRankAdapter adapter;
+    RecyclerView recyclerView;
+    List<Keyword> searchRankList;
 
     String accessToken;
     ArrayList<Hotel> searchList = new ArrayList<>();
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         setContentView(R.layout.activity_search);
         imgBack = findViewById(R.id.imgBack);
@@ -72,6 +84,15 @@ public class SearchActivity extends AppCompatActivity {
         txtDateEnd = findViewById(R.id.txtDateEnd);
         txtDateStart  = findViewById(R.id.txtDateStart);
         editKeyword = findViewById(R.id.editKeyword);
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+
+
+
+
+
 
         // 토큰 가져오기
         SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
@@ -110,6 +131,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        getRankNetworkDate();
     }
     private void showDatePicker() {
         // 시작일 선택창
@@ -246,19 +268,21 @@ public class SearchActivity extends AppCompatActivity {
     }
     // 검색어 순위 가져오기
     void getRankNetworkDate(){
-        offset = 0;
-        limit = 5;
         Retrofit retrofit = NetworkClient.getRetrofitClient(SearchActivity.this);
         KeywordApi api = retrofit.create(KeywordApi.class);
-        Call<KeywordList> call = api.getKeywordRank("03-06",offset,limit);
+        Call<KeywordList> call = api.getKeywordRank("03-20",offset,limit);
 
+        // 비동기적으로 요청을 보낸다.
         call.enqueue(new Callback<KeywordList>() {
             @Override
             public void onResponse(Call<KeywordList> call, Response<KeywordList> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     KeywordList keywordList = response.body();
                     keywordRankList.addAll(keywordList.getItems());
-                    
+
+                    // 어댑터 생성하여 RecyclerView에 설정
+                    adapter = new SearchRankAdapter(SearchActivity.this, keywordRankList);
+                    recyclerView.setAdapter(adapter);
                 }
             }
 
