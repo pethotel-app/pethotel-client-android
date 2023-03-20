@@ -9,6 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface CouponApi {
 
@@ -17,7 +18,9 @@ public interface CouponApi {
                         @Header("Authorization") String token);
 
     @GET("/benefit/coupon")
-    Call<CouponList> couponList(@Header("Authorization") String token);
+    Call<CouponList> couponList(@Header("Authorization") String token,
+                                @Query("offset") int offset,
+                                @Query("limit") int limit);
 
     @PUT("/benefit/coupon/{couponId}")
     Call<Res> addCoupon(@Path("couponId") int couponId,

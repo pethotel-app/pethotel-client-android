@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hyunsungkr.pethotel.R;
 import com.hyunsungkr.pethotel.model.MyReservation;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class MyReservationAdapter extends RecyclerView.Adapter<MyReservationAdapter.ViewHolder> {
@@ -68,7 +66,7 @@ public class MyReservationAdapter extends RecyclerView.Adapter<MyReservationAdap
 
             txtTitle = itemView.findViewById(R.id.txtTitle);
             txtDate = itemView.findViewById(R.id.txtDate);
-            txtPetName = itemView.findViewById(R.id.txtPetName);
+            txtPetName = itemView.findViewById(R.id.txtSearchHotel);
             txtContent = itemView.findViewById(R.id.txtContent);
             btnCancle = itemView.findViewById(R.id.btnCancle);
 

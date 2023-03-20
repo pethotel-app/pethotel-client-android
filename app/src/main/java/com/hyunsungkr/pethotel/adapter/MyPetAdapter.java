@@ -15,8 +15,6 @@ import com.bumptech.glide.Glide;
 import com.hyunsungkr.pethotel.R;
 import com.hyunsungkr.pethotel.model.Pet;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class MyPetAdapter extends RecyclerView.Adapter<MyPetAdapter.ViewHolder> {
@@ -100,7 +98,7 @@ public class MyPetAdapter extends RecyclerView.Adapter<MyPetAdapter.ViewHolder> 
 
             cardView = itemView.findViewById(R.id.cardView);
             imgProfile = itemView.findViewById(R.id.imgProfile);
-            txtPetName = itemView.findViewById(R.id.txtPetName);
+            txtPetName = itemView.findViewById(R.id.txtSearchHotel);
             txtPetGender = itemView.findViewById(R.id.txtPetGender);
             txtPetClassfication = itemView.findViewById(R.id.txtPetClassification);
             txtSpecies = itemView.findViewById(R.id.txtSpecies);

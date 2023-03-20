@@ -43,7 +43,7 @@
                 android:text="예약 등록한 반려동물" />
 
             <TextView
-                android:id="@+id/txtPetName"
+                android:id="@+id/txtSearchHotel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"

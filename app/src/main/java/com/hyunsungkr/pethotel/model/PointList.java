@@ -7,6 +7,15 @@ public class PointList implements Serializable {
 
     private String result;
     private List<Point> items;
+    private int count;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 
     public String getResult() {
         return result;

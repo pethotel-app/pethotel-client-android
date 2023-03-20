@@ -10,6 +10,15 @@ public class Point implements Serializable {
     private int addPoint;
     private int totalPoint;
     private String createdAt;
+    private int isEarn;
+
+    public int getIsEarn() {
+        return isEarn;
+    }
+
+    public void setIsEarn(int isEarn) {
+        this.isEarn = isEarn;
+    }
 
     public int getId() {
         return id;
