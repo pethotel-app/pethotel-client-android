@@ -49,6 +49,9 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -239,16 +242,19 @@ public class UpdatePetActivity extends AppCompatActivity {
                 SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
                 String accessToken = "Bearer " + sp.getString(Config.ACCESS_TOKEN, "");
 
-                // todo 펫 이미지 url처리 어떻게 하지
-                Pet pet = new Pet();
-                pet.setName(name);
-                pet.setClassification(classification);
-                pet.setSpecies(species);
-                pet.setAge(age);
-                pet.setWeight(weight);
-                pet.setGender(gender);
+                // 멀티파트로 파일을 보내는 경우, 파일 파라미터를 만든다
+                RequestBody fileBody = RequestBody.create(photoFile, MediaType.parse("image/*"));
+                MultipartBody.Part photo = MultipartBody.Part.createFormData("photo", photoFile.getName(), fileBody);
 
-                Call<Res> call = api.addPet(accessToken, pet);
+                RequestBody nameBody = RequestBody.create(name, MediaType.parse("text/plain"));
+                RequestBody classificationBody = RequestBody.create(String.valueOf(classification), MediaType.parse("text/plain"));
+                RequestBody speciesBody = RequestBody.create(species, MediaType.parse("text/plain"));
+                RequestBody ageBody = RequestBody.create(String.valueOf(age), MediaType.parse("text/plain"));
+                RequestBody weightBody = RequestBody.create(String.valueOf(weight), MediaType.parse("text/plain"));
+                RequestBody genderBody = RequestBody.create(String.valueOf(gender), MediaType.parse("text/plain"));
+
+                Call<Res> call = api.updatePet(accessToken, pet.getId(), photo, nameBody, classificationBody, speciesBody, ageBody,
+                        weightBody, genderBody);
                 call.enqueue(new Callback<Res>() {
                     @Override
                     public void onResponse(Call<Res> call, Response<Res> response) {
