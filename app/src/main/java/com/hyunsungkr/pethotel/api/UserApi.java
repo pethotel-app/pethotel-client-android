@@ -1,6 +1,7 @@
 package com.hyunsungkr.pethotel.api;
 
 import com.hyunsungkr.pethotel.model.Check;
+import com.hyunsungkr.pethotel.model.Res;
 import com.hyunsungkr.pethotel.model.User;
 import com.hyunsungkr.pethotel.model.UserMyPageRes;
 import com.hyunsungkr.pethotel.model.UserRes;
@@ -30,6 +31,15 @@ public interface UserApi {
 
     @GET("/user/mypage")
     Call<UserMyPageRes> userMypage(@Header("Authorization") String token);
+
+    @POST("/user/id/search")
+    Call<UserRes> searchId(@Body User user);
+
+    @POST("/user/password/search")
+    Call<UserRes> searchPassword(@Body User user);
+
+    @POST("/user/change/password")
+    Call<Res> changePassword(@Body User user);
 
 
 }

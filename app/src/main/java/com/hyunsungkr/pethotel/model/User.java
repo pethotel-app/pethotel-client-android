@@ -9,6 +9,7 @@ public class User implements Serializable {
     private String phone;
     private String email;
     private String password;
+    private String newPassword;
     private String createdAt;
     private String updatedAt;
     private String userImgUrl;
@@ -26,17 +27,6 @@ public class User implements Serializable {
     public User(String email, String password) {
         this.email = email;
         this.password = password;
-    }
-
-    public User(int id, String name, String phone, String email, String password, String createdAt, String updatedAt, String userImgUrl) {
-        this.id = id;
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.password = password;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.userImgUrl = userImgUrl;
     }
 
     public int getId() {
@@ -101,5 +91,13 @@ public class User implements Serializable {
 
     public void setUserImgUrl(String userImgUrl) {
         this.userImgUrl = userImgUrl;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 }
