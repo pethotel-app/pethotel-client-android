@@ -39,6 +39,7 @@ public class User implements Serializable {
         this.userImgUrl = userImgUrl;
     }
 
+
     public int getId() {
         return id;
     }

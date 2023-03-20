@@ -2,4 +2,12 @@
     <string name="app_name">Pethotel</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="cancel_reasons">
+        <item>취소 사유를 선택해주세요.</item>
+        <item>일정 변경</item>
+        <item>단순 변심</item>
+        <item>가격이 부담됨</item>
+        <item>예약정보 잘못 입력</item>
+    </string-array>
 </resources>

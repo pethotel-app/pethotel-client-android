@@ -5,11 +5,14 @@ import com.hyunsungkr.pethotel.model.User;
 import com.hyunsungkr.pethotel.model.UserMyPageRes;
 import com.hyunsungkr.pethotel.model.UserRes;
 
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public interface UserApi {
 
@@ -30,6 +33,14 @@ public interface UserApi {
 
     @GET("/user/mypage")
     Call<UserMyPageRes> userMypage(@Header("Authorization") String token);
+
+    // 내정보 수정(이름, 이메일)
+    @PUT("/user/info")
+    Call<UserRes> userChangeName(@Header("Authorization") String token,
+                                 @Body User user );
+    // 내정보 수정 (비밀번호)
+    @POST("/user/change/password")
+    Call<UserRes> changePassword(@Header("Authorization") String token,@Body Map<String, String> body);
 
 
 }
