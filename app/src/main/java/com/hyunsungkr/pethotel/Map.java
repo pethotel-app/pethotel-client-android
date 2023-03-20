@@ -7,6 +7,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -25,6 +26,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -170,7 +172,8 @@ public class Map extends Fragment implements OnMapReadyCallback, GoogleMap.OnInf
                             for (int i = 0; i < listSize && i <= 10; i++) {
                                 Hotel hotel = NearhotelList.get(i);
                                 googleMap.addMarker(new MarkerOptions().position(new LatLng(hotel.getLatitude(), hotel.getLongtitude()))
-                                        .title(hotel.getTitle()).snippet(hotel.getAddr())).setTag(i);
+                                        .title(hotel.getTitle()).snippet(hotel.getAddr())
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))).setTag(i);
                             }
 
                         }
