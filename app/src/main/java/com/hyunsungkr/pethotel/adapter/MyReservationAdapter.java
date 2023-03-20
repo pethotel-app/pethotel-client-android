@@ -1,6 +1,7 @@
 package com.hyunsungkr.pethotel.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hyunsungkr.pethotel.CancelActivity;
 import com.hyunsungkr.pethotel.R;
 import com.hyunsungkr.pethotel.model.MyReservation;
 
@@ -21,6 +23,8 @@ public class MyReservationAdapter extends RecyclerView.Adapter<MyReservationAdap
 
     Context context;
     ArrayList<MyReservation> MyReservationList;
+
+    MyReservation myReservation;
 
     public MyReservationAdapter(Context context, ArrayList<MyReservation> myReservationList) {
         this.context = context;
@@ -38,7 +42,7 @@ public class MyReservationAdapter extends RecyclerView.Adapter<MyReservationAdap
     @Override
     public void onBindViewHolder(@NonNull MyReservationAdapter.ViewHolder holder, int position) {
 
-        MyReservation myReservation = MyReservationList.get(position);
+        myReservation = MyReservationList.get(position);
 
         holder.txtTitle.setText(myReservation.getTitle());
         holder.txtContent.setText(myReservation.getContent());
@@ -75,7 +79,9 @@ public class MyReservationAdapter extends RecyclerView.Adapter<MyReservationAdap
             btnCancle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // todo: 취소버튼 클릭시, 취소 액티비티 생성하면 intent로 넘겨주기.
+                    Intent intent = new Intent(context, CancelActivity.class);
+                    intent.putExtra("myReservation",myReservation);
+                    context.startActivity(intent);
                 }
             });
 
