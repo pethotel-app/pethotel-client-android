@@ -12,6 +12,9 @@ public class Review implements Serializable {
     private String ImgUrl;
     private String createdAt;
     private String updatedAt;
+    private String title;
+    private String name;
+    private String userImgUrl;
 
     public int getId() {
         return id;
@@ -75,5 +78,29 @@ public class Review implements Serializable {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUserImgUrl() {
+        return userImgUrl;
+    }
+
+    public void setUserImgUrl(String userImgUrl) {
+        this.userImgUrl = userImgUrl;
     }
 }
