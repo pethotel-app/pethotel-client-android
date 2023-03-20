@@ -22,11 +22,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.hyunsungkr.pethotel.adapter.FavoriteAdapter;
 import com.hyunsungkr.pethotel.adapter.MyPetAdapter;
 import com.hyunsungkr.pethotel.api.NetworkClient;
 import com.hyunsungkr.pethotel.api.PetApi;
 import com.hyunsungkr.pethotel.api.UserApi;
 import com.hyunsungkr.pethotel.config.Config;
+import com.hyunsungkr.pethotel.model.Hotel;
 import com.hyunsungkr.pethotel.model.Pet;
 import com.hyunsungkr.pethotel.model.PetInfoList;
 import com.hyunsungkr.pethotel.model.UserMyPage;
@@ -221,18 +223,11 @@ public class MyInfo extends Fragment {
             @Override
             public void onResponse(Call<UserMyPageRes> call, Response<UserMyPageRes> response) {
                 if(response.isSuccessful()){
-
-
-
                     mypageList.addAll(response.body().getItems());
-
                     txtName.setText(mypageList.get(0).getName());
                     txtPoint.setText(mypageList.get(0).getTotalPoint()+"");
                     txtCoupon.setText(mypageList.get(0).getCntCoupon()+"");
                     Glide.with(getActivity()).load(mypageList.get(0).getUserImgUrl()).placeholder(R.drawable.icon2).into(imgPhoto);
-
-
-
 
                 }else{
                     return;
@@ -266,6 +261,15 @@ public class MyInfo extends Fragment {
                     petList.addAll(response.body().getItems());
 
                     adapter = new MyPetAdapter(getActivity(),petList);
+                    adapter.setOnItemClickListener(new MyPetAdapter.OnItemClickListener() {
+                        @Override
+                        public void onCardViewClick(int index) {
+                            Pet pet = petList.get(index);
+                            Intent intent = new Intent(getActivity(), UpdatePetActivity.class);
+                            intent.putExtra("pet", pet);
+                            startActivity(intent);
+                        }
+                    });
                     recyclerView.setAdapter(adapter);
 
                 }else{

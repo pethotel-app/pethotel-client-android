@@ -1,4 +1,4 @@
-package com.hyunsungkr.pethotel;
+    package com.hyunsungkr.pethotel;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,7 +20,7 @@ public class IntroActivity extends AppCompatActivity {
                 startActivity(intent); //인트로 실행 후 바로 MainActivity로 넘어감.
                 finish();
             }
-        }, 2000); //1초 후 인트로 실행
+        }, 500); // 0.5초
     }
 
     @Override

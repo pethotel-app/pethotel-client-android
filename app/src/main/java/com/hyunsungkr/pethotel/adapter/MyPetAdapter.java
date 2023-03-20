@@ -24,8 +24,8 @@ public class MyPetAdapter extends RecyclerView.Adapter<MyPetAdapter.ViewHolder> 
     Context context;
     ArrayList<Pet> petList;
 
-    public interface OnItemClickListener{
-        void onCardviewClick(int index);
+    public interface OnItemClickListener {
+        void onCardViewClick(int index);
     }
     public OnItemClickListener listener;
     public void setOnItemClickListener(OnItemClickListener listener){
@@ -53,26 +53,20 @@ public class MyPetAdapter extends RecyclerView.Adapter<MyPetAdapter.ViewHolder> 
         holder.txtAge.setText(pet.getAge()+"살 ");
         holder.txtWeight.setText(pet.getWeight()+"kg");
         holder.txtSpecies.setText(pet.getSpecies());
-
-
+        Glide.with(context).load(pet.getPetImgUrl()).placeholder(R.drawable.icon2).into(holder.imgProfile);
 
         // 반려동물 성별
-        if(pet.getGender()==0){
+        if(pet.getGender() == 0){
             holder.txtPetGender.setText("남");
         }else{
             holder.txtPetGender.setText("여");
         }
         // 반려동물 분류
-        if(pet.getClassification()==1){
+        if(pet.getClassification() == 0){
             holder.txtPetClassfication.setText("강아지");
         }else{
             holder.txtPetClassfication.setText("고양이");
         }
-
-
-
-        Glide.with(context).load(pet.getPetImgUrl()).placeholder(R.drawable.icon2).into(holder.imgProfile);
-
 
     }
 
@@ -107,10 +101,13 @@ public class MyPetAdapter extends RecyclerView.Adapter<MyPetAdapter.ViewHolder> 
             txtAge = itemView.findViewById(R.id.txtAge);
             txtWeight = itemView.findViewById(R.id.txtWeight);
 
-            // todo : 카드뷰 클릭시 반려동물 수정 페이지로 넘어가자~!
-
-
-
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int index = getAdapterPosition();
+                    listener.onCardViewClick(index);
+                }
+            });
 
         }
     }
