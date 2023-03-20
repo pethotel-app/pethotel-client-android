@@ -103,10 +103,10 @@ public class Pet implements Serializable {
 
     // 성별 int값에 따라 String으로 변환하여 반환하는 메소드
     public String getGenderString() {
-        if (gender == 1) {
-            return "수컷";
-        } else if (gender == 2) {
-            return "암컷";
+        if (gender == 0) {
+            return "남";
+        } else if (gender == 1) {
+            return "여";
         } else {
             return "기타";
         }
@@ -114,9 +114,9 @@ public class Pet implements Serializable {
 
     // 분류 int값에 따라 String으로 변환하여 반환하는 메소드
     public String getClassificationString() {
-        if (classification == 1) {
+        if (classification == 0) {
             return "강아지";
-        } else if (classification == 2) {
+        } else if (classification == 1) {
             return "고양이";
         } else {
             return "기타";

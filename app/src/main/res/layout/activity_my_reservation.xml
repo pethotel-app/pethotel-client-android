@@ -40,7 +40,7 @@
                 android:gravity="center"
                 android:text="내 예약정보 확인"
                 android:textColor="#000000"
-                android:textSize="20sp" />
+                android:textSize="17sp" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
