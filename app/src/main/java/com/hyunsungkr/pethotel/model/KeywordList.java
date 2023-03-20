@@ -6,7 +6,7 @@ import java.util.List;
 public class KeywordList implements Serializable {
 
     private String result;
-    private List<Keyword> hotel;
+    private List<Keyword> items;
     private int count;
 
     public String getResult() {
@@ -17,12 +17,12 @@ public class KeywordList implements Serializable {
         this.result = result;
     }
 
-    public List<Keyword> getHotel() {
-        return hotel;
+    public List<Keyword> getItems() {
+        return items;
     }
 
-    public void setHotel(List<Keyword> hotel) {
-        this.hotel = hotel;
+    public void setItems(List<Keyword> items) {
+        this.items = items;
     }
 
     public int getCount() {
