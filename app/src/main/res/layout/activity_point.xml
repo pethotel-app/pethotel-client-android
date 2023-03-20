@@ -82,52 +82,12 @@
             android:textColor="#000000"
             android:textSize="16sp" />
 
-        <LinearLayout
-            android:id="@+id/middle3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/middle2"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/txtAdd"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="3dp"
-                android:background="@drawable/edittext2"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="적립내역"
-                android:textColor="#000000"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/txtUse"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="3dp"
-                android:background="@drawable/edittext2"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="사용내역"
-                android:textColor="#000000"
-                android:textSize="14sp" />
-        </LinearLayout>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/middle3"
-            android:layout_marginTop="10dp" />
+            android:layout_below="@id/middle2"
+            android:layout_marginTop="20dp" />
 
         <TextView
             android:id="@+id/txtMore"

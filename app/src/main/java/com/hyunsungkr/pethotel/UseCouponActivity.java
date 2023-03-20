@@ -36,6 +36,9 @@ public class UseCouponActivity extends AppCompatActivity {
     UseCouponAdapter adapter;
     ArrayList<Coupon> couponArrayList = new ArrayList<>();
 
+    int offset = 0;
+    int limit = 10;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +57,8 @@ public class UseCouponActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
         String accessToken = "Bearer " + sp.getString(Config.ACCESS_TOKEN, "");
 
-        Call<CouponList> call = api.couponList(accessToken);
+
+        Call<CouponList> call = api.couponList(accessToken,offset,limit);
         call.enqueue(new Callback<CouponList>() {
             @Override
             public void onResponse(Call<CouponList> call, Response<CouponList> response) {

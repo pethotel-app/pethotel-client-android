@@ -10,6 +10,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface PointApi {
 
@@ -19,4 +20,10 @@ public interface PointApi {
     @POST("/benefit/addPoint")
     Call<Res> usePoint(@Header("Authorization") String token,
                        @Body Point point);
+
+    // 내 포인트 조회 API
+    @GET("/benefit/point")
+    Call<PointList> getMyPoint(@Header("Authorization") String token,
+                               @Query("offset") int offset,
+                               @Query("limit") int limit);
 }
