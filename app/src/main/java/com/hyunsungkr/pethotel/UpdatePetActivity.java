@@ -32,13 +32,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.hyunsungkr.pethotel.api.NetworkClient;
 import com.hyunsungkr.pethotel.api.PetApi;
-import com.hyunsungkr.pethotel.api.ReservationApi;
 import com.hyunsungkr.pethotel.config.Config;
 import com.hyunsungkr.pethotel.model.Pet;
 import com.hyunsungkr.pethotel.model.Res;
-import com.hyunsungkr.pethotel.model.Reservation;
 
 import org.apache.commons.io.IOUtils;
 
@@ -58,7 +57,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class PetRegister extends AppCompatActivity {
+public class UpdatePetActivity extends AppCompatActivity {
 
     private ProgressDialog dialog;
     ImageView imgBack;
@@ -73,13 +72,23 @@ public class PetRegister extends AppCompatActivity {
     TextView txtFemale;
     Button btnSave;
     File photoFile;
-    int speciesType = -1;
+    int ClassificationType = -1;
     int genderType = -1;
+    Pet pet;
+    RequestBody nameBody;
+    RequestBody classificationBody;
+    RequestBody speciesBody;
+    RequestBody ageBody;
+    RequestBody weightBody;
+    RequestBody genderBody;
+    RequestBody petImgUrlBody;
+    MultipartBody.Part photo;
+    String petImgUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pet_register);
+        setContentView(R.layout.activity_update_pet);
 
         imgBack = findViewById(R.id.imgBack);
         imgAdd = findViewById(R.id.imgAdd);
@@ -101,6 +110,43 @@ public class PetRegister extends AppCompatActivity {
             }
         });
 
+        // 누른 반려동물의 정보를 받아와서 셋팅한다
+        pet = (Pet) getIntent().getSerializableExtra("pet");
+        petImgUrl = pet.getPetImgUrl();
+
+        // 사진 셋팅
+        Glide.with(UpdatePetActivity.this).load(petImgUrl).placeholder(R.drawable.icon2).into(imgAdd);
+
+        // 받아온 정보 셋팅
+        editName.setText(pet.getName());
+        editSpecies.setText(pet.getSpecies());
+        editAge.setText(pet.getAge()+"");
+        editWeight.setText(pet.getWeight()+"");
+
+        if (pet.getClassification() == 0) {
+            // 0이면 강아지, 1이면 고양이
+            ClassificationType = 0;
+            txtDog.setBackgroundResource(R.drawable.edittext3);
+            txtDog.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+        } else {
+            ClassificationType = 1;
+            txtCat.setBackgroundResource(R.drawable.edittext3);
+            txtCat.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+        }
+
+        if (pet.getGender() == 0) {
+            // 0이면 남, 1이면 여
+            genderType = 0;
+            txtMale.setBackgroundResource(R.drawable.edittext3);
+            txtMale.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+        } else {
+            genderType = 1;
+            txtFemale.setBackgroundResource(R.drawable.edittext3);
+            txtFemale.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+        }
+
+        // 아래 코드는 수정시 입력받는 정보
+
         // 반려동물 사진받기
         imgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +164,7 @@ public class PetRegister extends AppCompatActivity {
                 txtCat.setBackgroundResource(R.drawable.edittext2);
                 txtDog.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
                 txtCat.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
-                speciesType = 0;
+                ClassificationType = 0;
             }
         });
 
@@ -130,7 +176,7 @@ public class PetRegister extends AppCompatActivity {
                 txtDog.setBackgroundResource(R.drawable.edittext2);
                 txtCat.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
                 txtDog.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
-                speciesType = 1;
+                ClassificationType = 1;
             }
         });
 
@@ -162,22 +208,16 @@ public class PetRegister extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                // 사진이 선택 되었는지 확인
-                if(photoFile == null){
-                    Toast.makeText(PetRegister.this, "반려동물 사진은 필수입니다.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
                 // 이름 정보 가져오기
                 String name = editName.getText().toString().trim();
                 if (name == "") {
-                    Toast.makeText(PetRegister.this, "정보를 다 입력해주세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdatePetActivity.this, "정보를 다 입력해주세요", Toast.LENGTH_SHORT).show();
                 }
 
                 // 종류(강아지, 고양이) 정보 가져오기
-                int classification = speciesType;
+                int classification = ClassificationType;
                 if (classification == -1) {
-                    Toast.makeText(PetRegister.this, "종류를 선택해주세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdatePetActivity.this, "종류를 선택해주세요", Toast.LENGTH_SHORT).show();
                 }
 
                 // 종 정보 가져오기
@@ -188,61 +228,73 @@ public class PetRegister extends AppCompatActivity {
                 int weight = Integer.parseInt(editWeight.getText().toString().trim());
 
                 if (species == "" && age == 0 && weight == 0) {
-                    Toast.makeText(PetRegister.this, "정보를 다 입력해주세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdatePetActivity.this, "정보를 다 입력해주세요", Toast.LENGTH_SHORT).show();
                 }
 
                 // 성별 정보 가져오기
                 int gender = genderType;
                 if (gender == -1) {
-                    Toast.makeText(PetRegister.this, "성별을 선택해주세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdatePetActivity.this, "성별을 선택해주세요", Toast.LENGTH_SHORT).show();
                 }
 
-                showProgress("반려동물 정보 저장 중...");
-                // 반려동물 저장 API 호출
-                Retrofit retrofit = NetworkClient.getRetrofitClient(PetRegister.this);
-                PetApi api = retrofit.create(PetApi.class);
-
-                // 헤더에 들어갈 억세스토큰 가져오기
-                SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-                String accessToken = "Bearer " + sp.getString(Config.ACCESS_TOKEN, "");
-
                 // 멀티파트로 파일을 보내는 경우, 파일 파라미터를 만든다
-                RequestBody fileBody = RequestBody.create(photoFile, MediaType.parse("image/*"));
-                MultipartBody.Part photo = MultipartBody.Part.createFormData("photo", photoFile.getName(), fileBody);
+                nameBody = RequestBody.create(name, MediaType.parse("text/plain"));
+                classificationBody = RequestBody.create(String.valueOf(classification), MediaType.parse("text/plain"));
+                speciesBody = RequestBody.create(species, MediaType.parse("text/plain"));
+                ageBody = RequestBody.create(String.valueOf(age), MediaType.parse("text/plain"));
+                weightBody = RequestBody.create(String.valueOf(weight), MediaType.parse("text/plain"));
+                genderBody = RequestBody.create(String.valueOf(gender), MediaType.parse("text/plain"));
+                petImgUrlBody = RequestBody.create(petImgUrl, MediaType.parse("text/plain"));
 
-                RequestBody nameBody = RequestBody.create(name, MediaType.parse("text/plain"));
-                RequestBody classificationBody = RequestBody.create(String.valueOf(classification), MediaType.parse("text/plain"));
-                RequestBody speciesBody = RequestBody.create(species, MediaType.parse("text/plain"));
-                RequestBody ageBody = RequestBody.create(String.valueOf(age), MediaType.parse("text/plain"));
-                RequestBody weightBody = RequestBody.create(String.valueOf(weight), MediaType.parse("text/plain"));
-                RequestBody genderBody = RequestBody.create(String.valueOf(gender), MediaType.parse("text/plain"));
+                // 사진이 선택 되었는지 확인
+                if (photoFile != null) {
+                    RequestBody fileBody = RequestBody.create(photoFile, MediaType.parse("image/*"));
+                    photo = MultipartBody.Part.createFormData("photo", photoFile.getName(), fileBody);
+                } else {
+                    RequestBody fileBody = RequestBody.create(MultipartBody.FORM, "");
+                    photo = MultipartBody.Part.createFormData("photo", "", fileBody);
+                }
 
-                Call<Res> call = api.addPet(accessToken, photo, nameBody, classificationBody, speciesBody, ageBody, weightBody, genderBody);
-                call.enqueue(new Callback<Res>() {
-                    @Override
-                    public void onResponse(Call<Res> call, Response<Res> response) {
-                        // 서버에서 보낸 응답이 200 OK일때
-                        dismissProgress();
-                        if (response.isSuccessful()) {
-                            finish();
-
-                        } else {
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Res> call, Throwable t) {
-                        dismissProgress();
-                    }
-
-                });
-
+                setNetworkData();
             }
         });
     }
 
+    private void setNetworkData(){
+        showProgress("반려동물 정보 저장 중...");
+        // 반려동물 저장 API 호출
+        Retrofit retrofit = NetworkClient.getRetrofitClient(UpdatePetActivity.this);
+        PetApi api = retrofit.create(PetApi.class);
+
+        // 헤더에 들어갈 억세스토큰 가져오기
+        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String accessToken = "Bearer " + sp.getString(Config.ACCESS_TOKEN, "");
+
+        Call<Res> call = api.updatePet(accessToken, pet.getId(), photo, nameBody, classificationBody, speciesBody, ageBody,
+                weightBody, genderBody, petImgUrlBody);
+        call.enqueue(new Callback<Res>() {
+            @Override
+            public void onResponse(Call<Res> call, Response<Res> response) {
+                // 서버에서 보낸 응답이 200 OK일때
+                dismissProgress();
+                if (response.isSuccessful()) {
+                    finish();
+
+
+                } else {
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Res> call, Throwable t) {
+                dismissProgress();
+            }
+
+        });
+    }
+
     private void showDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(PetRegister.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(UpdatePetActivity.this);
         builder.setTitle(R.string.alert_title);
         builder.setItems(R.array.alert_photo, new DialogInterface.OnClickListener() {
             @Override
@@ -280,30 +332,30 @@ public class PetRegister extends AppCompatActivity {
 
     private void camera(){
         int permissionCheck = ContextCompat.checkSelfPermission(
-                PetRegister.this, android.Manifest.permission.CAMERA);
+                UpdatePetActivity.this, android.Manifest.permission.CAMERA);
 
         if(permissionCheck != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(PetRegister.this,
+            ActivityCompat.requestPermissions(UpdatePetActivity.this,
                     new String[]{android.Manifest.permission.CAMERA} ,
                     1000);
-            Toast.makeText(PetRegister.this, "카메라 권한이 필요합니다.",
+            Toast.makeText(UpdatePetActivity.this, "카메라 권한이 필요합니다.",
                     Toast.LENGTH_SHORT).show();
             return;
         } else {
             Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            if(i.resolveActivity(PetRegister.this.getPackageManager())  != null  ){
+            if(i.resolveActivity(UpdatePetActivity.this.getPackageManager())  != null  ){
 
                 // 사진의 파일명을 만들기
                 String fileName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                 photoFile = getPhotoFile(fileName);
 
-                Uri fileProvider = FileProvider.getUriForFile(PetRegister.this,
+                Uri fileProvider = FileProvider.getUriForFile(UpdatePetActivity.this,
                         "com.blockent.postingapp.fileprovider", photoFile);
                 i.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
                 startActivityForResult(i, 100);
 
             } else{
-                Toast.makeText(PetRegister.this, "이폰에는 카메라 앱이 없습니다.",
+                Toast.makeText(UpdatePetActivity.this, "이폰에는 카메라 앱이 없습니다.",
                         Toast.LENGTH_SHORT).show();
             }
         }
@@ -322,20 +374,20 @@ public class PetRegister extends AppCompatActivity {
     }
 
     private void requestPermission() {
-        if(ActivityCompat.shouldShowRequestPermissionRationale(PetRegister.this,
+        if(ActivityCompat.shouldShowRequestPermissionRationale(UpdatePetActivity.this,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE)){
             Log.i("DEBUGGING5", "true");
-            Toast.makeText(PetRegister.this, "권한 수락이 필요합니다.",
+            Toast.makeText(UpdatePetActivity.this, "권한 수락이 필요합니다.",
                     Toast.LENGTH_SHORT).show();
         }else{
             Log.i("DEBUGGING6", "false");
-            ActivityCompat.requestPermissions(PetRegister.this,
+            ActivityCompat.requestPermissions(UpdatePetActivity.this,
                     new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 500);
         }
     }
 
     private boolean checkPermission(){
-        int result = ContextCompat.checkSelfPermission(PetRegister.this,
+        int result = ContextCompat.checkSelfPermission(UpdatePetActivity.this,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if(result == PackageManager.PERMISSION_DENIED){
             return false;
@@ -350,20 +402,20 @@ public class PetRegister extends AppCompatActivity {
         switch (requestCode) {
             case 1000: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(PetRegister.this, "권한 허가 되었음",
+                    Toast.makeText(UpdatePetActivity.this, "권한 허가 되었음",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(PetRegister.this, "아직 승인하지 않았음",
+                    Toast.makeText(UpdatePetActivity.this, "아직 승인하지 않았음",
                             Toast.LENGTH_SHORT).show();
                 }
                 break;
             }
             case 500: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(PetRegister.this, "권한 허가 되었음",
+                    Toast.makeText(UpdatePetActivity.this, "권한 허가 되었음",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(PetRegister.this, "아직 승인하지 않았음",
+                    Toast.makeText(UpdatePetActivity.this, "아직 승인하지 않았음",
                             Toast.LENGTH_SHORT).show();
                 }
 
