@@ -109,6 +109,9 @@
             android:name=".PointActivity"
             android:exported="false" />
         <activity
+            android:name=".CancelActivity"
+            android:exported="false" />
+        <activity
             android:name=".CouponActivity"
             android:exported="false" />
         <activity
