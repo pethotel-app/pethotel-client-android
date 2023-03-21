@@ -110,8 +110,6 @@ public class MyInfo extends Fragment {
     ArrayList<Pet> petList = new ArrayList<>();
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -193,14 +191,10 @@ public class MyInfo extends Fragment {
         txtPetRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),PetRegister.class);
+                Intent intent = new Intent(getActivity(), PetRegister.class);
                 startActivity(intent);
             }
         });
-
-
-
-
 
         getNetworkData();
         getPetData();
@@ -215,8 +209,6 @@ public class MyInfo extends Fragment {
         // 헤더에 들어갈 억세스토큰 가져오기
         SharedPreferences sp = getActivity().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
         String accessToken = "Bearer " + sp.getString(Config.ACCESS_TOKEN, "");
-
-        Log.i("My_token",accessToken);
 
         Call<UserMyPageRes> call = api.userMypage(accessToken);
         call.enqueue(new Callback<UserMyPageRes>() {
@@ -283,9 +275,5 @@ public class MyInfo extends Fragment {
             }
         });
 
-
     }
-
-
-
 }

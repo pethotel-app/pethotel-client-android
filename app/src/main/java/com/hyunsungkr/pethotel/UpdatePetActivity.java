@@ -75,6 +75,15 @@ public class UpdatePetActivity extends AppCompatActivity {
     int ClassificationType = -1;
     int genderType = -1;
     Pet pet;
+    RequestBody nameBody;
+    RequestBody classificationBody;
+    RequestBody speciesBody;
+    RequestBody ageBody;
+    RequestBody weightBody;
+    RequestBody genderBody;
+    RequestBody petImgUrlBody;
+    MultipartBody.Part photo;
+    String petImgUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,9 +112,10 @@ public class UpdatePetActivity extends AppCompatActivity {
 
         // 누른 반려동물의 정보를 받아와서 셋팅한다
         pet = (Pet) getIntent().getSerializableExtra("pet");
+        petImgUrl = pet.getPetImgUrl();
 
         // 사진 셋팅
-        Glide.with(UpdatePetActivity.this).load(pet.getPetImgUrl()).placeholder(R.drawable.icon2).into(imgAdd);
+        Glide.with(UpdatePetActivity.this).load(petImgUrl).placeholder(R.drawable.icon2).into(imgAdd);
 
         // 받아온 정보 셋팅
         editName.setText(pet.getName());
@@ -198,12 +208,6 @@ public class UpdatePetActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                // 사진이 선택 되었는지 확인
-                if(photoFile == null){
-                    Toast.makeText(UpdatePetActivity.this, "반려동물 사진은 필수입니다.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
                 // 이름 정보 가져오기
                 String name = editName.getText().toString().trim();
                 if (name == "") {
@@ -233,48 +237,59 @@ public class UpdatePetActivity extends AppCompatActivity {
                     Toast.makeText(UpdatePetActivity.this, "성별을 선택해주세요", Toast.LENGTH_SHORT).show();
                 }
 
-                showProgress("반려동물 정보 저장 중...");
-                // 반려동물 저장 API 호출
-                Retrofit retrofit = NetworkClient.getRetrofitClient(UpdatePetActivity.this);
-                PetApi api = retrofit.create(PetApi.class);
-
-                // 헤더에 들어갈 억세스토큰 가져오기
-                SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-                String accessToken = "Bearer " + sp.getString(Config.ACCESS_TOKEN, "");
-
                 // 멀티파트로 파일을 보내는 경우, 파일 파라미터를 만든다
-                RequestBody fileBody = RequestBody.create(photoFile, MediaType.parse("image/*"));
-                MultipartBody.Part photo = MultipartBody.Part.createFormData("photo", photoFile.getName(), fileBody);
+                nameBody = RequestBody.create(name, MediaType.parse("text/plain"));
+                classificationBody = RequestBody.create(String.valueOf(classification), MediaType.parse("text/plain"));
+                speciesBody = RequestBody.create(species, MediaType.parse("text/plain"));
+                ageBody = RequestBody.create(String.valueOf(age), MediaType.parse("text/plain"));
+                weightBody = RequestBody.create(String.valueOf(weight), MediaType.parse("text/plain"));
+                genderBody = RequestBody.create(String.valueOf(gender), MediaType.parse("text/plain"));
+                petImgUrlBody = RequestBody.create(petImgUrl, MediaType.parse("text/plain"));
 
-                RequestBody nameBody = RequestBody.create(name, MediaType.parse("text/plain"));
-                RequestBody classificationBody = RequestBody.create(String.valueOf(classification), MediaType.parse("text/plain"));
-                RequestBody speciesBody = RequestBody.create(species, MediaType.parse("text/plain"));
-                RequestBody ageBody = RequestBody.create(String.valueOf(age), MediaType.parse("text/plain"));
-                RequestBody weightBody = RequestBody.create(String.valueOf(weight), MediaType.parse("text/plain"));
-                RequestBody genderBody = RequestBody.create(String.valueOf(gender), MediaType.parse("text/plain"));
+                // 사진이 선택 되었는지 확인
+                if (photoFile != null) {
+                    RequestBody fileBody = RequestBody.create(photoFile, MediaType.parse("image/*"));
+                    photo = MultipartBody.Part.createFormData("photo", photoFile.getName(), fileBody);
+                } else {
+                    RequestBody fileBody = RequestBody.create(MultipartBody.FORM, "");
+                    photo = MultipartBody.Part.createFormData("photo", "", fileBody);
+                }
 
-                Call<Res> call = api.updatePet(accessToken, pet.getId(), photo, nameBody, classificationBody, speciesBody, ageBody,
-                        weightBody, genderBody);
-                call.enqueue(new Callback<Res>() {
-                    @Override
-                    public void onResponse(Call<Res> call, Response<Res> response) {
-                        // 서버에서 보낸 응답이 200 OK일때
-                        dismissProgress();
-                        if (response.isSuccessful()) {
-                            finish();
-
-                        } else {
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Res> call, Throwable t) {
-                        dismissProgress();
-                    }
-
-                });
-
+                setNetworkData();
             }
+        });
+    }
+
+    private void setNetworkData(){
+        showProgress("반려동물 정보 저장 중...");
+        // 반려동물 저장 API 호출
+        Retrofit retrofit = NetworkClient.getRetrofitClient(UpdatePetActivity.this);
+        PetApi api = retrofit.create(PetApi.class);
+
+        // 헤더에 들어갈 억세스토큰 가져오기
+        SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String accessToken = "Bearer " + sp.getString(Config.ACCESS_TOKEN, "");
+
+        Call<Res> call = api.updatePet(accessToken, pet.getId(), photo, nameBody, classificationBody, speciesBody, ageBody,
+                weightBody, genderBody, petImgUrlBody);
+        call.enqueue(new Callback<Res>() {
+            @Override
+            public void onResponse(Call<Res> call, Response<Res> response) {
+                // 서버에서 보낸 응답이 200 OK일때
+                dismissProgress();
+                if (response.isSuccessful()) {
+                    finish();
+
+
+                } else {
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Res> call, Throwable t) {
+                dismissProgress();
+            }
+
         });
     }
 

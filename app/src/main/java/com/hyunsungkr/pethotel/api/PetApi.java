@@ -14,6 +14,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 
@@ -34,13 +35,16 @@ public interface PetApi {
                      @Part("gender") RequestBody gender);
 
     @Multipart
-    @POST("/pets/{petId}")
-    Call<Res> updatePet(@Header("Authorization") String token, @Path("hotelId") int petId,
+    @PUT("/pets/{petId}")
+    Call<Res> updatePet(@Header("Authorization") String token, @Path("petId") int petId,
                         @Part MultipartBody.Part photo,
                         @Part("name") RequestBody name,
                         @Part("classification") RequestBody classification,
                         @Part("species") RequestBody species,
                         @Part("age") RequestBody age,
                         @Part("weight") RequestBody weight,
-                        @Part("gender") RequestBody gender);
+                        @Part("gender") RequestBody gender,
+                        @Part("petImgUrl") RequestBody petImgUrl);
+
+
 }
