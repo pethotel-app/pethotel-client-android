@@ -25,10 +25,12 @@ import com.hyunsungkr.pethotel.adapter.HotelReviewAdapter;
 import com.hyunsungkr.pethotel.adapter.PetChoiceAdapter;
 import com.hyunsungkr.pethotel.adapter.SearchHotelAdapter;
 import com.hyunsungkr.pethotel.api.HotelApi;
+import com.hyunsungkr.pethotel.api.KeywordApi;
 import com.hyunsungkr.pethotel.api.NetworkClient;
 import com.hyunsungkr.pethotel.config.Config;
 import com.hyunsungkr.pethotel.model.Hotel;
 import com.hyunsungkr.pethotel.model.HotelList;
+import com.hyunsungkr.pethotel.model.KeywordResponse;
 import com.hyunsungkr.pethotel.model.Pet;
 import com.hyunsungkr.pethotel.model.Res;
 import com.hyunsungkr.pethotel.model.Reservation;
@@ -131,10 +133,11 @@ public class ResSearchActivity extends AppCompatActivity {
         imgSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
                 //키보드 배열 숨기기
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(editKeyword.getWindowToken(), 0);
+                //검색어 저장
+                putNetworkSearchData();
 
                 String keyword2 = editKeyword.getText().toString().trim();
                 if(!keyword.equals(keyword2)){
@@ -165,7 +168,6 @@ public class ResSearchActivity extends AppCompatActivity {
                 int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
                 int totalItemCount = layoutManager.getItemCount();
 
-
                 // 마지막 아이템이 보여지고 있고, 로딩 중이 아닐 때
                 if (lastVisibleItemPosition == totalItemCount - 1 && !isLoading) {
                     isLoading = true;
@@ -173,9 +175,12 @@ public class ResSearchActivity extends AppCompatActivity {
                     getNetworkSearchData();
                     adapter.notifyDataSetChanged();
 
+                    // 현재 위치 유지
+                    recyclerView.scrollToPosition(lastVisibleItemPosition);
                 }
             }
         });
+
 
         getNetworkSearchData();
     }
@@ -249,7 +254,12 @@ public class ResSearchActivity extends AppCompatActivity {
                 HotelList hotelList = response.body();
 
                 searchList.addAll(hotelList.getItems());
-                txtResSearch.setText(String.valueOf(searchList.size()) +" 개의 검색결과");
+                if (hotelList.getCount() == 0){
+                    txtResSearch.setText("검색 결과가 없습니다.");
+                }else{
+                    txtResSearch.setText("총" +hotelList.getCount() +" 개의 검색결과");
+                }
+
                 recyclerView.setAdapter(adapter);
 
             }
@@ -261,6 +271,34 @@ public class ResSearchActivity extends AppCompatActivity {
         });
 
         isLoading = false;
+    }
+    void putNetworkSearchData(){
+
+        Retrofit retrofit = NetworkClient.getRetrofitClient(ResSearchActivity.this);
+        KeywordApi api = retrofit.create(KeywordApi.class);
+        Call<KeywordResponse> call = api.putKeyword(keyword);
+        call.enqueue(new Callback<KeywordResponse>() {
+            @Override
+            public void onResponse(Call<KeywordResponse> call, Response<KeywordResponse> response) {
+                if (response.isSuccessful()) {
+                    KeywordResponse keywordResponse = response.body();
+                    String result = keywordResponse.getResult();
+                    if (result.equals("success")) {
+
+                    } else {
+
+                    }
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<KeywordResponse> call, Throwable t) {
+
+            }
+        });
+
     }
 
 }
