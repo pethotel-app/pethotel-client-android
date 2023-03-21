@@ -130,7 +130,7 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_alignParentLeft="true"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="3dp"
                 android:src="@drawable/coupon_icon" />
 
             <TextView
@@ -260,8 +260,9 @@
                 android:id="@+id/ChangePassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/txtPetRegister"
                 android:layout_alignParentLeft="false"
-                android:layout_alignParentBottom="true"
+                android:layout_alignParentBottom="false"
                 android:layout_centerHorizontal="true"
                 android:orientation="horizontal">
 
