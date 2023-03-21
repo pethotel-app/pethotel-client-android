@@ -109,6 +109,9 @@ public class MyInfo extends Fragment {
     MyPetAdapter adapter;
     ArrayList<Pet> petList = new ArrayList<>();
 
+    // 인텐트에 담기위한 멤버변수
+    String MyPoint = "";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -133,12 +136,13 @@ public class MyInfo extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        // todo : 이미지 클릭 이벤트 처리
+
 
         imgMyPoint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(),PointActivity.class);
+                intent.putExtra("point", MyPoint);
                 startActivity(intent);
             }
         });
@@ -218,8 +222,10 @@ public class MyInfo extends Fragment {
                     mypageList.addAll(response.body().getItems());
                     txtName.setText(mypageList.get(0).getName());
                     txtPoint.setText(mypageList.get(0).getTotalPoint()+"");
+                    MyPoint = mypageList.get(0).getTotalPoint()+"";
                     txtCoupon.setText(mypageList.get(0).getCntCoupon()+"");
                     Glide.with(getActivity()).load(mypageList.get(0).getUserImgUrl()).placeholder(R.drawable.icon2).into(imgPhoto);
+
 
                 }else{
                     return;

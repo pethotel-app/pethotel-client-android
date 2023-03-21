@@ -1,9 +1,7 @@
 package com.hyunsungkr.pethotel.adapter;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +13,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.hyunsungkr.pethotel.HotelInfoActivity;
 import com.hyunsungkr.pethotel.R;
 import com.hyunsungkr.pethotel.model.Pet;
-import com.hyunsungkr.pethotel.model.PetInfoList;
 
 import java.util.List;
 
@@ -83,7 +79,7 @@ public class PetChoiceAdapter extends RecyclerView.Adapter<PetChoiceAdapter.View
 
             super(itemView);
             imgPet = itemView.findViewById(R.id.imgProfile);
-            txtPetName = itemView.findViewById(R.id.txtPetName);
+            txtPetName = itemView.findViewById(R.id.txtSearchHotel);
             txtPetGender = itemView.findViewById(R.id.txtPetGender);
             txtPetClassification = itemView.findViewById(R.id.txtPetClassification);
             txtSpecies = itemView.findViewById(R.id.txtSpecies);
