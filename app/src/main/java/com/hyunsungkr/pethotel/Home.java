@@ -147,7 +147,7 @@ public class Home extends Fragment {
             @Override
             public void onClick(View view) {
                 // todo:  리뷰라이트 액티비티가 아닌 서치 액티비티로 테스트 이후 수정
-                Intent intent = new Intent(getActivity(), ReviewWriteActivity.class);
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
                 startActivity(intent);
             }
         });
