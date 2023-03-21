@@ -16,9 +16,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hyunsungkr.pethotel.api.NetworkClient;
+import com.hyunsungkr.pethotel.api.ReservationApi;
 import com.hyunsungkr.pethotel.config.Config;
+import com.hyunsungkr.pethotel.model.CancelHotel;
 import com.hyunsungkr.pethotel.model.Hotel;
 import com.hyunsungkr.pethotel.model.MyReservation;
+import com.hyunsungkr.pethotel.model.MyReservationList;
+
+import retrofit2.Call;
+import retrofit2.Retrofit;
 
 public class CancelActivity extends AppCompatActivity {
 
@@ -53,6 +60,7 @@ public class CancelActivity extends AppCompatActivity {
         ArrayAdapter yearAdapter = ArrayAdapter.createFromResource(this,
                 R.array.cancel_reasons, android.R.layout.simple_spinner_item);
         spinner.setAdapter(yearAdapter);
+
 
 
         // X버튼  클릭 리스너
@@ -93,6 +101,13 @@ public class CancelActivity extends AppCompatActivity {
                 });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    public void getNetworkData(){
+        Retrofit retrofit = NetworkClient.getRetrofitClient(CancelActivity.this);
+        ReservationApi api = retrofit.create(ReservationApi.class);
+
+        Call<CancelHotel> call = api.deleteHotel(accessToken);
     }
 }
 

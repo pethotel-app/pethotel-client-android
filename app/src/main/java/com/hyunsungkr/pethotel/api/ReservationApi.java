@@ -21,4 +21,9 @@ public interface ReservationApi {
                                              @Query("offset") int offset,
                                              @Query("limit") int limit);
 
+    // 호텔 예약정보 삭제
+    @POST("/reservation")
+    Call<CancelHotel> deleteHotel(@Header("Authorization") String token,
+                                  @Body RequestBody requestBody);
+
 }
