@@ -2,6 +2,7 @@ package com.hyunsungkr.pethotel.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hyunsungkr.pethotel.R;
+import com.hyunsungkr.pethotel.ResSearchActivity;
+import com.hyunsungkr.pethotel.SearchActivity;
 import com.hyunsungkr.pethotel.model.Keyword;
 
 import java.util.ArrayList;
@@ -48,7 +51,7 @@ public class SearchRankAdapter extends RecyclerView.Adapter<SearchRankAdapter.Vi
     public void onBindViewHolder(@NonNull SearchRankAdapter.ViewHolder holder, int position) {
 
         Keyword keywordRank = keywordRankList.get(position);
-        holder.txtKeywordRank.setText(String.valueOf(position+1));
+        holder.txtKeywordRank.setText(String.valueOf(position+1)+".");
         holder.txtKeyword.setText(keywordRank.getKeyword());
         Log.i("값 확인",keywordRank.getKeyword());
     }
@@ -73,10 +76,10 @@ public class SearchRankAdapter extends RecyclerView.Adapter<SearchRankAdapter.Vi
                 @Override
                 public void onClick(View view) {
                     int index = getAdapterPosition();
-                    if (listener != null) {
-                        listener.onImageClick(index);
-                    }
+                    listener.onImageClick(index);
+
                 }
+
             });
         }
     }

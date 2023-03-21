@@ -20,11 +20,19 @@ import com.hyunsungkr.pethotel.api.NetworkClient;
 import com.hyunsungkr.pethotel.api.ReservationApi;
 import com.hyunsungkr.pethotel.config.Config;
 import com.hyunsungkr.pethotel.model.CancelHotel;
+import com.hyunsungkr.pethotel.model.CancelReason;
 import com.hyunsungkr.pethotel.model.Hotel;
 import com.hyunsungkr.pethotel.model.MyReservation;
 import com.hyunsungkr.pethotel.model.MyReservationList;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class CancelActivity extends AppCompatActivity {
@@ -34,7 +42,8 @@ public class CancelActivity extends AppCompatActivity {
     TextView txtPrice;
     Button btnCancel;
     String accessToken;
-
+    MyReservation myReservation;
+    String CancelReason;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +60,7 @@ public class CancelActivity extends AppCompatActivity {
         imgCancel = findViewById(R.id.imgCancel);
 
         // 인텐트 받아오기
-        MyReservation myReservation = (MyReservation) getIntent().getSerializableExtra("myReservation");
+        myReservation = (MyReservation) getIntent().getSerializableExtra("myReservation");
 
         // 스피너 설정
         String CancelPrice = String.valueOf(myReservation.getPrice());
@@ -75,20 +84,28 @@ public class CancelActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (spinner == null || spinner.getSelectedItem().toString().equals("취소 사유를 선택해주세요.")){
+                    Toast.makeText(CancelActivity.this, "취소사유를 선택해주세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }else{
+                    CancelReason = spinner.getSelectedItem().toString();
+                popUp();}
 
             }
         });
 
 
     }
-
+    
+    // 취소버튼 클릭이벤트 함수
     public void popUp() {
         AlertDialog.Builder builder = new AlertDialog.Builder(CancelActivity.this);
         builder.setMessage("예약을 취소하시겠습니까?")
                 .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        //todo: 예약취소 api 호출
+                        putNetworkData();
+                        getNetworkData();
                         Toast.makeText(CancelActivity.this,"예약이 취소되었습니다.", Toast.LENGTH_SHORT).show();
                         finish();
                     }
@@ -102,12 +119,62 @@ public class CancelActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
-
+    
+    // 예약정보 취소 데이터통신
     public void getNetworkData(){
         Retrofit retrofit = NetworkClient.getRetrofitClient(CancelActivity.this);
         ReservationApi api = retrofit.create(ReservationApi.class);
 
-        Call<CancelHotel> call = api.deleteHotel(accessToken);
+
+        Call<CancelHotel> call = api.deleteHotel(accessToken, myReservation.getHotelId(), myReservation.getPetId());
+
+        call.enqueue(new Callback<CancelHotel>() {
+            @Override
+            public void onResponse(Call<CancelHotel> call, Response<CancelHotel> response) {
+                if(response.isSuccessful()){
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CancelHotel> call, Throwable t) {
+                Toast.makeText(CancelActivity.this, "예약취소 실패!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        });
+    }
+    public void putNetworkData(){
+
+        Retrofit retrofit = NetworkClient.getRetrofitClient(CancelActivity.this);
+        ReservationApi api = retrofit.create(ReservationApi.class);
+
+        // 요청 바디 생성
+        JSONObject json = new JSONObject();
+        try {
+            json.put("hotelId", myReservation.getHotelId());
+            json.put("reason",CancelReason);
+            json.put("cancelPrice",myReservation.getPrice());
+            json.put("resCreatedAt", myReservation.getCreatedAt());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), json.toString());
+
+        Call<com.hyunsungkr.pethotel.model.CancelReason> call = api.reasonCancel(accessToken,requestBody);
+
+        call.enqueue(new Callback<com.hyunsungkr.pethotel.model.CancelReason>() {
+            @Override
+            public void onResponse(Call<com.hyunsungkr.pethotel.model.CancelReason> call, Response<com.hyunsungkr.pethotel.model.CancelReason> response) {
+                if(response.isSuccessful()){
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<com.hyunsungkr.pethotel.model.CancelReason> call, Throwable t) {
+
+            }
+        });
     }
 }
 

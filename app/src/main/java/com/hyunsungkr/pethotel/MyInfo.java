@@ -100,6 +100,7 @@ public class MyInfo extends Fragment {
     TextView txtPoint;
     TextView txtCoupon;
     TextView txtPetRegister;
+    TextView txtCheckReservation;
 
     ArrayList<UserMyPage> mypageList = new ArrayList<>();
 
@@ -128,12 +129,14 @@ public class MyInfo extends Fragment {
         txtPoint = rootView.findViewById(R.id.txtPoint);
         txtCoupon = rootView.findViewById(R.id.txtCoupon);
         txtPetRegister = rootView.findViewById(R.id.txtPetRegister);
-
+        txtCheckReservation = rootView.findViewById(R.id.txtCheckReservation);
         recyclerView = rootView.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // todo : 이미지 클릭 이벤트 처리
+
+
 
         imgMyPoint.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,7 +199,14 @@ public class MyInfo extends Fragment {
             }
         });
 
+        txtCheckReservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),MyReservationActivity.class);
+                startActivity(intent);
 
+            }
+        });
 
 
 
