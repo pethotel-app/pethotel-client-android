@@ -14,7 +14,9 @@
         android:layout_alignParentBottom="true"
         app:itemIconSize="24dp"
         app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/tabbar">
+        app:menu="@menu/tabbar"
+        app:itemIconTint="@drawable/menu_selector_color"
+        app:itemTextColor="@drawable/menu_selector_color">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
