@@ -41,7 +41,7 @@ public class PointActivity extends AppCompatActivity {
     // 페이징 처리를 위한 변수
     int count = 0;
     int offset = 0;
-    int limit = 5;
+    int limit = 10;
 
 
 
@@ -62,7 +62,7 @@ public class PointActivity extends AppCompatActivity {
         Intent intent = getIntent();
         point = intent.getStringExtra("point");
 
-        txtPoint.setText(point);
+        txtPoint.setText(point +"p");
 
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override

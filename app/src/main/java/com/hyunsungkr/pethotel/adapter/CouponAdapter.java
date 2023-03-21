@@ -15,6 +15,7 @@ import com.hyunsungkr.pethotel.SearchActivity;
 import com.hyunsungkr.pethotel.model.Coupon;
 
 import java.lang.reflect.Array;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder> {
@@ -42,8 +43,11 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
 
         holder.txtCpTitle.setText(coupon.getTitle());
         holder.txtCpDescription.setText(coupon.getDescription());
-        String reservationPeriod = coupon.getDateOfUseStart().substring(0, 10) + " ~ " + coupon.getDateOfUseEnd().substring(0, 10) + " 까지";
+        String reservationPeriod = coupon.getDateOfUseStart().substring(0, 10) + " ~ " + coupon.getDateOfUseEnd().substring(0, 10);
         holder.txtCpDate.setText(reservationPeriod);
+
+        DecimalFormat myFormatter = new DecimalFormat("###,###");
+        holder.txtPrice.setText(myFormatter.format(coupon.getDiscount()) + "원");
 
     }
 
@@ -57,7 +61,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
         TextView txtCpTitle;
         TextView txtCpDescription;
         TextView txtCpDate;
-        TextView txtSearchHotel;
+        TextView txtPrice;
 
 
 
@@ -67,16 +71,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
             txtCpTitle = itemView.findViewById(R.id.txtCpTitle);
             txtCpDescription = itemView.findViewById(R.id.txtCpDescription);
             txtCpDate = itemView.findViewById(R.id.txtCpDate);
-            txtSearchHotel = itemView.findViewById(R.id.txtSearchHotel);
-
-            txtSearchHotel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(itemView.getContext(), SearchActivity.class);
-                    itemView.getContext().startActivity(intent);
-                }
-            });
-
+            txtPrice = itemView.findViewById(R.id.txtPrice);
 
 
 

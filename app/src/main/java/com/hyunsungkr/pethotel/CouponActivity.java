@@ -37,7 +37,7 @@ public class CouponActivity extends AppCompatActivity {
 
     int count = 0;
     int offset = 0;
-    int limit = 2;
+    int limit = 5;
 
 
 
@@ -93,7 +93,7 @@ public class CouponActivity extends AppCompatActivity {
 
         offset = 0;
 
-        Call<CouponList> call = api.couponList(accessToken,offset,limit);
+        Call<CouponList> call = api.couponList(accessToken, offset, limit);
         call.enqueue(new Callback<CouponList>() {
             @Override
             public void onResponse(Call<CouponList> call, Response<CouponList> response) {

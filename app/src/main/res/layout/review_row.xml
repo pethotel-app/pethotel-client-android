@@ -16,6 +16,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="3dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -47,14 +48,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
                 android:orientation="horizontal">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imgProfile"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/baseline_person_24" />
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    app:civ_border_overlay="true"
+                    android:src="@drawable/baseline_person_24"
+                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -116,8 +122,8 @@
                     android:id="@+id/imgReview"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
                     android:scaleType="centerCrop"
                     android:visibility="gone"
                     app:srcCompat="@drawable/icon3" />
@@ -127,6 +133,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
                     android:padding="5dp"
                     android:text="리뷰내용"
                     android:textColor="#000000"

@@ -9,53 +9,59 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
-        app:cardCornerRadius="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="10dp"
         app:cardElevation="1dp"
         app:cardUseCompatPadding="true">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="5dp"
-            android:orientation="horizontal">
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp">
 
             <TextView
                 android:id="@+id/txtHotelName"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:layout_margin="5dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="150dp"
                 android:layout_weight="1"
-                android:text="TextView"
+                android:text="포인트 적립 내용"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txtAddPoint"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="90dp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="+14000"
+                android:textColor="#000000"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/txtSaveDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:layout_margin="5dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:text="TextView"
+                android:text="2023.03.20"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
+        </RelativeLayout>
 
-            <TextView
-                android:id="@+id/txtAddPoint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:text="TextView"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>

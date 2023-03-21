@@ -36,7 +36,7 @@
                 android:gravity="center"
                 android:text="My 정보"
                 android:textColor="#000000"
-                android:textSize="20sp" />
+                android:textSize="17sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -51,7 +51,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/baseline_card_giftcard_24" />
+                app:srcCompat="@drawable/coupon_icon" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="530dp"
             android:layout_below="@id/middle"
             android:layout_marginTop="10dp" />
 
@@ -78,7 +78,7 @@
             android:gravity="center"
             android:text="더보기"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

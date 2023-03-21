@@ -5,20 +5,15 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
-        app:cardCornerRadius="10dp"
-        app:strokeColor="#000000"
-        app:strokeWidth="1dp">
-
+        android:layout_height="match_parent"
+        android:layout_margin="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="5dp"
             android:orientation="vertical">
 
             <TextView
@@ -29,39 +24,41 @@
                 android:gravity="center"
                 android:text="쿠폰 이름"
                 android:textColor="#000000"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtCpDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:maxLines="2"
                 android:text="쿠폰 내용"
                 android:textColor="#000000"
-                android:textSize="17sp"
-                android:textStyle="bold" />
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/txtPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="2,000원"
+                android:textColor="#2196F3"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/txtCpDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:text="쿠폰 기한" />
-
-            <TextView
-                android:id="@+id/txtSearchHotel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginBottom="15dp"
                 android:gravity="center"
-                android:text="사용 가능한 호텔 찾아보기 >"
-                android:textColor="#2196F3" />
+                android:text="쿠폰 기한"
+                android:textSize="13sp" />
+
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>
