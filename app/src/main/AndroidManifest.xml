@@ -55,6 +55,9 @@
             android:name=".EventActivity"
             android:exported="false" />
         <activity
+            android:name=".CancelActivity"
+            android:exported="false" />
+        <activity
             android:name=".AllNearbyHotelsActivity"
             android:exported="false" />
         <activity
