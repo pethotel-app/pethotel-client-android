@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hyunsungkr.pethotel.adapter.PetChoiceAdapter;
 import com.hyunsungkr.pethotel.adapter.SearchHotelAdapter;
 import com.hyunsungkr.pethotel.adapter.SearchRankAdapter;
 import com.hyunsungkr.pethotel.api.HotelApi;
@@ -27,6 +28,7 @@ import com.hyunsungkr.pethotel.model.HotelList;
 import com.hyunsungkr.pethotel.model.Keyword;
 import com.hyunsungkr.pethotel.model.KeywordList;
 import com.hyunsungkr.pethotel.model.KeywordResponse;
+import com.hyunsungkr.pethotel.model.Pet;
 import com.hyunsungkr.pethotel.model.Reservation;
 
 import java.io.Serializable;
@@ -270,7 +272,7 @@ public class SearchActivity extends AppCompatActivity {
     void getRankNetworkDate(){
         Retrofit retrofit = NetworkClient.getRetrofitClient(SearchActivity.this);
         KeywordApi api = retrofit.create(KeywordApi.class);
-        Call<KeywordList> call = api.getKeywordRank("03-20",offset,limit);
+        Call<KeywordList> call = api.getKeywordRank("03-21",offset,limit);
 
         // 비동기적으로 요청을 보낸다.
         call.enqueue(new Callback<KeywordList>() {
@@ -283,6 +285,23 @@ public class SearchActivity extends AppCompatActivity {
                     // 어댑터 생성하여 RecyclerView에 설정
                     adapter = new SearchRankAdapter(SearchActivity.this, keywordRankList);
                     recyclerView.setAdapter(adapter);
+
+                    adapter.setOnItemClickListener(new SearchRankAdapter.OnItemClickListener() {
+                        @Override
+                        public void onImageClick(int index) {
+                            Keyword keyword = keywordRankList.get(index);
+                            Intent intent = new Intent(SearchActivity.this, ResSearchActivity.class);
+                            reservation = new Reservation();
+                            reservation.setCheckInDate(txtDateStart.getText().toString());
+                            reservation.setCheckOutDate(txtDateEnd.getText().toString());
+                            intent.putExtra("keyword", keyword.getKeyword());
+                            intent.putExtra("reservation",reservation);
+                            startActivity(intent);
+                        }
+                    });
+
+
+
                 }
             }
 

@@ -1,21 +1,25 @@
 package com.hyunsungkr.pethotel;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 
 import com.hyunsungkr.pethotel.adapter.HotelReviewAdapter;
 import com.hyunsungkr.pethotel.adapter.PetChoiceAdapter;
@@ -42,6 +46,7 @@ import retrofit2.Retrofit;
 public class ResSearchActivity extends AppCompatActivity {
 
     private SearchHotelAdapter adapter;
+    private boolean isLoading = false;
 
     ArrayList<Hotel> hotelArrayList = new ArrayList<>();
     Hotel selectedHotel;
@@ -84,6 +89,7 @@ public class ResSearchActivity extends AppCompatActivity {
         txtResSearch = findViewById(R.id.txtResSearch);
         txtDate = findViewById(R.id.txtDate);
         editKeyword = findViewById(R.id.editKeyword);
+        editKeyword.clearFocus();
 
 
         // 토큰 가져오기
@@ -99,7 +105,7 @@ public class ResSearchActivity extends AppCompatActivity {
 
         // 리싸이클러뷰 띄우기
         adapter = new SearchHotelAdapter(ResSearchActivity.this, searchList);
-        recyclerView.setAdapter(adapter);
+
 
         adapter.setOnItemClickListener(new SearchHotelAdapter.OnItemClickListener() {
             @Override
@@ -125,19 +131,55 @@ public class ResSearchActivity extends AppCompatActivity {
         imgSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                
+                //키보드 배열 숨기기
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(editKeyword.getWindowToken(), 0);
+
                 String keyword2 = editKeyword.getText().toString().trim();
                 if(!keyword.equals(keyword2)){
-                    // 이전 검색어와 다른 검색어를 입력한 경우
-                    keyword = keyword2; // 이전 검색어를 새로운 검색어로 업데이트
-                    offset = 0; // 검색 시작 위치 초기화
-                    searchList.clear(); // 이전 검색 결과 초기화
-                    getNetworkSearchData(); // 새로운 검색어로 데이터 다시 가져오기
-                    adapter.notifyDataSetChanged(); // 어댑터에 변경된 데이터 적용
+                    keyword = keyword2;
+                    offset = 0;
+                    searchList.clear();
+                    getNetworkSearchData();
+
+                    // 새로운 어댑터 객체 생성
+                    adapter = new SearchHotelAdapter(ResSearchActivity.this,searchList);
+
+                    // 새로운 데이터 적용
+                    adapter.notifyDataSetChanged();
+
+                    // RecyclerView에 새로운 어댑터 설정
+                    recyclerView.setAdapter(adapter);
                 }
             }
         });
+
+
+        // 스크롤 리스너 등록
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+                int totalItemCount = layoutManager.getItemCount();
+
+
+                // 마지막 아이템이 보여지고 있고, 로딩 중이 아닐 때
+                if (lastVisibleItemPosition == totalItemCount - 1 && !isLoading) {
+                    isLoading = true;
+                    offset = offset + limit;
+                    getNetworkSearchData();
+                    adapter.notifyDataSetChanged();
+
+                }
+            }
+        });
+
         getNetworkSearchData();
     }
+
 
     public void favoriteProcess(int index){
         selectedHotel = searchList.get(index);
@@ -208,6 +250,7 @@ public class ResSearchActivity extends AppCompatActivity {
 
                 searchList.addAll(hotelList.getItems());
                 txtResSearch.setText(String.valueOf(searchList.size()) +" 개의 검색결과");
+                recyclerView.setAdapter(adapter);
 
             }
 
@@ -217,7 +260,7 @@ public class ResSearchActivity extends AppCompatActivity {
             }
         });
 
-
+        isLoading = false;
     }
 
 }
