@@ -146,7 +146,8 @@ public class Home extends Fragment {
         txtSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                // todo:  리뷰라이트 액티비티가 아닌 서치 액티비티로 테스트 이후 수정
+                Intent intent = new Intent(getActivity(), ReviewWriteActivity.class);
                 startActivity(intent);
             }
         });

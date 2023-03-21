@@ -5,10 +5,15 @@ import com.hyunsungkr.pethotel.model.HotelReviewList;
 import com.hyunsungkr.pethotel.model.MyReviewList;
 import com.hyunsungkr.pethotel.model.Res;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
+import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -28,4 +33,16 @@ public interface ReviewApi {
     @DELETE("/review/{hotelId}")
     Call<Res> deleteReview(@Header("Authorization") String token,
                        @Path("hotelId") int hotelId);
+
+    // 리뷰 작성 API
+
+    @POST("/review/{hotelId}")
+    @Multipart
+    Call<Res> addReview(@Header("Authorization") String token,
+                        @Path("hotelId") int hotelId,
+                        @Part MultipartBody.Part photo,
+                        @Part("content")RequestBody content,
+                        @Part("rating")RequestBody rating);
+
+
 }
