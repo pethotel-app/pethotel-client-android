@@ -55,13 +55,19 @@
                         android:text="성별"
                         android:textColor="#7DCFFD" />
 
-                    <ImageView
-                        android:id="@+id/imgDelete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_marginLeft="140dp"
-                        app:srcCompat="@drawable/baseline_close_24" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imgDelete"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentRight="true"
+                            app:srcCompat="@drawable/baseline_close_24" />
+                    </RelativeLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
