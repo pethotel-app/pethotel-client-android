@@ -4,6 +4,7 @@ import com.hyunsungkr.pethotel.model.HotelList;
 import com.hyunsungkr.pethotel.model.HotelReviewList;
 import com.hyunsungkr.pethotel.model.MyReviewList;
 import com.hyunsungkr.pethotel.model.Res;
+import com.hyunsungkr.pethotel.model.ReviewSummary;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -43,6 +44,12 @@ public interface ReviewApi {
                         @Part MultipartBody.Part photo,
                         @Part("content")RequestBody content,
                         @Part("rating")RequestBody rating);
+
+    // 리뷰 요약 가져오는 API
+
+    @GET("/review/summary/{hotelId}")
+    Call<ReviewSummary> getSummaryReview(@Header("Authorization") String token,
+                                         @Path("hotelId") int hotelId);
 
 
 }

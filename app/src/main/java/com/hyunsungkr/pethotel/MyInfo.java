@@ -31,6 +31,7 @@ import com.hyunsungkr.pethotel.config.Config;
 import com.hyunsungkr.pethotel.model.Hotel;
 import com.hyunsungkr.pethotel.model.Pet;
 import com.hyunsungkr.pethotel.model.PetInfoList;
+import com.hyunsungkr.pethotel.model.Res;
 import com.hyunsungkr.pethotel.model.UserMyPage;
 import com.hyunsungkr.pethotel.model.UserMyPageRes;
 
@@ -112,6 +113,8 @@ public class MyInfo extends Fragment {
 
     // 인텐트에 담기위한 멤버변수
     String MyPoint = "";
+
+    private int deleteIndex;
 
 
     @Override
@@ -298,4 +301,7 @@ public class MyInfo extends Fragment {
         });
 
     }
+
+
+
 }

@@ -34,6 +34,7 @@ import com.hyunsungkr.pethotel.model.HotelReviewList;
 import com.hyunsungkr.pethotel.model.Pet;
 import com.hyunsungkr.pethotel.model.Res;
 import com.hyunsungkr.pethotel.model.Reservation;
+import com.hyunsungkr.pethotel.model.ReviewSummary;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -70,6 +71,7 @@ public class HotelInfoActivity extends AppCompatActivity {
     public Button btnMedium;
     public TextView txtDateStart;
     public TextView txtDateEnd;
+    public TextView txtSummary;
 
     public TextView txtReviewSum2;
     public TextView txtMore;
@@ -146,6 +148,7 @@ public class HotelInfoActivity extends AppCompatActivity {
         imgBack = findViewById(R.id.imgBack);
         txtReviewSum2 = findViewById(R.id.txtReviewSum2);
         txtMore = findViewById(R.id.txtMore);
+        txtSummary = findViewById(R.id.txtSummary);
 
 
 
@@ -269,6 +272,7 @@ public class HotelInfoActivity extends AppCompatActivity {
         getNetworkData();
         // 호텔 리뷰도 셋팅
         getNetworkReviewData();
+        getNetworkSummary();
 
         // 날짜선택
         // 오늘 날짜로 시작일 초기화
@@ -440,6 +444,31 @@ public class HotelInfoActivity extends AppCompatActivity {
             txtDateEnd.setText(String.format("%d-%02d-%d", endYear, endMonth+1, endDay));
         }
     };
+
+    void getNetworkSummary() {
+
+        Retrofit retrofit = NetworkClient.getRetrofitClient(HotelInfoActivity.this);
+        ReviewApi api = retrofit.create(ReviewApi.class);
+
+        Call<ReviewSummary> call = api.getSummaryReview(accessToken,hotelId);
+        call.enqueue(new Callback<ReviewSummary>() {
+            @Override
+            public void onResponse(Call<ReviewSummary> call, Response<ReviewSummary> response) {
+                if(response.isSuccessful()){
+                    // todo: setText
+                    txtSummary.setText(response.body().getSummary());
+
+                }else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ReviewSummary> call, Throwable t) {
+
+            }
+        });
+    }
 
     // 호텔 상세정보 가져오는 네트워크
     void getNetworkData() {

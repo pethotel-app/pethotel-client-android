@@ -399,6 +399,12 @@
                     android:textColor="#000000" />
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/txtSummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="요약된리뷰가들어갈곳" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
