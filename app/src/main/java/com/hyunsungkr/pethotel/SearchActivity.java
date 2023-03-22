@@ -1,6 +1,8 @@
 package com.hyunsungkr.pethotel;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,8 +16,10 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.MapFragment;
 import com.hyunsungkr.pethotel.adapter.PetChoiceAdapter;
 import com.hyunsungkr.pethotel.adapter.SearchHotelAdapter;
 import com.hyunsungkr.pethotel.adapter.SearchRankAdapter;
@@ -50,6 +54,7 @@ public class SearchActivity extends AppCompatActivity {
     ImageView imgBack;
     ImageView imgSearch;
     EditText editKeyword;
+    LinearLayout aroundSearch;
 
     TextView txtDateStart;
     TextView txtDateEnd;
@@ -86,6 +91,7 @@ public class SearchActivity extends AppCompatActivity {
         txtDateEnd = findViewById(R.id.txtDateEnd);
         txtDateStart  = findViewById(R.id.txtDateStart);
         editKeyword = findViewById(R.id.editKeyword);
+        aroundSearch = findViewById(R.id.aroundSearch);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -121,6 +127,8 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
+
+
 
 
 

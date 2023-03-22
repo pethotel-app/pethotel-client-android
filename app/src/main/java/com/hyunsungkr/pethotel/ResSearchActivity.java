@@ -19,6 +19,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.hyunsungkr.pethotel.adapter.HotelReviewAdapter;
@@ -177,6 +178,8 @@ public class ResSearchActivity extends AppCompatActivity {
 
                     // 현재 위치 유지
                     recyclerView.scrollToPosition(lastVisibleItemPosition);
+
+
                 }
             }
         });

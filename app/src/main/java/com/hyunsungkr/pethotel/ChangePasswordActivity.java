@@ -6,11 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -39,6 +41,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
     String password;
     String newPassword;
     String checkPassword;
+
+    ImageView imgBack;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,14 @@ public class ChangePasswordActivity extends AppCompatActivity {
         editBasicPassword = findViewById(R.id.editBasicPassword);
         editCheckPassword = findViewById(R.id.editCheckPassword);
         btnSave = findViewById(R.id.btnSave);
+        imgBack = findViewById(R.id.imgBack);
+
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
 
 
