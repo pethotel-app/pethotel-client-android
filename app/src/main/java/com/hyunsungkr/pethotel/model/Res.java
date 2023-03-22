@@ -1,6 +1,8 @@
 package com.hyunsungkr.pethotel.model;
 
-public class Res {
+import java.io.Serializable;
+
+public class Res implements Serializable {
 
     private String result;
 

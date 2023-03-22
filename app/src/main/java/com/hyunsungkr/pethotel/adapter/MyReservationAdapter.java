@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hyunsungkr.pethotel.CancelActivity;
+import com.hyunsungkr.pethotel.MyReservationActivity;
 import com.hyunsungkr.pethotel.R;
 import com.hyunsungkr.pethotel.ReviewWriteActivity;
 import com.hyunsungkr.pethotel.model.MyReservation;

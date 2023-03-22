@@ -58,6 +58,17 @@ public class HotelReviewAdapter extends RecyclerView.Adapter<HotelReviewAdapter.
             Glide.with(context)
                     .load(hotelReview.getImgUrl()).into(holder.imgReview);
         }
+
+        // 호텔 이미지와 리뷰 이미지 가져오기
+        if (hotelReview.getUserImgUrl() != null) {
+            Glide.with(context).load(hotelReview.getUserImgUrl()).into(holder.imgProfile);
+        }
+
+        if(hotelReview.getImgUrl() != null){
+            // 리뷰 이미지가 있다면 비저블로 변경 후 셋팅
+            holder.imgReview.setVisibility(View.VISIBLE);
+            Glide.with(context).load(hotelReview.getImgUrl()).into(holder.imgReview);
+        }
     }
 
     @Override

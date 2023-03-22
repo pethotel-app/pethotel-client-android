@@ -1,9 +1,14 @@
 package com.hyunsungkr.pethotel;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +20,7 @@ import com.hyunsungkr.pethotel.api.ReservationApi;
 import com.hyunsungkr.pethotel.config.Config;
 import com.hyunsungkr.pethotel.model.MyReservation;
 import com.hyunsungkr.pethotel.model.MyReservationList;
+import com.hyunsungkr.pethotel.model.Res;
 
 import java.util.ArrayList;
 
@@ -35,8 +41,6 @@ public class MyReservationActivity extends AppCompatActivity {
     int count = 0;
     int offset = 0;
     int limit = 5;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

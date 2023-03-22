@@ -6,30 +6,35 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp"
-        app:cardCornerRadius="5dp"
+        app:cardCornerRadius="10dp"
         app:strokeColor="#666568">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="5dp"
+            android:layout_margin="3dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="3dp"
                 android:orientation="horizontal">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imgProfile"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/baseline_person_24" />
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/baseline_person_24"
+                    app:civ_border_overlay="true" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -44,9 +49,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:numStars="5"
+                        android:progressTint="#7DCFFD"
                         android:rating="1"
-                        android:stepSize="1"
-                        android:progressTint="#7DCFFD"/>
+                        android:stepSize="1" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -60,20 +65,22 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="이름"
-                            android:textColor="#000000" />
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
 
                         <TextView
                             android:id="@+id/textView11"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="　|　" />
+                            android:text="  |  " />
 
                         <TextView
                             android:id="@+id/txtDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="날짜"
-                            android:textColor="#000000" />
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -89,19 +96,23 @@
                     android:id="@+id/imgReview"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
                     android:scaleType="centerCrop"
                     android:visibility="gone"
-                    app:srcCompat="@drawable/baseline_image_24" />
+                    app:srcCompat="@drawable/icon3" />
 
                 <TextView
                     android:id="@+id/txtReview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
                     android:padding="5dp"
                     android:text="리뷰내용"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="13sp" />
             </LinearLayout>
         </LinearLayout>
 
