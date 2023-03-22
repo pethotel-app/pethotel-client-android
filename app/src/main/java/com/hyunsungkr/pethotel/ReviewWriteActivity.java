@@ -35,6 +35,7 @@ import android.widget.Toast;
 import com.hyunsungkr.pethotel.api.NetworkClient;
 import com.hyunsungkr.pethotel.api.ReviewApi;
 import com.hyunsungkr.pethotel.config.Config;
+import com.hyunsungkr.pethotel.model.MyReservation;
 import com.hyunsungkr.pethotel.model.Res;
 
 import org.apache.commons.io.IOUtils;
@@ -63,10 +64,9 @@ public class ReviewWriteActivity extends AppCompatActivity {
     RatingBar ratingBar;
     Button btnSave;
     float userRating;
-
     File photoFile;
     private ProgressDialog dialog;
-
+    MyReservation myReservation;
 
 
     @Override
@@ -80,6 +80,9 @@ public class ReviewWriteActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar);
         btnSave = findViewById(R.id.btnSave);
 
+        // 호텔 정보 받아오기
+        myReservation = (MyReservation) getIntent().getSerializableExtra("myReservation");
+
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
@@ -89,9 +92,6 @@ public class ReviewWriteActivity extends AppCompatActivity {
                 userRating = rating;
             }
         });
-
-
-
 
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,8 +117,6 @@ public class ReviewWriteActivity extends AppCompatActivity {
 
                 String content = editReview.getText().toString().trim();
 
-
-
                 if(content.isEmpty()){
                     Toast.makeText(ReviewWriteActivity.this, "내용은 필수입니다.", Toast.LENGTH_SHORT).show();
                     return;
@@ -142,8 +140,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
                 SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
                 String accessToken = "Bearer " + sp.getString(Config.ACCESS_TOKEN, "");
 
-                // todo : hotelId 하드코딩 제거
-                Call<Res> call = api.addReview(accessToken,5,photo,contentBody,ratingBody);
+                Call<Res> call = api.addReview(accessToken,myReservation.getHotelId(),photo,contentBody,ratingBody);
 
                 call.enqueue(new Callback<Res>() {
                     @Override
@@ -151,6 +148,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
                         dismissProgress();
                         if(response.isSuccessful()){
                             finish();
+
                         }else{
                             return;
                         }
@@ -164,9 +162,6 @@ public class ReviewWriteActivity extends AppCompatActivity {
 
             }
         });
-
-
-
 
     }
 

@@ -1,9 +1,14 @@
 package com.hyunsungkr.pethotel;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +20,7 @@ import com.hyunsungkr.pethotel.api.ReservationApi;
 import com.hyunsungkr.pethotel.config.Config;
 import com.hyunsungkr.pethotel.model.MyReservation;
 import com.hyunsungkr.pethotel.model.MyReservationList;
+import com.hyunsungkr.pethotel.model.Res;
 
 import java.util.ArrayList;
 
@@ -26,7 +32,6 @@ import retrofit2.Retrofit;
 public class MyReservationActivity extends AppCompatActivity {
 
     ImageView imgBack;
-
     RecyclerView recyclerView;
     MyReservationAdapter adapter;
     ArrayList<MyReservation> myReservationList = new ArrayList<>();
@@ -35,9 +40,7 @@ public class MyReservationActivity extends AppCompatActivity {
     // 페이징 처리를 위한 변수
     int count = 0;
     int offset = 0;
-    int limit = 7;
-
-
+    int limit = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +61,6 @@ public class MyReservationActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
 
     @Override
@@ -71,7 +72,6 @@ public class MyReservationActivity extends AppCompatActivity {
     void getNetworkData() {
         Retrofit retrofit = NetworkClient.getRetrofitClient(MyReservationActivity.this);
         ReservationApi api = retrofit.create(ReservationApi.class);
-
 
         // 토큰 가져오기
         SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
@@ -88,6 +88,7 @@ public class MyReservationActivity extends AppCompatActivity {
                     count = response.body().getCount();
                     myReservationList.addAll(response.body().getItems());
                     offset = offset + count;
+
                     adapter = new MyReservationAdapter(MyReservationActivity.this,myReservationList);
                     recyclerView.setAdapter(adapter);
                 }else{
