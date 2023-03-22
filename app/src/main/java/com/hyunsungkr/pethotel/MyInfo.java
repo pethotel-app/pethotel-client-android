@@ -219,6 +219,7 @@ public class MyInfo extends Fragment {
     public void onResume() {
         super.onResume();
         getNetworkData();
+        getPetData();
     }
 
     void getNetworkData(){
@@ -331,15 +332,6 @@ public class MyInfo extends Fragment {
 
             }
         });
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        getNetworkData();
-        getPetData();
-
     }
 
 }

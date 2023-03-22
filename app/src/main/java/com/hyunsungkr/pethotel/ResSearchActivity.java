@@ -190,11 +190,6 @@ public class ResSearchActivity extends AppCompatActivity {
 
                     adapter.notifyDataSetChanged();
 
-                    // 현재 위치 유지
-                    recyclerView.scrollToPosition(lastVisibleItemPosition);
-
-
-
                 }
             }
         });
