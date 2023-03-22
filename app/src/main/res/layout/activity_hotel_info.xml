@@ -399,11 +399,43 @@
                     android:textColor="#000000" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/txtSummary"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="요약된리뷰가들어갈곳" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext2"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:text="방문한 고객 00%가 만족한 호텔입니다"
+                    android:textColor="#3498DB" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:text="호텔 리뷰 요약"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/txtSummary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:text="요약된리뷰가들어갈곳"
+                    android:textColor="#000000"
+                    android:textSize="13sp" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"

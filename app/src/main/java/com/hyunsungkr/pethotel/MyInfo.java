@@ -141,10 +141,6 @@ public class MyInfo extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-
-
-
-
         imgMyPoint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -207,7 +203,6 @@ public class MyInfo extends Fragment {
             }
         });
 
-
         txtCheckReservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -216,12 +211,6 @@ public class MyInfo extends Fragment {
 
             }
         });
-
-
-
-
-        getNetworkData();
-        getPetData();
 
         return rootView;
     }
@@ -259,9 +248,6 @@ public class MyInfo extends Fragment {
         });
 
     }
-
-
-
 
     void getPetData(){
 
@@ -337,10 +323,15 @@ public class MyInfo extends Fragment {
 
             }
         });
-
-
-
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getNetworkData();
+        getPetData();
+
+    }
 
 }
