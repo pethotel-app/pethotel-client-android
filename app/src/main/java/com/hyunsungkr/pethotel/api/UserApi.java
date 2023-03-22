@@ -8,12 +8,15 @@ import com.hyunsungkr.pethotel.model.UserRes;
 
 import java.util.Map;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 
 public interface UserApi {
 
@@ -53,6 +56,9 @@ public interface UserApi {
     @POST("/user/change/password")
     Call<UserRes> changePassword(@Header("Authorization") String token,@Body Map<String, String> body);
 
-
+    // 프로필 이미지 등록
+    @Multipart
+    @PUT("/user/profile")
+    Call<Res> setProfile(@Header("Authorization") String token, @Part MultipartBody.Part photo );
 
 }
