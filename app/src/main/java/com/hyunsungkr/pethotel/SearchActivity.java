@@ -54,8 +54,6 @@ public class SearchActivity extends AppCompatActivity {
     ImageView imgBack;
     ImageView imgSearch;
     EditText editKeyword;
-    LinearLayout aroundSearch;
-
     TextView txtDateStart;
     TextView txtDateEnd;
     String startDate;
@@ -91,7 +89,6 @@ public class SearchActivity extends AppCompatActivity {
         txtDateEnd = findViewById(R.id.txtDateEnd);
         txtDateStart  = findViewById(R.id.txtDateStart);
         editKeyword = findViewById(R.id.editKeyword);
-        aroundSearch = findViewById(R.id.aroundSearch);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -127,12 +124,6 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
-
 
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hyunsungkr.pethotel.CancelActivity;
@@ -37,6 +38,15 @@ public class MyReservationAdapter extends RecyclerView.Adapter<MyReservationAdap
     public MyReservationAdapter(Context context, ArrayList<MyReservation> myReservationList) {
         this.context = context;
         MyReservationList = myReservationList;
+    }
+
+    public interface OnItemClickListener{
+        void onCardViewClick(int index);
+    }
+    public MyReservationAdapter.OnItemClickListener listener;
+
+    public void setOnItemClickListener(MyReservationAdapter.OnItemClickListener listener){
+        this.listener = listener;
     }
 
     @NonNull
@@ -98,7 +108,7 @@ public class MyReservationAdapter extends RecyclerView.Adapter<MyReservationAdap
         TextView txtCancle;
         TextView txtReview;
         TextView txtExpiration;
-
+        CardView cardView;
         MyReservation myReservation;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -110,14 +120,13 @@ public class MyReservationAdapter extends RecyclerView.Adapter<MyReservationAdap
             txtCancle = itemView.findViewById(R.id.txtCancle);
             txtReview = itemView.findViewById(R.id.txtReview);
             txtExpiration = itemView.findViewById(R.id.txtExpiration);
+            cardView = itemView.findViewById(R.id.cardView);
 
             txtCancle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
                     myReservation = MyReservationList.get(position);
-                    Log.i("인텐트 확인", String.valueOf(myReservation.getHotelId()));
-                    Log.i("인텐트 2", String.valueOf(myReservation.getPetId()));
                     Intent intent = new Intent(context, CancelActivity.class);
                     intent.putExtra("myReservation", myReservation);
                     context.startActivity(intent);
@@ -127,9 +136,21 @@ public class MyReservationAdapter extends RecyclerView.Adapter<MyReservationAdap
             txtReview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    myReservation = MyReservationList.get(position);
                     Intent intent = new Intent(context, ReviewWriteActivity.class);
                     intent.putExtra("myReservation", myReservation);
                     context.startActivity(intent);
+                }
+            });
+
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    myReservation = MyReservationList.get(position);
+                    int index = myReservation.getHotelId();
+                    listener.onCardViewClick(index);
                 }
             });
         }

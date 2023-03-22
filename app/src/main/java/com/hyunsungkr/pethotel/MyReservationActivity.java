@@ -14,13 +14,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.hyunsungkr.pethotel.adapter.FavoriteAdapter;
 import com.hyunsungkr.pethotel.adapter.MyReservationAdapter;
 import com.hyunsungkr.pethotel.api.NetworkClient;
 import com.hyunsungkr.pethotel.api.ReservationApi;
 import com.hyunsungkr.pethotel.config.Config;
+import com.hyunsungkr.pethotel.model.Hotel;
 import com.hyunsungkr.pethotel.model.MyReservation;
 import com.hyunsungkr.pethotel.model.MyReservationList;
-import com.hyunsungkr.pethotel.model.Res;
 
 import java.util.ArrayList;
 
@@ -89,7 +90,17 @@ public class MyReservationActivity extends AppCompatActivity {
                     myReservationList.addAll(response.body().getItems());
                     offset = offset + count;
 
-                    adapter = new MyReservationAdapter(MyReservationActivity.this,myReservationList);
+                    adapter = new MyReservationAdapter(MyReservationActivity.this, myReservationList);
+                    adapter.setOnItemClickListener(new MyReservationAdapter.OnItemClickListener() {
+                        @Override
+                        public void onCardViewClick(int index) {
+                            Hotel hotel = new Hotel();
+                            hotel.setId(index);
+                            Intent intent = new Intent(MyReservationActivity.this, HotelInfoActivity.class);
+                            intent.putExtra("hotel", hotel);
+                            startActivity(intent);
+                        }
+                    });
                     recyclerView.setAdapter(adapter);
                 }else{
                     return;

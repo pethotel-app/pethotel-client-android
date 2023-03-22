@@ -113,7 +113,7 @@ public class ResSearchActivity extends AppCompatActivity {
         reservation = (Reservation) intent.getSerializableExtra("reservation");
         keyword = intent.getStringExtra("keyword");
         editKeyword.setText(keyword);
-        txtDate.setText(reservation.getCheckInDate() + "~" + reservation.getCheckOutDate());
+        txtDate.setText(reservation.getCheckInDate() + " ~ " + reservation.getCheckOutDate());
 
 
         // 리싸이클러뷰 띄우기

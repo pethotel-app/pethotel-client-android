@@ -39,7 +39,7 @@
                 android:hint="지역, 숙소명으로 찾아보세요"
                 android:inputType="textPersonName"
                 android:padding="10dp"
-                android:textSize="20sp" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:id="@+id/imgSearch"
@@ -58,28 +58,28 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginBottom="3dp"
+            android:layout_marginBottom="7dp"
             android:background="@drawable/edittext2"
-            android:padding="10dp"
+            android:padding="8dp"
             android:text="03-01(수) ~ 03-02(목)"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/txtResSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="13dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginBottom="3dp"
             android:text="00개의 검색 결과"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp" />
+            android:layout_height="match_parent" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

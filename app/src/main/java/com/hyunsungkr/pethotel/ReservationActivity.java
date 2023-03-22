@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -73,7 +74,7 @@ public class ReservationActivity extends AppCompatActivity {
     int discount;
     int point = 0;
     int finalPrice;
-    int couponPrice;
+    int couponPrice = 0;
     int price;
 
     Hotel hotel;
@@ -182,6 +183,9 @@ public class ReservationActivity extends AppCompatActivity {
         price = reservation.getPrice();
         txtFinalPrice.setText(myFormatter.format(price) + "원");
 
+        // 쿠폰 선택 안할시 입력
+        couponPrice = reservation.getPrice();
+
         // 포인트 사용시 입력 받는 정보 가져오기
         editPoint.addTextChangedListener(new TextWatcher() {
              @Override
@@ -224,9 +228,14 @@ public class ReservationActivity extends AppCompatActivity {
                 // 구매 아이템 설정
                 BootItem bootItem = new BootItem();
                 bootItem.setName(hotel.getTitle());
-                bootItem.setPrice((double) finalPrice);
-                bootItem.setId(hotel.getId()+"");
 
+                // 금액 셋팅
+                String strFinalPrice = txtFinalPrice.getText().toString();
+                String strPrice = strFinalPrice.replaceAll(",", "").replaceAll("[^\\d.]", "");
+                double finalPrice = Double.parseDouble(strPrice);
+                bootItem.setPrice(finalPrice);
+
+                bootItem.setId(hotel.getId()+"");
                 // 결제 항목 설정
                 Payload payload = new Payload();
                 payload.setApplicationId(Config.access_key);
