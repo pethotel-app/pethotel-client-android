@@ -47,7 +47,7 @@ public interface PetApi {
                         @Part("gender") RequestBody gender,
                         @Part("petImgUrl") RequestBody petImgUrl);
 
-    @DELETE
+    @DELETE("/pets/{petId}")
     Call<Res> deletePet(@Header("Authorization") String token,
                         @Path("petId") int petId);
 

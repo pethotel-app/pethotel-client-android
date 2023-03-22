@@ -115,6 +115,7 @@ public class MyInfo extends Fragment {
     String MyPoint = "";
 
     private int deleteIndex;
+    private Pet selectedPet;
 
 
     @Override
@@ -259,6 +260,9 @@ public class MyInfo extends Fragment {
 
     }
 
+
+
+
     void getPetData(){
 
         Retrofit retrofit = NetworkClient.getRetrofitClient(getActivity());
@@ -286,6 +290,11 @@ public class MyInfo extends Fragment {
                             intent.putExtra("pet", pet);
                             startActivity(intent);
                         }
+
+                        @Override
+                        public void deleteProcess(int index) {
+                            MyInfo.this.deleteProcess(index);
+                        }
                     });
                     recyclerView.setAdapter(adapter);
 
@@ -302,6 +311,36 @@ public class MyInfo extends Fragment {
 
     }
 
+    public void deleteProcess(int index) {
+        selectedPet = petList.get(index);
+        Retrofit retrofit = NetworkClient.getRetrofitClient(getActivity());
+        PetApi api = retrofit.create(PetApi.class);
+
+        // 헤더에 들어갈 억세스토큰 가져오기
+        SharedPreferences sp = getActivity().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String accessToken = "Bearer " + sp.getString(Config.ACCESS_TOKEN, "");
+
+        Call<Res> call = api.deletePet(accessToken, selectedPet.getId());
+        call.enqueue(new Callback<Res>() {
+            @Override
+            public void onResponse(Call<Res> call, Response<Res> response) {
+                if(response.isSuccessful()){
+                    petList.remove(selectedPet);
+                    adapter.notifyDataSetChanged();
+                }else{
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Res> call, Throwable t) {
+
+            }
+        });
+
+
+
+    }
 
 
 }

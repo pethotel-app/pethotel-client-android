@@ -26,6 +26,7 @@ public class MyPetAdapter extends RecyclerView.Adapter<MyPetAdapter.ViewHolder> 
 
     public interface OnItemClickListener {
         void onCardViewClick(int index);
+        void deleteProcess(int index);
     }
     public OnItemClickListener listener;
     public void setOnItemClickListener(OnItemClickListener listener){
@@ -122,10 +123,16 @@ public class MyPetAdapter extends RecyclerView.Adapter<MyPetAdapter.ViewHolder> 
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             // todo: 삭제하는 함수 호출
+                            int index = getAdapterPosition();
+                            listener.deleteProcess(index);
+
+
 
                         }
                     });
+                    builder.show();
                 }
+
             });
 
         }
