@@ -409,12 +409,12 @@
                 android:padding="8dp">
 
                 <TextView
-                    android:id="@+id/textView15"
+                    android:id="@+id/txtAvg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
                     android:layout_marginBottom="3dp"
-                    android:text="방문한 고객 00%가 만족한 호텔입니다"
+                    android:text="이 호텔에 대한 평균 별점은 4.5점입니다"
                     android:textColor="#3498DB" />
 
                 <TextView

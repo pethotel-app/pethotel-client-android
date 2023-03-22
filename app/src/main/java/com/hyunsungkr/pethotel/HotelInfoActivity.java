@@ -72,24 +72,20 @@ public class HotelInfoActivity extends AppCompatActivity {
     public TextView txtDateStart;
     public TextView txtDateEnd;
     public TextView txtSummary;
-
     public TextView txtReviewSum2;
     public TextView txtMore;
     public ImageView imgChoicePet;
     public ImageView imgHome;
-
     public ImageView imgBack;
+    public TextView txtAvg;
     private int startYear, startMonth, startDay, endYear, endMonth, endDay;
     String petName = "";
     private Pet pet;
     private Hotel hotel;
-
     private int hotelId;
     int hotelId2;
     String accessToken;
-
     Hotel intentHotel;
-
     int favorite;
 
     int offset = 0;
@@ -149,19 +145,15 @@ public class HotelInfoActivity extends AppCompatActivity {
         txtReviewSum2 = findViewById(R.id.txtReviewSum2);
         txtMore = findViewById(R.id.txtMore);
         txtSummary = findViewById(R.id.txtSummary);
-
-
+        txtAvg = findViewById(R.id.txtAvg);
 
         // 토큰 가져오기
         SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
         accessToken = "Bearer " + sp.getString(Config.ACCESS_TOKEN, "");
 
-
-
-            // 메인에서 인텐트로 호텔 정보 받아와서 아이디 저장
-            intentHotel = (Hotel) getIntent().getSerializableExtra("hotel");
-            hotelId = intentHotel.getId();
-
+        // 메인에서 인텐트로 호텔 정보 받아와서 아이디 저장
+        intentHotel = (Hotel) getIntent().getSerializableExtra("hotel");
+        hotelId = intentHotel.getId();
 
 
         // 좋아요 설정, 해제
@@ -497,6 +489,9 @@ public class HotelInfoActivity extends AppCompatActivity {
 
                     // 좋아요 설정, 해제를 위해 변수선언
                     favorite = hotel.getFavorite();
+
+                    // 리뷰 별점 표시
+                    txtAvg.setText("이 호텔에 대한 평균 별점은 " + String.format("%.1f", hotel.getAvg()) + "점 입니다");
 
 
                 }
