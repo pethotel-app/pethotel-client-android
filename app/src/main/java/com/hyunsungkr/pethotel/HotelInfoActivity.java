@@ -498,6 +498,7 @@ public class HotelInfoActivity extends AppCompatActivity {
                     // 호텔 이미지 셋팅
                     Glide.with(HotelInfoActivity.this).load(hotel.getImgUrl()).into(imgHotel);
 
+
                 }
             }
 

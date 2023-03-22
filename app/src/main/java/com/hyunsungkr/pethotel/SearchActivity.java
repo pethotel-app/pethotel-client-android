@@ -270,9 +270,13 @@ public class SearchActivity extends AppCompatActivity {
     }
     // 검색어 순위 가져오기
     void getRankNetworkDate(){
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd");
+        String currentDate = dateFormat.format(new Date());
+
         Retrofit retrofit = NetworkClient.getRetrofitClient(SearchActivity.this);
         KeywordApi api = retrofit.create(KeywordApi.class);
-        Call<KeywordList> call = api.getKeywordRank("03-21",offset,limit);
+        Call<KeywordList> call = api.getKeywordRank(currentDate,offset,limit);
 
         // 비동기적으로 요청을 보낸다.
         call.enqueue(new Callback<KeywordList>() {
