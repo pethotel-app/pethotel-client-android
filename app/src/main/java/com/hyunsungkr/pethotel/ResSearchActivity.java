@@ -187,6 +187,14 @@ public class ResSearchActivity extends AppCompatActivity {
                     isLoading = true;
                     offset += limit;
                     getNetworkSearchData();
+
+                    adapter.notifyDataSetChanged();
+
+                    // 현재 위치 유지
+                    recyclerView.scrollToPosition(lastVisibleItemPosition);
+
+
+
                 }
             }
         });

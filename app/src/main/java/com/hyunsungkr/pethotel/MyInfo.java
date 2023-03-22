@@ -215,6 +215,12 @@ public class MyInfo extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getNetworkData();
+    }
+
     void getNetworkData(){
         Retrofit retrofit = NetworkClient.getRetrofitClient(getActivity());
         UserApi api = retrofit.create(UserApi.class);
@@ -228,12 +234,14 @@ public class MyInfo extends Fragment {
             @Override
             public void onResponse(Call<UserMyPageRes> call, Response<UserMyPageRes> response) {
                 if(response.isSuccessful()){
+                    mypageList.clear(); // 기존 데이터 삭제.
                     mypageList.addAll(response.body().getItems());
                     txtName.setText(mypageList.get(0).getName());
                     txtPoint.setText(mypageList.get(0).getTotalPoint()+"");
                     MyPoint = mypageList.get(0).getTotalPoint()+"";
                     txtCoupon.setText(mypageList.get(0).getCntCoupon()+"");
                     Glide.with(getActivity()).load(mypageList.get(0).getUserImgUrl()).placeholder(R.drawable.icon2).into(imgPhoto);
+
 
 
                 }else{
