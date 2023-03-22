@@ -3,6 +3,7 @@ package com.hyunsungkr.pethotel.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,6 +99,7 @@ public class MyReservationAdapter extends RecyclerView.Adapter<MyReservationAdap
         TextView txtReview;
         TextView txtExpiration;
 
+        MyReservation myReservation;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -112,6 +114,10 @@ public class MyReservationAdapter extends RecyclerView.Adapter<MyReservationAdap
             txtCancle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    myReservation = MyReservationList.get(position);
+                    Log.i("인텐트 확인", String.valueOf(myReservation.getHotelId()));
+                    Log.i("인텐트 2", String.valueOf(myReservation.getPetId()));
                     Intent intent = new Intent(context, CancelActivity.class);
                     intent.putExtra("myReservation", myReservation);
                     context.startActivity(intent);

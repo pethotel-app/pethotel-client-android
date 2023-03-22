@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -116,6 +117,7 @@ public class MyReviewActivity extends AppCompatActivity {
                         public void onCardViewClick(int index) {
                             Review review = reviewArrayList.get(index);
                             Hotel hotel = new Hotel();
+                            Log.i("인텐트 넘기기전 확인", String.valueOf(review.getHotelId()));
                             hotel.setId(review.getHotelId());
                             Intent intent = new Intent(MyReviewActivity.this, HotelInfoActivity.class);
                             intent.putExtra("hotel", hotel);

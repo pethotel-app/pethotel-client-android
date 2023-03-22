@@ -163,22 +163,6 @@ public class HotelInfoActivity extends AppCompatActivity {
             hotelId = intentHotel.getId();
 
 
-        // 리뷰 갯수 표시
-        String reviewCnt = String.valueOf(intentHotel.getCnt());
-        txtReviewSum.setText("("+reviewCnt+")");
-        txtReviewSum2.setText("("+reviewCnt+")");
-
-        // 별점 평균 표시
-        float ratingAvg = (float) intentHotel.getAvg();
-        ratingBar.setRating(ratingAvg);
-        txtReviewAvg.setText(String.format("%.1f", intentHotel.getAvg()));
-        // 좋아요 표시
-        if (intentHotel.getFavorite() == 1){
-            imgFavorite.setImageResource(R.drawable.baseline_favorite_24);
-        }
-
-        // 좋아요 설정, 해제를 위해 변수선언
-        favorite = intentHotel.getFavorite();
 
         // 좋아요 설정, 해제
         imgFavorite.setOnClickListener(new View.OnClickListener() {
@@ -497,6 +481,22 @@ public class HotelInfoActivity extends AppCompatActivity {
                     txtLargePrice.setText(myFormatter.format(hotel.getLarge()) + "원");
                     // 호텔 이미지 셋팅
                     Glide.with(HotelInfoActivity.this).load(hotel.getImgUrl()).into(imgHotel);
+                    // 리뷰 갯수 표시
+                    String reviewCnt = String.valueOf(hotel.getCnt());
+                    txtReviewSum.setText("("+reviewCnt+")");
+                    txtReviewSum2.setText("("+reviewCnt+")");
+
+                    // 별점 평균 표시
+                    float ratingAvg = (float) hotel.getAvg();
+                    ratingBar.setRating(ratingAvg);
+                    txtReviewAvg.setText(String.format("%.1f", hotel.getAvg()));
+                    // 좋아요 표시
+                    if (hotel.getFavorite() == 1){
+                        imgFavorite.setImageResource(R.drawable.baseline_favorite_24);
+                    }
+
+                    // 좋아요 설정, 해제를 위해 변수선언
+                    favorite = hotel.getFavorite();
 
 
                 }
