@@ -54,6 +54,14 @@
                         android:layout_marginLeft="5dp"
                         android:text="성별"
                         android:textColor="#7DCFFD" />
+
+                    <ImageView
+                        android:id="@+id/imgDelete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginLeft="140dp"
+                        app:srcCompat="@drawable/baseline_close_24" />
                 </LinearLayout>
 
                 <LinearLayout

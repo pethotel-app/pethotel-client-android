@@ -10,6 +10,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -46,5 +47,8 @@ public interface PetApi {
                         @Part("gender") RequestBody gender,
                         @Part("petImgUrl") RequestBody petImgUrl);
 
+    @DELETE("/pets/{petId}")
+    Call<Res> deletePet(@Header("Authorization") String token,
+                        @Path("petId") int petId);
 
 }

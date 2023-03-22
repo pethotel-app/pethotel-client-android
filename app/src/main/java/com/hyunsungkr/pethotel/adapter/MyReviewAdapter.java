@@ -21,16 +21,27 @@ import com.hyunsungkr.pethotel.R;
 import com.hyunsungkr.pethotel.model.HotelReview;
 import com.hyunsungkr.pethotel.model.Review;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class MyReviewAdapter extends RecyclerView.Adapter<MyReviewAdapter.ViewHolder>{
 
     Context context;
     ArrayList<Review> reviewArrayList;
+    SimpleDateFormat sf;
+    SimpleDateFormat df;
 
     public MyReviewAdapter(Context context, ArrayList<Review> reviewArrayList) {
         this.context = context;
         this.reviewArrayList = reviewArrayList;
+        // UTC => Local Time
+        sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        df = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+        sf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        df.setTimeZone(TimeZone.getDefault());
     }
 
     public interface OnItemClickListener{
@@ -57,8 +68,14 @@ public class MyReviewAdapter extends RecyclerView.Adapter<MyReviewAdapter.ViewHo
         holder.txtHotelName.setText(review.getTitle());
         holder.txtUsername.setText(review.getName());
 
-        String Date = review.getCreatedAt().split("T")[0] + " " + review.getCreatedAt().split("T")[1];
-        holder.txtDate.setText(Date);
+        try{
+            Date date = sf.parse(review.getCreatedAt());
+            long timeInMillis = date.getTime() + 9 * 60 * 60 * 1000; // UTC -> KST
+            date.setTime(timeInMillis);
+            holder.txtDate.setText(df.format(date));
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
 
         holder.txtReview.setText(review.getContent());
         holder.ratingBar.setRating(review.getRating());

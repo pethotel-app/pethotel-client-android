@@ -16,15 +16,27 @@ import com.bumptech.glide.Glide;
 import com.hyunsungkr.pethotel.R;
 import com.hyunsungkr.pethotel.model.HotelReview;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class HotelReviewAdapter extends RecyclerView.Adapter<HotelReviewAdapter.ViewHolder> {
     private Context context;
     private List<HotelReview> hotelReviewList;
 
+    SimpleDateFormat sf;
+    SimpleDateFormat df;
+
     public HotelReviewAdapter(Context context, List<HotelReview> hotelReviewList) {
         this.context = context;
         this.hotelReviewList = hotelReviewList;
+        // UTC => Local Time
+        sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        df = new SimpleDateFormat("yyyy-MM-dd HH:mm a");
+        sf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        df.setTimeZone(TimeZone.getDefault());
     }
 
     @NonNull
@@ -40,9 +52,14 @@ public class HotelReviewAdapter extends RecyclerView.Adapter<HotelReviewAdapter.
 
         holder.txtReview.setText(hotelReview.getContent());
         holder.txtUsername.setText(hotelReview.getName());
-        String createdAt = hotelReview.getCreatedAt();
-        String formattedDate = createdAt.substring(0, 10) + " " + createdAt.substring(11, 19);
-        holder.txtDate.setText(formattedDate);
+        try {
+            Date date = sf.parse(hotelReview.getCreatedAt());
+            long timeInMillis = date.getTime() + 9 * 60 * 60 * 1000; // UTC -> KST
+            date.setTime(timeInMillis);
+            holder.txtDate.setText(df.format(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         float rating = hotelReview.getRating();
         holder.ratingBar.setRating(rating);
 
@@ -96,4 +113,6 @@ public class HotelReviewAdapter extends RecyclerView.Adapter<HotelReviewAdapter.
 
         }
     }
+
+
 }

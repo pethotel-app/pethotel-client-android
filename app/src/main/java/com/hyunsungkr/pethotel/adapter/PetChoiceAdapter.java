@@ -25,6 +25,7 @@ public class PetChoiceAdapter extends RecyclerView.Adapter<PetChoiceAdapter.View
 
     public interface OnItemClickListener {
         void onImageClick(int index);
+
     }
 
     public OnItemClickListener listener;

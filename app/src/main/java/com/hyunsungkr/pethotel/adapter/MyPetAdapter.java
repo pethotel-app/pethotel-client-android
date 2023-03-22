@@ -1,6 +1,7 @@
 package com.hyunsungkr.pethotel.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +26,7 @@ public class MyPetAdapter extends RecyclerView.Adapter<MyPetAdapter.ViewHolder> 
 
     public interface OnItemClickListener {
         void onCardViewClick(int index);
+        void deleteProcess(int index);
     }
     public OnItemClickListener listener;
     public void setOnItemClickListener(OnItemClickListener listener){
@@ -84,6 +87,7 @@ public class MyPetAdapter extends RecyclerView.Adapter<MyPetAdapter.ViewHolder> 
         TextView txtSpecies;
         TextView txtAge;
         TextView txtWeight;
+        ImageView imgDelete;
 
 
 
@@ -98,6 +102,7 @@ public class MyPetAdapter extends RecyclerView.Adapter<MyPetAdapter.ViewHolder> 
             txtSpecies = itemView.findViewById(R.id.txtSpecies);
             txtAge = itemView.findViewById(R.id.txtAge);
             txtWeight = itemView.findViewById(R.id.txtWeight);
+            imgDelete = itemView.findViewById(R.id.imgDelete);
 
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -105,6 +110,29 @@ public class MyPetAdapter extends RecyclerView.Adapter<MyPetAdapter.ViewHolder> 
                     int index = getAdapterPosition();
                     listener.onCardViewClick(index);
                 }
+            });
+
+            imgDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("삭제");
+                    builder.setMessage("정말 삭제하시겠습니까?");
+                    builder.setNegativeButton("아니오", null);
+                    builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            // todo: 삭제하는 함수 호출
+                            int index = getAdapterPosition();
+                            listener.deleteProcess(index);
+
+
+
+                        }
+                    });
+                    builder.show();
+                }
+
             });
 
         }
