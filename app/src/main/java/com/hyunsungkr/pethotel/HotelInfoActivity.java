@@ -296,7 +296,7 @@ public class HotelInfoActivity extends AppCompatActivity {
 
                 // 반려동물정보가 없으면 선택하라고 메세지
                 String chekPet = txtSelectPet.getText().toString();
-                if (chekPet.equals("")) {
+                if (chekPet.equals("반려동물 선택")) {
                     Toast.makeText(HotelInfoActivity.this, "반려동물을 선택하세요", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -323,7 +323,7 @@ public class HotelInfoActivity extends AppCompatActivity {
 
                 // 반려동물정보가 없으면 선택하라고 메세지
                 String chekPet = txtSelectPet.getText().toString();
-                if (chekPet.equals("")) {
+                if (chekPet.equals("반려동물 선택")) {
                     Toast.makeText(HotelInfoActivity.this, "반려동물을 선택하세요", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -351,7 +351,7 @@ public class HotelInfoActivity extends AppCompatActivity {
 
                 // 반려동물정보가 없으면 선택하라고 메세지
                 String chekPet = txtSelectPet.getText().toString();
-                if (chekPet.equals("")) {
+                if (chekPet.equals("반려동물 선택")) {
                     Toast.makeText(HotelInfoActivity.this, "반려동물을 선택하세요", Toast.LENGTH_SHORT).show();
                     return;
                 }
