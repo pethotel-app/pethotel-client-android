@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "938627287562",
+    "firebase_url": "https://pethotelfirebase-default-rtdb.firebaseio.com",
+    "project_id": "pethotelfirebase",
+    "storage_bucket": "pethotelfirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:938627287562:android:63c8076316f5ff18462df3",
+        "android_client_info": {
+          "package_name": "com.hyunsungkr.pethotel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "938627287562-kek4q7jtk2f242miv63hpchh9p8dd72q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChzRCwnEXmGGViLDzkrMLAMBF-TISpJs8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "938627287562-kek4q7jtk2f242miv63hpchh9p8dd72q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
