@@ -56,7 +56,7 @@ public class HotelReviewAdapter extends RecyclerView.Adapter<HotelReviewAdapter.
             Date date = sf.parse(hotelReview.getCreatedAt());
             long timeInMillis = date.getTime() + 9 * 60 * 60 * 1000; // UTC -> KST
             date.setTime(timeInMillis);
-            holder.txtDate.setText(df.format(date));
+            holder.txtDate.setText(df.format(date).split(" ")[0]);
         } catch (ParseException e) {
             e.printStackTrace();
         }
