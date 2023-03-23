@@ -38,3 +38,12 @@ todo:스크린샷 추가
 | **Local DB**                 | Room, DataStore |
 | **Background**                 | AlarmManager |
 
+
+
+
+## <p align="center"> 🌈 Member</p>
+
+### 
+|왕현성|백민우|윤지수|
+|:-:|:--:|:-:|
+|<img src="https://avatars.githubusercontent.com/u/83231344?v=4" alt="SsongSik" width="100" height="100">|<img src="https://avatars.githubusercontent.com/u/75851930?v=4" alt="d00hye" width="100" height="100">|<img src="https://avatars.githubusercontent.com/u/62696816?v=4" alt="DoyKim-20" width="100" height="100">|
