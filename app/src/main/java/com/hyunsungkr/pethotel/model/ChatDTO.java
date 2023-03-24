@@ -5,6 +5,19 @@ public class ChatDTO {
     private String userId;
     private String editText;
     private String userName;
+    private String adminName;
+
+    public ChatDTO(String editText, String adminName){
+        this.editText = editText;
+        this.adminName = adminName;
+    }
+    public String getAdminName() {
+        return adminName;
+    }
+
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
+    }
 
     public ChatDTO() {}
     public String getUserName() {
