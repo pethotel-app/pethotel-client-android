@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -52,10 +53,13 @@ dependencies {
     implementation 'com.kakao.sdk:v2-user:2.10.0'
 
     // 파이어베이스
-    implementation platform('com.google.firebase:firebase-bom:31.2.0')
+    implementation platform('com.google.firebase:firebase-bom:31.2.3')
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.github.bumptech.glide:glide:4.14.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-database'
+    implementation 'com.google.firebase:firebase-storage:20.0.0'
 
     implementation 'commons-io:commons-io:2.4'
 
@@ -66,6 +70,6 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:3.1.0' //Circle ImageView
 
-   
+
 
 }

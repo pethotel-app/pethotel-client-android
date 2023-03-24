@@ -104,6 +104,7 @@ public class MyInfo extends Fragment {
     TextView txtCoupon;
     TextView txtPetRegister;
     TextView txtCheckReservation;
+    TextView txtInquiry;
 
     ArrayList<UserMyPage> mypageList = new ArrayList<>();
 
@@ -113,9 +114,11 @@ public class MyInfo extends Fragment {
 
     // 인텐트에 담기위한 멤버변수
     String MyPoint = "";
+    int userId;
 
     private int deleteIndex;
     private Pet selectedPet;
+    final int adminId = 55;
 
 
     @Override
@@ -137,9 +140,23 @@ public class MyInfo extends Fragment {
         txtCoupon = rootView.findViewById(R.id.txtCoupon);
         txtPetRegister = rootView.findViewById(R.id.txtPetRegister);
         txtCheckReservation = rootView.findViewById(R.id.txtCheckReservation);
+        txtInquiry = rootView.findViewById(R.id.txtInquiry);
         recyclerView = rootView.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
+        txtInquiry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (userId == adminId){
+                    Intent intent = new Intent(getActivity(),AdminActivity.class);
+                    startActivity(intent);
+                }else{
+                Intent intent = new Intent(getActivity(),ChatActivity.class);
+                startActivity(intent);}
+            }
+        });
 
         imgMyPoint.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -240,6 +257,7 @@ public class MyInfo extends Fragment {
                     txtName.setText(mypageList.get(0).getName());
                     txtPoint.setText(mypageList.get(0).getTotalPoint()+"");
                     MyPoint = mypageList.get(0).getTotalPoint()+"";
+                    userId = mypageList.get(0).getId();
                     txtCoupon.setText(mypageList.get(0).getCntCoupon()+"");
                     Glide.with(getActivity()).load(mypageList.get(0).getUserImgUrl()).placeholder(R.drawable.icon2).into(imgPhoto);
 
