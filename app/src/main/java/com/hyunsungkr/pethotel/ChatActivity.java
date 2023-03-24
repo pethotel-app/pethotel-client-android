@@ -103,8 +103,7 @@ public class ChatActivity extends AppCompatActivity {
 
             getNetworkData();
 //            readUserChatData();
-
-            btnSend.setOnClickListener(new View.OnClickListener() {
+                btnSend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (editText.getText().toString().trim().equals("")) {
@@ -286,7 +285,7 @@ public class ChatActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
-
+//
 }
 
 
