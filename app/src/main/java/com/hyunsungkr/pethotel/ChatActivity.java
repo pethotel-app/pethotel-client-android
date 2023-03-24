@@ -252,43 +252,6 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
-//    private void readUserChatData() {
-//        databaseReference.child("chat").child(userId).addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
-//                ChatDTO chat = dataSnapshot.getValue(ChatDTO.class);
-//                chatList.add(chat);
-//                adapter.notifyItemInserted(chatList.size() - 1);
-//            }
-//
-//            @Override
-//            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-//                ChatDTO chat = dataSnapshot.getValue(ChatDTO.class);
-//                int index = chatList.indexOf(chat);
-//                if(index != -1){
-//                    chatList.remove(index);
-//                    adapter.notifyItemRemoved(index);
-//                }
-//            }
-//
-//            @Override
-//            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
-//
-
     private void readUserChatData() {
         databaseReference.child("chat").child(userId).addChildEventListener(new ChildEventListener() {
             @Override
