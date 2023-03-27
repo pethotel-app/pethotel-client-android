@@ -65,7 +65,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         if (chat.getUserName().equals(lastUserName) && chat.getSentTime().equals(lastSentTime)) {
             holder.hideUserNameAndSendTime();
         } else { // 다른 유저 또는 다른 시간이라면 이름과 보낸 시간을 표시하고 lastUserName, lastSentTime을 업데이트한다.
-            Log.i("여기로 넘어온다고?", "확인");
             holder.showUserNameAndSendTime(chat.getUserName(), chat.getSentTime());
             lastUserName = chat.getUserName();
             lastSentTime = chat.getSentTime();
