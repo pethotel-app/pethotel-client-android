@@ -92,8 +92,7 @@ public class ChatActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        adapter = new ChatAdapter(ChatActivity.this, chatList,userId);
-        recyclerView.setAdapter(adapter);
+
 
 
         editText = findViewById(R.id.editText);
@@ -112,7 +111,7 @@ public class ChatActivity extends AppCompatActivity {
                     if (editText.getText().toString().trim().equals("")) {
                         return;
                     }
-                    getNetworkData();
+
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
                     String currentTime = dateFormat.format(new Date(System.currentTimeMillis()));
                     ChatDTO chat = new ChatDTO(userId, editText.getText().toString().trim(), userName, currentTime);
@@ -130,8 +129,9 @@ public class ChatActivity extends AppCompatActivity {
                     if (editText.getText().toString().trim() == null) {
                         return;
                     }
-
-                    ChatDTO chat = new ChatDTO(adminId, editText.getText().toString().trim(), adminName,String.valueOf(System.currentTimeMillis()));;
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+                    String currentTime = dateFormat.format(new Date(System.currentTimeMillis()));
+                    ChatDTO chat = new ChatDTO(adminId, editText.getText().toString().trim(), adminName,currentTime);
                     databaseReference.child("chat").child(chatRoomId).push().setValue(chat);
                     editText.setText("");
                 }
@@ -163,6 +163,7 @@ public class ChatActivity extends AppCompatActivity {
                     readUserChatData();
                     adapter = new ChatAdapter(ChatActivity.this, chatList,userId);
                     recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
 
 
                 } else {
