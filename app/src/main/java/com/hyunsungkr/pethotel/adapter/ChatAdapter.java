@@ -83,7 +83,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             holder.txtMessage.setGravity(Gravity.END);
 
             holder.txtSendTime.setGravity(Gravity.END);
-        } else { // message sent by the other party
+        }
+        else { // message sent by the other party
             holder.txtMessage.setGravity(Gravity.START);
 
             holder.txtSendTime.setGravity(Gravity.START);
@@ -113,6 +114,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         } else { // 상대방이 보낸 메시지일 경우
             return 1; // 왼쪽 말풍선을 사용
         }
+
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

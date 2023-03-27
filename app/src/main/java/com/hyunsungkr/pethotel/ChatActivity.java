@@ -92,6 +92,10 @@ public class ChatActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
+        adapter = new ChatAdapter(ChatActivity.this, chatList, userId);
+        recyclerView.setAdapter(adapter);
+
+
 
 
 
@@ -101,6 +105,7 @@ public class ChatActivity extends AppCompatActivity {
 
         // 인텐트 가져오기
         chatRoomId = getIntent().getStringExtra("chatRoomId");
+        Log.i("인텐트확인", chatRoomId);
 
         if (chatRoomId == null) {
             getNetworkData();
@@ -120,23 +125,23 @@ public class ChatActivity extends AppCompatActivity {
                 }
             });
 
-        } else {
-            readAdminChatData();
-            // 관리자가 들어왔을 때 버튼 클릭 리스너
-            imgSend.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (editText.getText().toString().trim() == null) {
-                        return;
+            } else {
+                readAdminChatData();
+                // 관리자가 들어왔을 때 버튼 클릭 리스너
+                imgSend.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (editText.getText().toString().trim() == null) {
+                            return;
+                        }
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+                        String currentTime = dateFormat.format(new Date(System.currentTimeMillis()));
+                        ChatDTO chat = new ChatDTO(adminId, editText.getText().toString().trim(), adminName,currentTime);
+                        databaseReference.child("chat").child(chatRoomId).push().setValue(chat);
+                        editText.setText("");
                     }
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
-                    String currentTime = dateFormat.format(new Date(System.currentTimeMillis()));
-                    ChatDTO chat = new ChatDTO(adminId, editText.getText().toString().trim(), adminName,currentTime);
-                    databaseReference.child("chat").child(chatRoomId).push().setValue(chat);
-                    editText.setText("");
-                }
-            });
-        }
+                });
+            }
 
 
     }
@@ -161,8 +166,7 @@ public class ChatActivity extends AppCompatActivity {
                     Log.i("이름", userName);
 
                     readUserChatData();
-                    adapter = new ChatAdapter(ChatActivity.this, chatList,userId);
-                    recyclerView.setAdapter(adapter);
+
                     adapter.notifyDataSetChanged();
 
 
