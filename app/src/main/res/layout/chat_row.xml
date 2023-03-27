@@ -10,7 +10,7 @@
         android:id="@+id/txtUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:layout_marginBottom="2dp"
         android:text=""
         android:textSize="16sp"
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/chat_row_right"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:padding="8dp"
         android:textColor="#fff"
         android:textSize="16sp" />
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:text=""
         android:textColor="@android:color/darker_gray"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:textSize="12sp"
         android:layout_marginTop="2dp"
         android:visibility="gone" />

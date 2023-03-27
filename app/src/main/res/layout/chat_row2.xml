@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,7 +9,7 @@
         android:id="@+id/txtUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
+        android:layout_gravity="start"
         android:layout_marginBottom="2dp"
         android:text=""
         android:textSize="16sp"
@@ -21,8 +20,7 @@
         android:id="@+id/txtMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/chat_row_left"
-        android:layout_gravity="left"
+        android:layout_gravity="start"
         android:padding="8dp"
         android:textColor="#fff"
         android:textSize="16sp" />
@@ -31,9 +29,9 @@
         android:id="@+id/txtSendTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="start"
         android:text=""
         android:textColor="@android:color/darker_gray"
-        android:layout_gravity="left"
         android:textSize="12sp"
         android:layout_marginTop="2dp"
         android:visibility="gone" />
