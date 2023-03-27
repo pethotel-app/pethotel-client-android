@@ -80,17 +80,21 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
         // 메시지 보낸 사람에 따라 말풍선을 오른쪽/왼쪽에 위치시킴
         if (chat.getUserId().equals(userId)) { // 내가 보낸 메시지
-            holder.txtMessage.setGravity(Gravity.END);
+            holder.txtMessage.setGravity(Gravity.RIGHT);
+            holder.txtMessage.setText(chat.getEditText());
+            holder.txtSendTime.setGravity(Gravity.RIGHT);
         } else { // 상대방이 보낸 메시지
-            holder.txtMessage.setGravity(Gravity.START); // 말풍선을 왼쪽으로 위치시킴
+            holder.txtMessage.setGravity(Gravity.LEFT); // 말풍선을 왼쪽으로 위치시킴
+            holder.txtMessage.setText(chat.getEditText());
+            holder.txtSendTime.setGravity(Gravity.LEFT);
         }
 
         // 메시지 내용을 설정
-        holder.txtMessage.setText(chat.getEditText());
+
 
 
         // 메시지 보낸 시간을 설정
-        holder.showSendTime(chat.getSentTime());
+
 
     }
 
