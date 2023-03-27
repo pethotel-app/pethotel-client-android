@@ -83,7 +83,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             holder.txtMessage.setGravity(Gravity.END);
 
             holder.txtSendTime.setGravity(Gravity.END);
+        }else if (chat.getUserId().equals("55")){
+            holder.txtUserName.setGravity(Gravity.END);
+
+            holder.txtSendTime.setGravity(Gravity.END);
         }
+
         else { // message sent by the other party
             holder.txtMessage.setGravity(Gravity.START);
 

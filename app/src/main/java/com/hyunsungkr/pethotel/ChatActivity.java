@@ -105,7 +105,7 @@ public class ChatActivity extends AppCompatActivity {
 
         // 인텐트 가져오기
         chatRoomId = getIntent().getStringExtra("chatRoomId");
-        Log.i("인텐트확인", chatRoomId);
+
 
         if (chatRoomId == null) {
             getNetworkData();
