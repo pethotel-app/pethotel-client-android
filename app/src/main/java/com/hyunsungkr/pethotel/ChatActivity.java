@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -35,7 +36,10 @@ import com.hyunsungkr.pethotel.model.Coupon;
 import com.hyunsungkr.pethotel.model.UserMyPage;
 import com.hyunsungkr.pethotel.model.UserMyPageRes;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,7 +48,7 @@ import retrofit2.Retrofit;
 
 public class ChatActivity extends AppCompatActivity {
 
-    Button btnSend;
+    ImageView imgSend;
     String accessToken;
     EditText editText;
 
@@ -63,6 +67,7 @@ public class ChatActivity extends AppCompatActivity {
 
     public ArrayList<UserMyPage> mypageList = new ArrayList<>();
     public ArrayList<ChatDTO> chatList = new ArrayList<>();
+
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
@@ -87,59 +92,49 @@ public class ChatActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        adapter = new ChatAdapter(this, chatList);
-        recyclerView.setAdapter(adapter);
 
 
         editText = findViewById(R.id.editText);
-        btnSend = findViewById(R.id.btnSend);
+        imgSend = findViewById(R.id.imgSend);
 
 
         // 인텐트 가져오기
         chatRoomId = getIntent().getStringExtra("chatRoomId");
 
-        // 관리자와 유저 나누기
-        if (chatRoomId ==null){
-
+        if (chatRoomId == null) {
             getNetworkData();
-//            readUserChatData();
-                btnSend.setOnClickListener(new View.OnClickListener() {
+
+            imgSend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (editText.getText().toString().trim().equals("")) {
                         return;
                     }
-                    getNetworkData();
-                    ChatDTO chat = new ChatDTO(userId, editText.getText().toString().trim(), userName);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+                    String currentTime = dateFormat.format(new Date(System.currentTimeMillis()));
+                    ChatDTO chat = new ChatDTO(userId, editText.getText().toString().trim(), userName, currentTime);
                     databaseReference.child("chat").child(userId).push().setValue(chat);
                     editText.setText("");
                 }
             });
 
-        }else{
+        } else {
             readAdminChatData();
-            // 관리자가 들어왔을때 버튼 클릭리스너
-            btnSend.setOnClickListener(new View.OnClickListener() {
+            // 관리자가 들어왔을 때 버튼 클릭 리스너
+            imgSend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (editText.getText().toString().trim()==null){
+                    if (editText.getText().toString().trim() == null) {
                         return;
                     }
-                    ChatDTO chat = new ChatDTO(adminId,editText.getText().toString().trim(), adminName);
+
+                    ChatDTO chat = new ChatDTO(adminId, editText.getText().toString().trim(), adminName,String.valueOf(System.currentTimeMillis()));;
                     databaseReference.child("chat").child(chatRoomId).push().setValue(chat);
                     editText.setText("");
                 }
             });
         }
 
-
-
-
-
-
-
-
-    getNetworkData();
 
     }
 
@@ -163,6 +158,8 @@ public class ChatActivity extends AppCompatActivity {
                     Log.i("이름", userName);
 
                     readUserChatData();
+                    adapter = new ChatAdapter(ChatActivity.this, chatList,userId);
+                    recyclerView.setAdapter(adapter);
 
 
                 } else {
@@ -177,56 +174,19 @@ public class ChatActivity extends AppCompatActivity {
         });
 
     }
-    private void OpenChat(){
-        databaseReference.child("chat").child(userId).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
-                userId = dataSnapshot.child("userId").getValue(String.class);
-                message = dataSnapshot.child("editText").getValue(String.class);
-                userName = dataSnapshot.child("userName").getValue(String.class);
-                ChatDTO chat = new ChatDTO(userId, message, userName);
-                chatList.add(chat);
-                adapter.notifyItemInserted(chatList.size() - 1);
-            }
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                ChatDTO chat = dataSnapshot.getValue(ChatDTO.class);
-                int index = chatList.indexOf(chat);
-                if(index != -1){
-                    chatList.remove(index);
-                    adapter.notifyItemRemoved(index);
-                }
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
     private void readAdminChatData() {
         databaseReference.child("chat").child(chatRoomId).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
                 ChatDTO chat = dataSnapshot.getValue(ChatDTO.class);
+
                 chatList.add(chat);
                 adapter.notifyItemInserted(chatList.size() - 1);
             }
-
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+            adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -263,7 +223,7 @@ public class ChatActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                adapter.notifyDataSetChanged();
             }
 
             @Override

@@ -6,11 +6,24 @@ public class ChatDTO {
     private String editText;
     private String userName;
     private String adminName;
+    private String sentTime;
 
-    public ChatDTO(String editText, String adminName){
-        this.editText = editText;
-        this.adminName = adminName;
+    public String getSentTime() {
+        return sentTime;
     }
+
+    public void setSentTime(String sentTime) {
+        this.sentTime = sentTime;
+    }
+
+    public ChatDTO(String userId, String editText, String userName, String adminName, String sentTime) {
+        this.userId = userId;
+        this.editText = editText;
+        this.userName = userName;
+        this.adminName = adminName;
+        this.sentTime = sentTime;
+    }
+
     public String getAdminName() {
         return adminName;
     }
@@ -32,10 +45,11 @@ public class ChatDTO {
         this.userId = userId;
     }
 
-    public ChatDTO(String userId, String editText, String userName) {
+    public ChatDTO(String userId, String editText, String userName,String sentTime) {
         this.userId = userId;
         this.editText = editText;
         this.userName = userName;
+        this.sentTime = sentTime;
     }
 
     public String getUserId() {

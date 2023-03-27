@@ -27,18 +27,18 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
-            app:layout_constraintEnd_toStartOf="@+id/btnSend"
+            app:layout_constraintEnd_toStartOf="@+id/imgSend"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/btnSend"
+        <ImageView
+            android:id="@+id/imgSend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Send"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/baseline_send_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

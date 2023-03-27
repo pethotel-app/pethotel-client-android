@@ -36,7 +36,7 @@ public class ChatRoomListAdapter extends RecyclerView.Adapter<ChatRoomListAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String chatId = mChatRoomIds.get(position);
-        holder.txtRoom.setText("UserId :" + chatId); // 변경된 부분
+        holder.txtRoom.setText("UserId :" + chatId + " 고객의 문의채팅"); // 변경된 부분
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
