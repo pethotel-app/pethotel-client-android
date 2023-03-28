@@ -109,9 +109,7 @@ public class ChatActivity extends AppCompatActivity {
         Retrofit retrofit = NetworkClient.getRetrofitClient(ChatActivity.this);
         UserApi api = retrofit.create(UserApi.class);
 
-        // 헤더에 들어갈 억세스토큰 가져오기
-
-
+        // 레트로핏을 이용해서 데이터 받아오기
         Call<UserMyPageRes> call = api.userMypage(accessToken);
         call.enqueue(new Callback<UserMyPageRes>() {
             @Override
@@ -120,15 +118,18 @@ public class ChatActivity extends AppCompatActivity {
                     mypageList.clear(); // 기존 데이터 삭제.
                     mypageList.addAll(response.body().getItems());
                     userId = String.valueOf(mypageList.get(0).getId());
-                    Log.i("이름2", userId);
+
                     userName = mypageList.get(0).getName();
-                    Log.i("이름", userName);
+
 
                     adapter = new ChatAdapter(ChatActivity.this, chatList, userId);
                     recyclerView.setAdapter(adapter);
 
                     // 인텐트 가져오기
                     chatRoomId = getIntent().getStringExtra("chatRoomId");
+
+
+                    // 유저와 관리자가 채팅방에 들어올 때 기능 나누기
 
                     if (chatRoomId == null) {
                         readUserChatData();
@@ -170,7 +171,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
                 } else {
-                    Log.i("실패 확인","실패했어");
+                    Toast.makeText(ChatActivity.this, "유효하지 않은 유저입니다.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -182,6 +183,7 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
+    // 관리자가 채팅방에 들어올 때 채팅방의 이전 메세지들을 불러오는 메소드
     private void readAdminChatData() {
         databaseReference.child("chat").child(chatRoomId).addChildEventListener(new ChildEventListener() {
             @Override
@@ -218,7 +220,7 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-
+    // 유저가 채팅방에 들어올 때 채팅방의 이전 메세지들을 불러오는 메소드
     private void readUserChatData() {
         databaseReference.child("chat").child(userId).addChildEventListener(new ChildEventListener() {
             @Override

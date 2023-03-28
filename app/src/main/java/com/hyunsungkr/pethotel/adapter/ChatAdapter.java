@@ -29,7 +29,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private SimpleDateFormat dateFormat;
     private String lastUserName = ""; // 이전 유저 이름 저장 변수 추가
     private String lastSentTime = "";
-    String sentTimeInMinutesString;
+
 
     public ChatAdapter(Context context, List<ChatDTO> chatList, String userId) {
         this.context = context;
@@ -58,10 +58,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
         // 현재 뷰홀더에 표시되는 유저의 이름과 보낸 시간이 이전 뷰홀더와 같으면
         // 이름과 보낸 시간을 숨김 처리한다.
-        Log.i("제바좀 되라", lastSentTime);
-        Log.i("제바좀 되라2", chat.getSentTime());
-        Log.i("제바좀 되라3", chat.getUserName());
-        Log.i("제바좀 되라3", lastUserName);
+
         if (chat.getUserName().equals(lastUserName) && chat.getSentTime().equals(lastSentTime)) {
             holder.hideUserNameAndSendTime();
         } else { // 다른 유저 또는 다른 시간이라면 이름과 보낸 시간을 표시하고 lastUserName, lastSentTime을 업데이트한다.
@@ -110,7 +107,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     @Override
     public int getItemViewType(int position) {
         ChatDTO chat = chatList.get(position);
-        Log.i("유저확인",chat.getUserId());
+
         if (chat.getUserId().equals(userId)) { // 내가 보낸 메시지일 경우
             return 0; // 오른쪽 말풍선을 사용
         } else { // 상대방이 보낸 메시지일 경우
