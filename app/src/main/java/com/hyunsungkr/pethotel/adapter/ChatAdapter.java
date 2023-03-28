@@ -83,10 +83,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             holder.txtMessage.setGravity(Gravity.END);
 
             holder.txtSendTime.setGravity(Gravity.END);
-        }else if (chat.getUserId().equals("55")){
-            holder.txtUserName.setGravity(Gravity.END);
-
-            holder.txtSendTime.setGravity(Gravity.END);
         }
 
         else { // message sent by the other party
@@ -114,6 +110,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     @Override
     public int getItemViewType(int position) {
         ChatDTO chat = chatList.get(position);
+        Log.i("유저확인",chat.getUserId());
         if (chat.getUserId().equals(userId)) { // 내가 보낸 메시지일 경우
             return 0; // 오른쪽 말풍선을 사용
         } else { // 상대방이 보낸 메시지일 경우
