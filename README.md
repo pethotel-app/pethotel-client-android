@@ -3,7 +3,7 @@
 <h1>쉬다가개<h1>
 <h4>당신이 쉬고 있는 동안 반려동물도 편안하게 쉬어가는 곳👀<h4>
 
-## 📌 Project Explanation 
+<h2>📌 Project Explanation<h2>
 * 산업 매출액 기준 2027년에는 6조를 예상할만큼 반려동물 관련 시장 규모 전망이 매우 좋고 반려동물 호텔 업체 수가 2023년 기준 5년전과 비교하면 약 3배 정도로 빠른속도로 늘어나고 있는데 반려동물 전용 숙박업소 예약 플랫폼 앱은 존재하지않기 때문에 기획하여 만든 반려동물 전용 숙박업소 예약 서비스 앱입니다
 
 
@@ -16,7 +16,7 @@
 :bookmark_tabs: <b>리뷰 요약 기능</b> : 해당 호텔의 전체 리뷰를 요약하여 보다 편리하고 빠르게 리뷰 확인이 가능합니다.<br>
 
 <div align="center">
-  <h1>📌</h1>
+  <h2>📌<h2>
 </div>
 <div align="center"> 
   <!-- 자바  --><img src="https://img.shields.io/badge/JAVA-007396?style=flat-square&logo=JAVA&logoColor=white"/>
@@ -32,7 +32,7 @@
 
 </div>
 
-## 📌 Screen Shot
+<h2>📌 Screen Shot<h2>
 
 
 
@@ -46,7 +46,7 @@
 
 <br>
 
-## 📌 기술 스택(Tech Skill)
+<h2>📌 기술 스택(Tech Skill)<h2>
  | Category                                                   | Stack                                                   |
 | ------------------------------------------------------------ | ------------------------------------------------------- |
 | **Architecture**| MVC        |
@@ -57,7 +57,7 @@
 
 
 
-## <p align="center"> 🌈 Member</p>
+<h2><p align="center"> 🌈 Member</p><h2>
 
 
 ### 
