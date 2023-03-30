@@ -12,7 +12,7 @@
         android:layout_gravity="start"
         android:layout_marginBottom="2dp"
         android:text=""
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         android:visibility="gone" />
 
@@ -24,7 +24,7 @@
         android:padding="8dp"
         android:background="@drawable/chat_row_left"
         android:textColor="#fff"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/txtSendTime"
