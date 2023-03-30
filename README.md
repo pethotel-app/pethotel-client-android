@@ -1,8 +1,11 @@
 <img width="100%" height="45%" src="https://user-images.githubusercontent.com/120348555/228705384-594d0b67-9a3e-44d9-b501-6a2466fcb192.jpg">
 
 <div align=center> 
-# 쉬다가개
-# 당신이 쉬고 있는 동안 반려동물도 편안하게 쉬어가는 곳👀
+
+  # 쉬다가개
+
+  # 당신이 쉬고 있는 동안 반려동물도 편안하게 쉬어가는 곳👀
+  
 </div>
 
 ## 📌 Project Explanation 
