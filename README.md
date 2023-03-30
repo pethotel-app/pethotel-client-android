@@ -1,17 +1,15 @@
 <img width="100%" height="45%" src="https://user-images.githubusercontent.com/120348555/228705384-594d0b67-9a3e-44d9-b501-6a2466fcb192.jpg">
 
-<div align="center">
   
-  <h3>당신이 쉬고 있는 동안 반려동물도 편안하게 쉬어가는 곳, 쉬다가개:heart_eyes_cat:<h3>
+## 당신이 쉬고 있는 동안 반려동물도 편안하게 쉬어가는 곳, 쉬다가개:heart_eyes_cat:
     
-    
-</div>
-
+　
     
 ## 📌 Project Explanation
     
 산업 매출액 기준 2027년에는 6조를 예상할만큼 반려동물 관련 시장 규모 전망이 매우 좋고 반려동물 호텔 업체 수가 2023년 기준 5년전과 비교하면 약 3배 정도로 빠른속도로 늘어나고 있는데 반려동물 전용 숙박업소 예약 플랫폼 앱은 존재하지않기 때문에 기획하여 만든 반려동물 전용 숙박업소 예약 서비스 앱입니다
   
+  　
 
 :hotel: <b>가까운 호텔 찾기 </b>: 내 위치에서 가까운 호텔 정보를 제공합니다.<br>
 :thumbsup: <b>맞춤 호텔 추천</b> : 내가 남긴 호텔의 리뷰의 별점을 기반으로 추천하는 호텔의 정보를 제공합니다.<br>
@@ -20,6 +18,8 @@
 :two_hearts: <b>관심 리스트</b> : 관심있는 호텔 정보를 관심 리스트에 저장할 수 있습니다.<br>
 :pencil2: <b>리뷰 작성</b> : 호텔을 이용하고 별점과 리뷰를 남길 수 있습니다.<br>
 :bookmark_tabs: <b>리뷰 요약 기능</b> : 해당 호텔의 전체 리뷰를 요약하여 보다 편리하고 빠르게 리뷰 확인이 가능합니다.<br>
+
+　
 
 <div align="center">
   <h1>📌</h1>
@@ -35,6 +35,7 @@
   <img src="https://img.shields.io/badge/AWS Lambda-FF9900?style=flat-square&logo=AWS Lambda&logoColor=white"/>
 <img src="https://img.shields.io/badge/Amazon API Gateway-FF4F8B?style=flat-square&logo=Amazon API Gateway&logoColor=white"/>   <img src="https://img.shields.io/badge/Amazon CloudWatch-FF4F8B?style=flat-square&logo=Amazon CloudWatch&logoColor=white"/>
 </div>
+
 
 ## 📌 Screen Shot
     
@@ -54,7 +55,9 @@
 | **Android Jetpack**|  ViewModel, LiveData, Navigation, RecyclerView, Fragment  |
 | **Networking** | Retrofit2, OkHttp3           |
 
-## <p align="center"> 🌈 Member</p>
+　
+ 
+## 🌈 Member
 
 
 |왕현성|윤지수|백민우|
