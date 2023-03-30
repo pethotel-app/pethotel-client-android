@@ -1,7 +1,10 @@
-<img width="100%" height="45%" src="https://user-images.githubusercontent.com/120348500/226832685-98102eae-cff6-418e-8e92-b5b52180b611.png">
+<img width="100%" height="45%" src="https://user-images.githubusercontent.com/120348555/228705384-594d0b67-9a3e-44d9-b501-6a2466fcb192.jpg">
 
+<div align=center> 
+# 쉬다가개
 
-# 쉬다가개 - 당신이 쉬고 있는 동안 반려동물도 편안하게 쉬어가는 곳👀
+# 당신이 쉬고 있는 동안 반려동물도 편안하게 쉬어가는 곳👀
+</div>
 
 ## 📌 Project Explanation 
 * 산업 매출액 기준 2027년에는 6조를 예상할만큼 반려동물 관련 시장 규모 전망이 매우 좋고 반려동물 호텔 업체 수가 2023년 기준 5년전과 비교하면 약 3배 정도로 빠른속도로 늘어나고 있는데 반려동물 전용 숙박업소 예약 플랫폼 앱은 존재하지않기 때문에 기획하게 되었습니다.
